@@ -203,6 +203,13 @@ def get_driver_applications(
 
     try:
 
+        print("CURRENT USER:")
+        print(current_user.id)
+
+        # ============================================
+        # DRIVER PROFILE
+        # ============================================
+
         driver_profile = db.query(
             DriverProfile
         ).filter(
@@ -210,9 +217,16 @@ def get_driver_applications(
             current_user.id
         ).first()
 
+        print("DRIVER PROFILE:")
+        print(driver_profile)
+
         if not driver_profile:
 
             return []
+
+        # ============================================
+        # APPLICATIONS
+        # ============================================
 
         applications = db.query(
             Application
@@ -221,71 +235,59 @@ def get_driver_applications(
             driver_profile.id
         ).all()
 
+        print("APPLICATIONS:")
+        print(applications)
+
         results = []
 
         for application in applications:
 
-            try:
+            print("APPLICATION:")
+            print(application.id)
 
-                # SKIP INVALID APPLICATIONS
+            job = db.query(
+                JobPost
+            ).filter(
+                JobPost.id ==
+                application.job_post_id
+            ).first()
 
-                if not application.job_post_id:
-                    continue
+            print("JOB:")
+            print(job)
 
-                job = db.query(
-                    JobPost
-                ).filter(
-                    JobPost.id ==
-                    application.job_post_id
-                ).first()
-
-                if not job:
-                    continue
-
-                results.append({
-
-                    "id":
-                        application.id,
-
-                    "job_post_id":
-                        job.id,
-
-                    "job_title":
-                        job.title or "",
-
-                    "description":
-                        job.description or "",
-
-                    "salary":
-                        job.salary or 0,
-
-                    "country":
-                        job.country or "",
-
-                    "transport_type":
-                        job.transport_type or "",
-
-                    "status":
-                        application.status or "pending"
-                })
-
-            except Exception as e:
-
-                print(
-                    "BROKEN APPLICATION:",
-                    e
-                )
-
+            if not job:
                 continue
+
+            results.append({
+
+                "id":
+                    application.id,
+
+                "job_post_id":
+                    application.job_post_id,
+
+                "job_title":
+                    job.title,
+
+                "description":
+                    job.description,
+
+                "salary":
+                    job.salary,
+
+                "status":
+                    application.status
+            })
+
+        print("FINAL RESULTS:")
+        print(results)
 
         return results
 
     except Exception as e:
 
-        print(
-            "DRIVER APPLICATIONS ERROR:",
-            e
-        )
+        print("DRIVER APPLICATIONS ERROR:")
+        print(e)
 
         return []
 

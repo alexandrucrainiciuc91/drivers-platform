@@ -361,7 +361,7 @@ def match_drivers():
 # DYNAMIC ROUTES MUST BE LAST
 # =====================================================
 
-@router.get("/driver/{driver_id}")
+@router.get("/drivers/{driver_id}")
 def get_driver_profile(
 
         driver_id: int,

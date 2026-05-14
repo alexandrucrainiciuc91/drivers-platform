@@ -9,15 +9,11 @@ import {
 
 import Sidebar from "../components/Sidebar";
 
-import BackToDashboard from "../components/BackToDashboard";
-
-import LanguageSwitcher from "../components/LanguageSwitcher";
-
 import {
   useTranslation
 } from "react-i18next";
 
-export default function DriverApplicationsPage() {
+export default function ApplicationsPage() {
 
   const { t } =
     useTranslation();
@@ -29,7 +25,7 @@ export default function DriverApplicationsPage() {
     useState(true);
 
   // ============================================
-  // AUTH CHECK
+  // AUTH
   // ============================================
 
   useEffect(() => {
@@ -64,39 +60,51 @@ export default function DriverApplicationsPage() {
   // FETCH APPLICATIONS
   // ============================================
 
-async function fetchApplications() {
+  async function fetchApplications() {
 
-  try {
+    try {
 
-    const token =
-      localStorage.getItem("token");
+      const token =
+        localStorage.getItem("token");
 
-    console.log("TOKEN:", token);
+      const response =
+        await fetch(
+          "http://127.0.0.1:8000/driver/applications",
+          {
+            headers: {
+              Authorization:
+                `Bearer ${token}`
+            }
+          }
+        );
 
-    if (!token) {
-      return;
-    }
+      const data =
+        await response.json();
 
-    const response = await fetch(
-      "http://127.0.0.1:8000/driver/applications",
-      {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
+      console.log(
+        "APPLICATIONS:",
+        data
+      );
+
+      if (Array.isArray(data)) {
+
+        setApplications(data);
+
+      } else {
+
+        setApplications([]);
       }
-    );
 
-    const data = await response.json();
+    } catch (error) {
 
-    console.log(data);
+      console.log(error);
 
-    setApplications(data);
+    } finally {
 
-  } catch (error) {
-
-    console.log(error);
+      setLoading(false);
+    }
   }
-}
+
   // ============================================
   // LOADING
   // ============================================
@@ -105,17 +113,13 @@ async function fetchApplications() {
 
     return (
 
-      <div className="flex bg-black text-white">
+      <div className="flex">
 
         <Sidebar />
 
-        <div className="flex-1 min-h-screen flex items-center justify-center text-3xl font-black">
+        <div className="flex-1 min-h-screen bg-black text-white flex items-center justify-center text-3xl">
 
-          {
-            t(
-              "applications.loading"
-            )
-          }
+          Loading Applications...
 
         </div>
 
@@ -129,331 +133,84 @@ async function fetchApplications() {
 
   return (
 
-    <div className="flex bg-black text-white">
-
-      {/* SIDEBAR */}
+    <div className="flex bg-black text-white min-h-screen">
 
       <Sidebar />
 
-      {/* MAIN */}
+      <div className="flex-1 p-10">
 
-      <div className="flex-1 min-h-screen overflow-hidden relative">
+        <h1 className="text-6xl font-black mb-10">
 
-        {/* BACKGROUND */}
+          Applications
 
-        <div className="fixed inset-0">
+        </h1>
 
-          <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-yellow-500/10 blur-[180px]" />
+        {applications.length === 0 && (
 
-          <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-orange-500/10 blur-[180px]" />
+          <div className="bg-white/5 border border-white/10 rounded-[30px] p-10">
 
-        </div>
+            <h2 className="text-3xl font-bold">
 
-        {/* CONTENT */}
+              No applications found
 
-        <div className="relative z-10 p-10">
-
-          {/* TOP BAR */}
-
-          <div className="flex items-center justify-between mb-10 flex-wrap gap-5">
-
-            <BackToDashboard />
-
-            <LanguageSwitcher />
+            </h2>
 
           </div>
 
-          {/* HEADER */}
+        )}
 
-          <div className="mb-14">
+        <div className="space-y-6">
 
-            <p className="uppercase tracking-[6px] text-yellow-400 mb-4">
+          {applications.map((application) => (
 
-              {
-                t(
-                  "applications.control_center"
-                )
-              }
+            <div
+              key={application.id}
+              className="bg-white/5 border border-white/10 rounded-[30px] p-8"
+            >
 
-            </p>
+              <h2 className="text-4xl font-black mb-4">
 
-            <h1 className="text-7xl font-black leading-none">
-
-              {
-                t(
-                  "applications.title"
-                )
-              }
-
-            </h1>
-
-            <p className="text-gray-400 text-2xl mt-6 max-w-3xl">
-
-              {
-                t(
-                  "applications.subtitle"
-                )
-              }
-
-            </p>
-
-          </div>
-
-          {/* EMPTY STATE */}
-
-          {applications.length === 0 && (
-
-            <div className="bg-white/5 border border-white/10 rounded-[40px] p-20 text-center backdrop-blur-2xl">
-
-              <h2 className="text-5xl font-black mb-6">
-
-                {
-                  t(
-                    "applications.empty_title"
-                  )
-                }
+                {application.job_title}
 
               </h2>
 
-              <p className="text-gray-400 text-2xl mb-10">
+              <p className="text-gray-400 text-xl mb-4">
 
-                {
-                  t(
-                    "applications.empty_subtitle"
-                  )
-                }
+                {application.description}
 
               </p>
 
-              <button
-                onClick={() =>
-                  window.location.href =
-                    "/jobs"
-                }
-                className="
-                  bg-yellow-400
-                  text-black
-                  px-10
-                  py-5
-                  rounded-2xl
-                  font-black
-                  text-xl
-                  hover:scale-105
-                  transition-all
-                "
-              >
+              <div className="flex gap-6 flex-wrap">
 
-                {
-                  t(
-                    "applications.browse_jobs"
-                  )
-                }
+                <div className="bg-black/30 px-5 py-3 rounded-2xl">
 
-              </button>
-
-            </div>
-
-          )}
-
-          {/* APPLICATIONS */}
-
-          <div className="space-y-8">
-
-            {applications.map((application) => (
-
-              <div
-                key={application.id}
-                className="
-                  bg-white/5
-                  border
-                  border-white/10
-                  rounded-[40px]
-                  p-8
-                  backdrop-blur-2xl
-                  hover:border-yellow-400/20
-                  transition-all
-                "
-              >
-
-                <div className="flex items-start justify-between gap-10 flex-wrap">
-
-                  {/* LEFT */}
-
-                  <div className="flex-1">
-
-                    <div className="flex items-center gap-4 mb-5">
-
-                      <div className="w-4 h-4 bg-green-400 rounded-full animate-pulse" />
-
-                      <p className="uppercase tracking-[4px] text-yellow-400">
-
-                        {
-                          t(
-                            "applications.active_application"
-                          )
-                        }
-
-                      </p>
-
-                    </div>
-
-                    <h2 className="text-5xl font-black">
-
-                      {application.job_title}
-
-                    </h2>
-
-                    <p className="text-gray-400 text-xl mt-5 max-w-3xl">
-
-                      {application.company_name ||
-
-                        t(
-                          "applications.transport_company"
-                        )}
-
-                    </p>
-
-                    <div className="flex gap-5 flex-wrap mt-8">
-
-                      <div className="bg-white/10 px-5 py-3 rounded-2xl">
-
-                        {
-                          t(
-                            "applications.status"
-                          )
-                        }
-
-                        :
-                        {" "}
-
-                        <span className={`
-                          font-bold
-                          ${
-                            application.status === "accepted"
-                              ? "text-green-400"
-                              : application.status === "rejected"
-                              ? "text-red-400"
-                              : "text-yellow-400"
-                          }
-                        `}>
-
-                          {application.status}
-
-                        </span>
-
-                      </div>
-
-                      <div className="bg-white/10 px-5 py-3 rounded-2xl">
-
-                        {
-                          t(
-                            "applications.application_id"
-                          )
-                        }
-
-                        :
-                        {" "}
-                        #{application.id}
-
-                      </div>
-
-                    </div>
-
-                  </div>
-
-                  {/* RIGHT */}
-
-                  <div className="bg-yellow-400 text-black px-8 py-5 rounded-3xl">
-
-                    <p className="text-sm font-bold">
-
-                      {
-                        t(
-                          "applications.application"
-                        )
-                      }
-
-                    </p>
-
-                    <h2 className="text-4xl font-black">
-
-                      {
-                        t(
-                          "applications.active"
-                        )
-                      }
-
-                    </h2>
-
-                  </div>
+                  €{application.salary}
 
                 </div>
 
-                {/* ACTIONS */}
+                <div className="bg-black/30 px-5 py-3 rounded-2xl">
 
-                <div className="flex gap-5 mt-10 flex-wrap">
+                  {application.country}
 
-                  <button
-                    onClick={() =>
-                      window.location.href =
-                        "/jobs"
-                    }
-                    className="
-                      bg-yellow-400
-                      text-black
-                      px-8
-                      py-4
-                      rounded-2xl
-                      font-black
-                      text-xl
-                      hover:scale-105
-                      transition-all
-                    "
-                  >
+                </div>
 
-                    {
-                      t(
-                        "applications.browse_more_jobs"
-                      )
-                    }
+                <div className="bg-black/30 px-5 py-3 rounded-2xl">
 
-                  </button>
+                  {application.transport_type}
 
-                  <button
-                    onClick={() =>
-                      alert(
-                        t(
-                          "applications.messaging_soon"
-                        )
-                      )
-                    }
-                    className="
-                      bg-white/10
-                      px-8
-                      py-4
-                      rounded-2xl
-                      font-black
-                      text-xl
-                      hover:bg-white/20
-                      transition-all
-                    "
-                  >
+                </div>
 
-                    {
-                      t(
-                        "applications.contact_company"
-                      )
-                    }
+                <div className="bg-yellow-400 text-black px-5 py-3 rounded-2xl font-bold">
 
-                  </button>
+                  {application.status}
 
                 </div>
 
               </div>
 
-            ))}
+            </div>
 
-          </div>
+          ))}
 
         </div>
 

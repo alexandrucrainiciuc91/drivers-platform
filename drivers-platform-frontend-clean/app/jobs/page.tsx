@@ -87,11 +87,25 @@ export default function JobsPage() {
       return;
     }
 
-    fetchJobs();
-
-    fetchApplications();
+    loadData();
 
   }, [mounted]);
+
+  // ============================================
+  // LOAD DATA
+  // ============================================
+
+  async function loadData() {
+
+    setLoading(true);
+
+    await Promise.all([
+      fetchJobs(),
+      fetchApplications()
+    ]);
+
+    setLoading(false);
+  }
 
   // ============================================
   // FETCH JOBS
@@ -118,6 +132,11 @@ export default function JobsPage() {
       const data =
         await response.json();
 
+      console.log(
+        "JOBS:",
+        data
+      );
+
       if (Array.isArray(data)) {
 
         setJobs(data);
@@ -129,11 +148,12 @@ export default function JobsPage() {
 
     } catch (error) {
 
-      console.log(error);
+      console.log(
+        "FETCH JOBS ERROR:",
+        error
+      );
 
-    } finally {
-
-      setLoading(false);
+      setJobs([]);
     }
   }
 
@@ -162,20 +182,36 @@ export default function JobsPage() {
       const data =
         await response.json();
 
+      console.log(
+        "APPLICATIONS:",
+        data
+      );
+
       if (Array.isArray(data)) {
 
         const ids =
           data.map(
             (app: any) =>
-              app.job_post_id
+              Number(
+                app.job_post_id
+              )
           );
 
         setAppliedJobs(ids);
+
+      } else {
+
+        setAppliedJobs([]);
       }
 
     } catch (error) {
 
-      console.log(error);
+      console.log(
+        "FETCH APPLICATIONS ERROR:",
+        error
+      );
+
+      setAppliedJobs([]);
     }
   }
 
@@ -275,6 +311,11 @@ export default function JobsPage() {
       const data =
         await response.json();
 
+      console.log(
+        "APPLY RESPONSE:",
+        data
+      );
+
       // ============================================
       // ALREADY APPLIED
       // ============================================
@@ -283,6 +324,13 @@ export default function JobsPage() {
         data.error ===
         "ALREADY_APPLIED"
       ) {
+
+        setAppliedJobs(prev => [
+
+          ...prev,
+          Number(jobId)
+
+        ]);
 
         alert(
           t("jobs.applied")
@@ -324,20 +372,25 @@ export default function JobsPage() {
       // SUCCESS
       // ============================================
 
+      setAppliedJobs(prev => [
+
+        ...prev,
+        Number(jobId)
+
+      ]);
+
       alert(
         t(
           "jobs.application_success"
         )
       );
 
-      setAppliedJobs(prev => [
-        ...prev,
-        jobId
-      ]);
-
     } catch (error) {
 
-      console.log(error);
+      console.log(
+        "APPLY ERROR:",
+        error
+      );
 
       alert(
         t(
@@ -796,7 +849,9 @@ export default function JobsPage() {
 
                   <button
                     disabled={
-                      appliedJobs.includes(job.id)
+                      appliedJobs.includes(
+                        Number(job.id)
+                      )
                     }
                     onClick={() =>
                       applyToJob(job.id)
@@ -810,7 +865,9 @@ export default function JobsPage() {
                       transition-all
 
                       ${
-                        appliedJobs.includes(job.id)
+                        appliedJobs.includes(
+                          Number(job.id)
+                        )
                           ? "bg-green-500 text-white cursor-not-allowed"
                           : "bg-yellow-400 text-black hover:scale-105"
                       }
@@ -818,7 +875,9 @@ export default function JobsPage() {
                   >
 
                     {
-                      appliedJobs.includes(job.id)
+                      appliedJobs.includes(
+                        Number(job.id)
+                      )
                         ? t("jobs.applied")
                         : t("jobs.apply")
                     }
