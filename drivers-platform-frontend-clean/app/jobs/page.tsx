@@ -22,6 +22,23 @@ export default function JobsPage() {
   const { t } =
     useTranslation();
 
+  // ============================================
+  // HYDRATION FIX
+  // ============================================
+
+  const [mounted, setMounted] =
+    useState(false);
+
+  useEffect(() => {
+
+    setMounted(true);
+
+  }, []);
+
+  // ============================================
+  // STATES
+  // ============================================
+
   const [jobs, setJobs] =
     useState<any[]>([]);
 
@@ -45,6 +62,8 @@ export default function JobsPage() {
   // ============================================
 
   useEffect(() => {
+
+    if (!mounted) return;
 
     const token =
       localStorage.getItem("token");
@@ -72,7 +91,7 @@ export default function JobsPage() {
 
     fetchApplications();
 
-  }, []);
+  }, [mounted]);
 
   // ============================================
   // FETCH JOBS
@@ -145,15 +164,13 @@ export default function JobsPage() {
 
       if (Array.isArray(data)) {
 
-        const appliedIds =
+        const ids =
           data.map(
-            (application: any) =>
-              application.job_id
+            (app: any) =>
+              app.job_post_id
           );
 
-        setAppliedJobs(
-          appliedIds
-        );
+        setAppliedJobs(ids);
       }
 
     } catch (error) {
@@ -258,8 +275,6 @@ export default function JobsPage() {
       const data =
         await response.json();
 
-      console.log(data);
-
       // ============================================
       // ALREADY APPLIED
       // ============================================
@@ -270,16 +285,14 @@ export default function JobsPage() {
       ) {
 
         alert(
-          t(
-            "jobs.already_applied"
-          )
+          t("jobs.applied")
         );
 
         return;
       }
 
       // ============================================
-      // FREE PLAN LIMIT
+      // FREE PLAN
       // ============================================
 
       if (
@@ -297,7 +310,7 @@ export default function JobsPage() {
       }
 
       // ============================================
-      // OTHER ERRORS
+      // OTHER ERROR
       // ============================================
 
       if (data.error) {
@@ -317,9 +330,10 @@ export default function JobsPage() {
         )
       );
 
-      setAppliedJobs(
-        [...appliedJobs, jobId]
-      );
+      setAppliedJobs(prev => [
+        ...prev,
+        jobId
+      ]);
 
     } catch (error) {
 
@@ -331,6 +345,15 @@ export default function JobsPage() {
         )
       );
     }
+  }
+
+  // ============================================
+  // SSR FIX
+  // ============================================
+
+  if (!mounted) {
+
+    return null;
   }
 
   // ============================================
@@ -381,11 +404,7 @@ export default function JobsPage() {
       min-h-screen
     ">
 
-      {/* SIDEBAR */}
-
       <Sidebar />
-
-      {/* CONTENT */}
 
       <div className="flex-1 overflow-hidden">
 
@@ -494,19 +513,6 @@ export default function JobsPage() {
               </p>
 
             </div>
-
-            <img
-              src="https://images.unsplash.com/photo-1502877338535-766e1452684a?q=80&w=1200&auto=format&fit=crop"
-              className="
-                w-full
-                xl:w-[500px]
-                h-[280px]
-                object-cover
-                rounded-[40px]
-                border
-                border-white/10
-              "
-            />
 
           </div>
 
@@ -638,43 +644,11 @@ export default function JobsPage() {
 
           </div>
 
-          {/* EMPTY */}
-
-          {jobs.length === 0 && (
-
-            <div className="
-              bg-white/5
-              border
-              border-white/10
-              rounded-[40px]
-              p-16
-              text-center
-            ">
-
-              <h2 className="
-                text-4xl
-                font-black
-                mb-4
-              ">
-
-                {
-                  t(
-                    "jobs.no_jobs"
-                  )
-                }
-
-              </h2>
-
-            </div>
-
-          )}
-
           {/* JOBS */}
 
           <div className="space-y-8">
 
-            {Array.isArray(jobs) &&
-              jobs.map((job) => (
+            {jobs.map((job) => (
 
               <div
                 key={job.id}
@@ -750,7 +724,6 @@ export default function JobsPage() {
                   grid
                   grid-cols-1
                   md:grid-cols-2
-                  xl:grid-cols-3
                   gap-5
                   mt-10
                 ">
@@ -817,67 +790,40 @@ export default function JobsPage() {
 
                 </div>
 
-                {/* BUTTONS */}
+                {/* BUTTON */}
 
-                <div className="
-                  flex
-                  gap-5
-                  mt-10
-                  flex-wrap
-                ">
+                <div className="mt-10">
 
-                  {appliedJobs.includes(job.id) ? (
+                  <button
+                    disabled={
+                      appliedJobs.includes(job.id)
+                    }
+                    onClick={() =>
+                      applyToJob(job.id)
+                    }
+                    className={`
+                      px-8
+                      py-4
+                      rounded-2xl
+                      font-black
+                      text-xl
+                      transition-all
 
-                    <button
-                      disabled
-                      className="
-                        bg-green-500/20
-                        text-green-400
-                        px-8
-                        py-4
-                        rounded-2xl
-                        font-black
-                        text-xl
-                        cursor-not-allowed
-                      "
-                    >
-
-                      {
-                        t(
-                          "jobs.already_applied"
-                        )
+                      ${
+                        appliedJobs.includes(job.id)
+                          ? "bg-green-500 text-white cursor-not-allowed"
+                          : "bg-yellow-400 text-black hover:scale-105"
                       }
+                    `}
+                  >
 
-                    </button>
+                    {
+                      appliedJobs.includes(job.id)
+                        ? t("jobs.applied")
+                        : t("jobs.apply")
+                    }
 
-                  ) : (
-
-                    <button
-                      onClick={() =>
-                        applyToJob(job.id)
-                      }
-                      className="
-                        bg-yellow-400
-                        text-black
-                        px-8
-                        py-4
-                        rounded-2xl
-                        font-black
-                        text-xl
-                        hover:scale-105
-                        transition-all
-                      "
-                    >
-
-                      {
-                        t(
-                          "jobs.apply"
-                        )
-                      }
-
-                    </button>
-
-                  )}
+                  </button>
 
                 </div>
 

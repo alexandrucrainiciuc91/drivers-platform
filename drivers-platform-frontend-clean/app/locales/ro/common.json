@@ -334,7 +334,13 @@
 
     "terms_error": "Trebuie să accepți Termenii și Condițiile.",
 
-    "server_error": "Eroare server."
+    "server_error": "Eroare server.",
+    "jobs": {
+  "applied": "Ai aplicat deja",
+  "already_applied": "Ai aplicat deja",
+  "application_success": "Aplicare trimisă cu succes",
+  "server_error": "Eroare server"
+}
   }
 }
 

@@ -50,7 +50,9 @@ def apply_to_job(
 
     try:
 
+        # ============================================
         # DRIVER PROFILE
+        # ============================================
 
         driver_profile = db.query(
             DriverProfile
@@ -66,7 +68,9 @@ def apply_to_job(
                     "Driver profile not found"
             }
 
+        # ============================================
         # JOB
+        # ============================================
 
         job = db.query(
             JobPost
@@ -82,7 +86,7 @@ def apply_to_job(
             }
 
         # ============================================
-        # CHECK IF ALREADY APPLIED
+        # ALREADY APPLIED
         # ============================================
 
         existing_application = db.query(
@@ -157,11 +161,26 @@ def apply_to_job(
 
         return {
 
+            "success":
+                True,
+
             "message":
                 "Applied successfully",
 
             "application_id":
-                new_application.id
+                new_application.id,
+
+            "job_post_id":
+                job.id
+        }
+
+    except Exception as e:
+
+        print("APPLY ERROR:", e)
+
+        return {
+            "error":
+                "SERVER_ERROR"
         }
 
     finally:
@@ -206,37 +225,73 @@ def get_driver_applications(
 
         for application in applications:
 
-            job = db.query(
-                JobPost
-            ).filter(
-                JobPost.id ==
-                application.job_post_id
-            ).first()
+            try:
 
-            if not job:
+                # SKIP INVALID APPLICATIONS
+
+                if not application.job_post_id:
+                    continue
+
+                job = db.query(
+                    JobPost
+                ).filter(
+                    JobPost.id ==
+                    application.job_post_id
+                ).first()
+
+                if not job:
+                    continue
+
+                results.append({
+
+                    "id":
+                        application.id,
+
+                    "job_post_id":
+                        job.id,
+
+                    "job_title":
+                        job.title or "",
+
+                    "description":
+                        job.description or "",
+
+                    "salary":
+                        job.salary or 0,
+
+                    "country":
+                        job.country or "",
+
+                    "transport_type":
+                        job.transport_type or "",
+
+                    "status":
+                        application.status or "pending"
+                })
+
+            except Exception as e:
+
+                print(
+                    "BROKEN APPLICATION:",
+                    e
+                )
+
                 continue
 
-            results.append({
-
-                "id":
-                    application.id,
-
-                "job_id":
-                    job.id,
-
-                "job_title":
-                    job.title,
-
-                "status":
-                    application.status
-            })
-
         return results
+
+    except Exception as e:
+
+        print(
+            "DRIVER APPLICATIONS ERROR:",
+            e
+        )
+
+        return []
 
     finally:
 
         db.close()
-
 # ============================================
 # COMPANY APPLICATIONS
 # ============================================
@@ -253,6 +308,10 @@ def get_company_applications(
 
     try:
 
+        # ============================================
+        # COMPANY PROFILE
+        # ============================================
+
         company_profile = db.query(
             CompanyProfile
         ).filter(
@@ -266,6 +325,10 @@ def get_company_applications(
                 "error":
                     "Company profile not found"
             }
+
+        # ============================================
+        # APPLICATIONS
+        # ============================================
 
         applications = db.query(
             Application
@@ -292,7 +355,10 @@ def get_company_applications(
                 application.job_post_id
             ).first()
 
-            if not driver_profile or not job:
+            if not driver_profile:
+                continue
+
+            if not job:
                 continue
 
             results.append({
@@ -312,18 +378,27 @@ def get_company_applications(
                 "job_title":
                     job.title,
 
+                "job_id":
+                    job.id,
+
                 "status":
                     application.status
             })
 
         return results
 
+    except Exception as e:
+
+        print("COMPANY APPLICATIONS ERROR:", e)
+
+        return []
+
     finally:
 
         db.close()
 
 # ============================================
-# UPDATE STATUS
+# UPDATE APPLICATION STATUS
 # ============================================
 
 @router.put(
@@ -347,7 +422,8 @@ def update_application_status(
         application = db.query(
             Application
         ).filter(
-            Application.id == application_id
+            Application.id ==
+            application_id
         ).first()
 
         if not application:
@@ -371,6 +447,10 @@ def update_application_status(
                     "Company profile not found"
             }
 
+        # ============================================
+        # SECURITY
+        # ============================================
+
         if (
             application.company_profile_id !=
             company_profile.id
@@ -380,6 +460,10 @@ def update_application_status(
                 "error":
                     "Unauthorized"
             }
+
+        # ============================================
+        # VALID STATUS
+        # ============================================
 
         if status not in [
             "accepted",
@@ -391,6 +475,10 @@ def update_application_status(
                 "error":
                     "Invalid status"
             }
+
+        # ============================================
+        # UPDATE STATUS
+        # ============================================
 
         application.status = status
 
@@ -407,6 +495,15 @@ def update_application_status(
                 application.status
         }
 
+    except Exception as e:
+
+        print("UPDATE STATUS ERROR:", e)
+
+        return {
+            "error":
+                "SERVER_ERROR"
+        }
+
     finally:
 
         db.close()
@@ -415,7 +512,9 @@ def update_application_status(
 # ACCEPT APPLICATION
 # ============================================
 
-@router.put("/applications/{application_id}/accept")
+@router.put(
+    "/applications/{application_id}/accept"
+)
 def accept_application(
 
         application_id: int,
@@ -432,7 +531,8 @@ def accept_application(
         application = db.query(
             Application
         ).filter(
-            Application.id == application_id
+            Application.id ==
+            application_id
         ).first()
 
         if not application:
@@ -453,6 +553,15 @@ def accept_application(
                 "Application accepted"
         }
 
+    except Exception as e:
+
+        print("ACCEPT ERROR:", e)
+
+        return {
+            "error":
+                "SERVER_ERROR"
+        }
+
     finally:
 
         db.close()
@@ -461,7 +570,9 @@ def accept_application(
 # REJECT APPLICATION
 # ============================================
 
-@router.put("/applications/{application_id}/reject")
+@router.put(
+    "/applications/{application_id}/reject"
+)
 def reject_application(
 
         application_id: int,
@@ -478,7 +589,8 @@ def reject_application(
         application = db.query(
             Application
         ).filter(
-            Application.id == application_id
+            Application.id ==
+            application_id
         ).first()
 
         if not application:
@@ -497,6 +609,15 @@ def reject_application(
         return {
             "message":
                 "Application rejected"
+        }
+
+    except Exception as e:
+
+        print("REJECT ERROR:", e)
+
+        return {
+            "error":
+                "SERVER_ERROR"
         }
 
     finally:

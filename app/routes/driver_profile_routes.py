@@ -13,10 +13,7 @@ from app.auth.dependencies import (
     get_current_user,
     require_driver,
     require_company
-
 )
-
-from app.models.user import User
 
 from app.models.driver_profile import (
     DriverProfile
@@ -51,7 +48,6 @@ from app.services.matching_service import (
 )
 
 router = APIRouter()
-
 
 # =====================================================
 # CREATE DRIVER PROFILE
@@ -127,6 +123,124 @@ def create_driver_profile(
 
 
 # =====================================================
+# DRIVER DASHBOARD
+# =====================================================
+
+@router.get("/driver/dashboard")
+def driver_dashboard(
+
+        current_user=Depends(
+            require_driver
+        )
+):
+
+    db: Session = SessionLocal()
+
+    driver_profile = db.query(
+        DriverProfile
+    ).filter(
+        DriverProfile.user_id ==
+        current_user.id
+    ).first()
+
+    if not driver_profile:
+
+        db.close()
+
+        return {
+            "error":
+                "Driver profile not found"
+        }
+
+    applications_count = db.query(
+        Application
+    ).filter(
+        Application.driver_profile_id ==
+        driver_profile.id
+    ).count()
+
+    saved_jobs_count = db.query(
+        SavedJob
+    ).filter(
+        SavedJob.driver_profile_id ==
+        driver_profile.id
+    ).count()
+
+    messages_count = db.query(
+        Message
+    ).filter(
+        Message.receiver_id ==
+        current_user.id
+    ).count()
+
+    notifications_count = db.query(
+        Notification
+    ).filter(
+
+        Notification.user_id ==
+        current_user.id,
+
+        Notification.is_read == False
+
+    ).count()
+
+    db.close()
+
+    return {
+
+        "driver_name":
+            driver_profile.full_name,
+
+        "applications_count":
+            applications_count,
+
+        "saved_jobs_count":
+            saved_jobs_count,
+
+        "messages_count":
+            messages_count,
+
+        "notifications_count":
+            notifications_count
+    }
+
+
+# =====================================================
+# MY DRIVER PROFILE
+# =====================================================
+
+@router.get("/driver-profile/me")
+def my_driver_profile(
+
+        current_user=Depends(
+            require_driver
+        )
+):
+
+    db: Session = SessionLocal()
+
+    profile = db.query(
+        DriverProfile
+    ).filter(
+        DriverProfile.user_id ==
+        current_user.id
+    ).first()
+
+    db.close()
+
+    if not profile:
+
+        return {
+            "has_profile": False
+        }
+
+    return {
+        "has_profile": True,
+        "profile": profile
+    }
+
+
+# =====================================================
 # GET ALL DRIVERS
 # =====================================================
 
@@ -143,10 +257,6 @@ def get_drivers(
     drivers = db.query(
         DriverProfile
     ).all()
-
-    # ============================================
-    # FREE PLAN LIMIT
-    # ============================================
 
     if current_user.subscription_plan == "free":
 
@@ -247,6 +357,8 @@ def match_drivers():
 
 # =====================================================
 # GET SINGLE DRIVER PROFILE
+# IMPORTANT:
+# DYNAMIC ROUTES MUST BE LAST
 # =====================================================
 
 @router.get("/driver/{driver_id}")
@@ -277,112 +389,3 @@ def get_driver_profile(
         }
 
     return driver
-
-
-# =====================================================
-# DRIVER DASHBOARD
-# =====================================================
-
-@router.get("/driver/dashboard")
-def driver_dashboard(
-
-        current_user=Depends(
-            require_driver
-        )
-):
-
-    db: Session = SessionLocal()
-
-    driver_profile = db.query(
-        DriverProfile
-    ).filter(
-        DriverProfile.user_id ==
-        current_user.id
-    ).first()
-
-    if not driver_profile:
-
-        db.close()
-
-        return {
-            "error":
-                "Driver profile not found"
-        }
-
-    applications_count = db.query(
-        Application
-    ).filter(
-        Application.driver_profile_id ==
-        driver_profile.id
-    ).count()
-
-    saved_jobs_count = db.query(
-        SavedJob
-    ).filter(
-        SavedJob.driver_profile_id ==
-        driver_profile.id
-    ).count()
-
-    messages_count = db.query(
-        Message
-    ).filter(
-        Message.receiver_id ==
-        current_user.id
-    ).count()
-
-    notifications_count = db.query(
-        Notification
-    ).filter(
-
-        Notification.user_id ==
-        current_user.id,
-
-        Notification.is_read == False
-
-    ).count()
-
-    db.close()
-
-    return {
-
-        "driver_name":
-            driver_profile.full_name,
-
-        "applications_count":
-            applications_count,
-
-        "saved_jobs_count":
-            saved_jobs_count,
-
-        "messages_count":
-            messages_count,
-
-        "notifications_count":
-            notifications_count
-    }
-@router.get("/driver-profile/me")
-def my_driver_profile(
-        current_user=Depends(require_driver)
-):
-
-    db: Session = SessionLocal()
-
-    profile = db.query(
-        DriverProfile
-    ).filter(
-        DriverProfile.user_id ==
-        current_user.id
-    ).first()
-
-    db.close()
-
-    if not profile:
-
-        return {
-            "has_profile": False
-        }
-
-    return {
-        "has_profile": True,
-        "profile": profile
-    }

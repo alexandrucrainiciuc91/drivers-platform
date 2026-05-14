@@ -64,49 +64,39 @@ export default function DriverApplicationsPage() {
   // FETCH APPLICATIONS
   // ============================================
 
-  async function fetchApplications() {
+async function fetchApplications() {
 
-    try {
+  try {
 
-      const token =
-        localStorage.getItem("token");
+    const token =
+      localStorage.getItem("token");
 
-      const response = await fetch(
-        "http://127.0.0.1:8000/driver/applications",
-        {
-          headers: {
-            Authorization:
-              `Bearer ${token}`
-          }
-        }
-      );
+    console.log("TOKEN:", token);
 
-      const data =
-        await response.json();
-
-      console.log(data);
-
-      if (Array.isArray(data)) {
-
-        setApplications(data);
-
-      } else {
-
-        setApplications([]);
-      }
-
-    } catch (error) {
-
-      console.log(error);
-
-      setApplications([]);
-
-    } finally {
-
-      setLoading(false);
+    if (!token) {
+      return;
     }
-  }
 
+    const response = await fetch(
+      "http://127.0.0.1:8000/driver/applications",
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+    );
+
+    const data = await response.json();
+
+    console.log(data);
+
+    setApplications(data);
+
+  } catch (error) {
+
+    console.log(error);
+  }
+}
   // ============================================
   // LOADING
   // ============================================

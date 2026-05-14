@@ -317,7 +317,13 @@
 "create_account": "Create Account",
 "have_account": "Already have an account?",
 "login": "Login"
-  }
+  },
+  "jobs": {
+  "applied": "Already applied",
+  "already_applied": "Already applied",
+  "application_success": "Application sent successfully",
+  "server_error": "Server error"
+}
 }
 
 
