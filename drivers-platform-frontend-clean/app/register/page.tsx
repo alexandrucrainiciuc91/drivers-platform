@@ -63,7 +63,7 @@ export default function RegisterPage() {
     useState(false);
 
   // ============================================
-  // REDIRECT IF LOGGED
+  // REDIRECT
   // ============================================
 
   useEffect(() => {
@@ -110,7 +110,9 @@ export default function RegisterPage() {
     if (password.length < 6) {
 
       setMessage(
-        "Password must contain at least 6 characters."
+        t(
+          "register.password_error"
+        )
       );
 
       return;
@@ -124,7 +126,9 @@ export default function RegisterPage() {
     ) {
 
       setMessage(
-        "Passwords do not match."
+        t(
+          "register.match_error"
+        )
       );
 
       return;
@@ -135,7 +139,9 @@ export default function RegisterPage() {
     if (!acceptedTerms) {
 
       setMessage(
-        "You must accept Terms & Conditions."
+        t(
+          "register.terms_error"
+        )
       );
 
       return;
@@ -225,7 +231,9 @@ export default function RegisterPage() {
       console.log(error);
 
       setMessage(
-        "Server error."
+        t(
+          "register.server_error"
+        )
       );
 
     } finally {
@@ -343,7 +351,7 @@ export default function RegisterPage() {
               uppercase
             ">
 
-              Premium Transport Platform
+              {t("register.badge")}
 
             </span>
 
@@ -356,7 +364,7 @@ export default function RegisterPage() {
             mb-5
           ">
 
-            Create Account
+            {t("register.title")}
 
           </h1>
 
@@ -366,9 +374,7 @@ export default function RegisterPage() {
             leading-relaxed
           ">
 
-            Join the logistics platform connecting
-            professional drivers and transport
-            companies across Europe.
+            {t("register.subtitle")}
 
           </p>
 
@@ -392,7 +398,7 @@ export default function RegisterPage() {
               font-medium
             ">
 
-              Email
+              {t("register.email")}
 
             </label>
 
@@ -433,13 +439,17 @@ export default function RegisterPage() {
               font-medium
             ">
 
-              Password
+              {t("register.password")}
 
             </label>
 
             <input
               type="password"
-              placeholder="Minimum 6 characters"
+              placeholder={
+                t(
+                  "register.password_placeholder"
+                )
+              }
               value={password}
               onChange={(e) =>
                 setPassword(
@@ -474,13 +484,17 @@ export default function RegisterPage() {
               font-medium
             ">
 
-              Confirm Password
+              {t("register.confirm_password")}
 
             </label>
 
             <input
               type="password"
-              placeholder="Repeat password"
+              placeholder={
+                t(
+                  "register.confirm_placeholder"
+                )
+              }
               value={confirmPassword}
               onChange={(e) =>
                 setConfirmPassword(
@@ -515,7 +529,7 @@ export default function RegisterPage() {
               font-medium
             ">
 
-              Account Type
+              {t("register.account_type")}
 
             </label>
 
@@ -542,52 +556,17 @@ export default function RegisterPage() {
 
               <option value="driver">
 
-                Driver
+                {t("register.driver")}
 
               </option>
 
               <option value="company">
 
-                Company
+                {t("register.company")}
 
               </option>
 
             </select>
-
-          </div>
-
-          {/* INFO */}
-
-          <div className="
-            bg-yellow-500/10
-            border
-            border-yellow-400/20
-            rounded-[30px]
-            p-6
-          ">
-
-            <h3 className="
-              text-2xl
-              font-black
-              text-yellow-400
-              mb-3
-            ">
-
-              Free Plan Included
-
-            </h3>
-
-            <p className="
-              text-gray-300
-              text-lg
-              leading-relaxed
-            ">
-
-              All new accounts start with the FREE plan.
-              You can upgrade later from your dashboard
-              using secure Stripe checkout.
-
-            </p>
 
           </div>
 
@@ -615,8 +594,7 @@ export default function RegisterPage() {
               leading-relaxed
             ">
 
-              I accept the Terms &
-              Conditions and Privacy Policy.
+              {t("register.terms")}
 
             </p>
 
@@ -643,8 +621,8 @@ export default function RegisterPage() {
           >
 
             {loading
-              ? "Creating account..."
-              : "Create Account"}
+              ? t("register.creating")
+              : t("register.create_account")}
 
           </button>
 
@@ -675,7 +653,7 @@ export default function RegisterPage() {
           text-gray-400
         ">
 
-          Already have an account?
+          {t("register.have_account")}
 
           <Link
             href="/login"
@@ -686,7 +664,7 @@ export default function RegisterPage() {
             "
           >
 
-            Login
+            {t("register.login")}
 
           </Link>
 

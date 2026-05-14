@@ -295,8 +295,32 @@
     "companies_count": "Entreprises",
     "applications_count": "Candidatures",
     "support_count": "Support"
+  },
+
+  "register": {
+    "badge": "Plateforme Transport Premium",
+    "title": "Créer un compte",
+    "subtitle": "Rejoignez la plateforme logistique reliant les chauffeurs professionnels et les entreprises de transport en Europe.",
+    "email": "Email",
+    "password": "Mot de passe",
+    "password_placeholder": "Minimum 6 caractères",
+    "confirm_password": "Confirmer le mot de passe",
+    "confirm_placeholder": "Répéter le mot de passe",
+    "account_type": "Type de compte",
+    "driver": "Chauffeur",
+    "company": "Entreprise",
+    "password_error": "Le mot de passe doit contenir au moins 6 caractères.",
+    "match_error": "Les mots de passe ne correspondent pas.",
+    "terms_error": "Vous devez accepter les Conditions générales.",
+    "server_error": "Erreur serveur.",
+    "terms": "J'accepte les Conditions générales et la Politique de confidentialité.",
+"creating": "Création du compte...",
+"create_account": "Créer un compte",
+"have_account": "Vous avez déjà un compte ?",
+"login": "Connexion"
   }
 }
+
 
 
 

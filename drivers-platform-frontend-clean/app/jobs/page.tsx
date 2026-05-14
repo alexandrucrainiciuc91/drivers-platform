@@ -25,6 +25,9 @@ export default function JobsPage() {
   const [jobs, setJobs] =
     useState<any[]>([]);
 
+  const [appliedJobs, setAppliedJobs] =
+    useState<number[]>([]);
+
   const [loading, setLoading] =
     useState(true);
 
@@ -38,7 +41,7 @@ export default function JobsPage() {
     useState("");
 
   // ============================================
-  // AUTH CHECK
+  // AUTH
   // ============================================
 
   useEffect(() => {
@@ -67,6 +70,8 @@ export default function JobsPage() {
 
     fetchJobs();
 
+    fetchApplications();
+
   }, []);
 
   // ============================================
@@ -78,28 +83,30 @@ export default function JobsPage() {
     try {
 
       const token =
-  localStorage.getItem("token");
+        localStorage.getItem("token");
 
-const response = await fetch(
-  "http://127.0.0.1:8000/jobs",
-  {
-    headers: {
-      Authorization:
-        `Bearer ${token}`
-    }
-  }
-);
+      const response =
+        await fetch(
+          "http://127.0.0.1:8000/jobs",
+          {
+            headers: {
+              Authorization:
+                `Bearer ${token}`
+            }
+          }
+        );
 
-    const data = await response.json();
+      const data =
+        await response.json();
 
-if (Array.isArray(data)) {
+      if (Array.isArray(data)) {
 
-  setJobs(data);
+        setJobs(data);
 
-} else {
+      } else {
 
-  setJobs([]);
-}
+        setJobs([]);
+      }
 
     } catch (error) {
 
@@ -108,6 +115,50 @@ if (Array.isArray(data)) {
     } finally {
 
       setLoading(false);
+    }
+  }
+
+  // ============================================
+  // FETCH APPLICATIONS
+  // ============================================
+
+  async function fetchApplications() {
+
+    try {
+
+      const token =
+        localStorage.getItem("token");
+
+      const response =
+        await fetch(
+          "http://127.0.0.1:8000/driver/applications",
+          {
+            headers: {
+              Authorization:
+                `Bearer ${token}`
+            }
+          }
+        );
+
+      const data =
+        await response.json();
+
+      if (Array.isArray(data)) {
+
+        const appliedIds =
+          data.map(
+            (application: any) =>
+              application.job_id
+          );
+
+        setAppliedJobs(
+          appliedIds
+        );
+      }
+
+    } catch (error) {
+
+      console.log(error);
     }
   }
 
@@ -148,7 +199,14 @@ if (Array.isArray(data)) {
       const data =
         await response.json();
 
-      setJobs(data);
+      if (Array.isArray(data)) {
+
+        setJobs(data);
+
+      } else {
+
+        setJobs([]);
+      }
 
     } catch (error) {
 
@@ -184,35 +242,84 @@ if (Array.isArray(data)) {
 
     try {
 
-      const response = await fetch(
-        `http://127.0.0.1:8000/apply-job/${jobId}`,
-        {
-          method: "POST",
+      const response =
+        await fetch(
+          `http://127.0.0.1:8000/apply-job/${jobId}`,
+          {
+            method: "POST",
 
-          headers: {
-            Authorization:
-              `Bearer ${token}`
+            headers: {
+              Authorization:
+                `Bearer ${token}`
+            }
           }
-        }
-      );
+        );
 
       const data =
         await response.json();
 
       console.log(data);
 
+      // ============================================
+      // ALREADY APPLIED
+      // ============================================
+
+      if (
+        data.error ===
+        "ALREADY_APPLIED"
+      ) {
+
+        alert(
+          t(
+            "jobs.already_applied"
+          )
+        );
+
+        return;
+      }
+
+      // ============================================
+      // FREE PLAN LIMIT
+      // ============================================
+
+      if (
+        data.error ===
+        "FREE_PLAN_LIMIT_REACHED"
+      ) {
+
+        alert(
+          t(
+            "jobs.free_limit"
+          )
+        );
+
+        return;
+      }
+
+      // ============================================
+      // OTHER ERRORS
+      // ============================================
+
       if (data.error) {
 
         alert(data.error);
 
-      } else {
-
-        alert(
-          t(
-            "jobs.application_success"
-          )
-        );
+        return;
       }
+
+      // ============================================
+      // SUCCESS
+      // ============================================
+
+      alert(
+        t(
+          "jobs.application_success"
+        )
+      );
+
+      setAppliedJobs(
+        [...appliedJobs, jobId]
+      );
 
     } catch (error) {
 
@@ -238,7 +345,16 @@ if (Array.isArray(data)) {
 
         <Sidebar />
 
-        <div className="flex-1 min-h-screen bg-black text-white flex items-center justify-center text-3xl">
+        <div className="
+          flex-1
+          min-h-screen
+          bg-black
+          text-white
+          flex
+          items-center
+          justify-center
+          text-3xl
+        ">
 
           {
             t(
@@ -258,7 +374,12 @@ if (Array.isArray(data)) {
 
   return (
 
-    <div className="flex bg-black text-white min-h-screen">
+    <div className="
+      flex
+      bg-black
+      text-white
+      min-h-screen
+    ">
 
       {/* SIDEBAR */}
 
@@ -272,17 +393,40 @@ if (Array.isArray(data)) {
 
         <div className="fixed inset-0">
 
-          <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-yellow-500/10 blur-[160px]" />
+          <div className="
+            absolute
+            top-0
+            left-0
+            w-[600px]
+            h-[600px]
+            bg-yellow-500/10
+            blur-[160px]
+          " />
 
-          <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-orange-500/10 blur-[160px]" />
+          <div className="
+            absolute
+            bottom-0
+            right-0
+            w-[600px]
+            h-[600px]
+            bg-orange-500/10
+            blur-[160px]
+          " />
 
         </div>
 
         <div className="relative z-10 p-10">
 
-          {/* TOP BAR */}
+          {/* TOP */}
 
-          <div className="flex items-center justify-between mb-10 flex-wrap gap-5">
+          <div className="
+            flex
+            items-center
+            justify-between
+            mb-10
+            flex-wrap
+            gap-5
+          ">
 
             <BackToDashboard />
 
@@ -292,11 +436,25 @@ if (Array.isArray(data)) {
 
           {/* HEADER */}
 
-          <div className="flex flex-col xl:flex-row items-start xl:items-center justify-between gap-10 mb-14">
+          <div className="
+            flex
+            flex-col
+            xl:flex-row
+            items-start
+            xl:items-center
+            justify-between
+            gap-10
+            mb-14
+          ">
 
             <div>
 
-              <p className="uppercase tracking-[6px] text-yellow-400 mb-4">
+              <p className="
+                uppercase
+                tracking-[6px]
+                text-yellow-400
+                mb-4
+              ">
 
                 {
                   t(
@@ -306,7 +464,11 @@ if (Array.isArray(data)) {
 
               </p>
 
-              <h1 className="text-7xl font-black leading-none">
+              <h1 className="
+                text-7xl
+                font-black
+                leading-none
+              ">
 
                 {
                   t(
@@ -316,7 +478,12 @@ if (Array.isArray(data)) {
 
               </h1>
 
-              <p className="text-gray-400 text-2xl mt-6 max-w-3xl">
+              <p className="
+                text-gray-400
+                text-2xl
+                mt-6
+                max-w-3xl
+              ">
 
                 {
                   t(
@@ -330,16 +497,36 @@ if (Array.isArray(data)) {
 
             <img
               src="https://images.unsplash.com/photo-1502877338535-766e1452684a?q=80&w=1200&auto=format&fit=crop"
-              className="w-full xl:w-[500px] h-[280px] object-cover rounded-[40px] border border-white/10"
+              className="
+                w-full
+                xl:w-[500px]
+                h-[280px]
+                object-cover
+                rounded-[40px]
+                border
+                border-white/10
+              "
             />
 
           </div>
 
           {/* FILTERS */}
 
-          <div className="bg-white/5 border border-white/10 rounded-[40px] p-8 mb-10 backdrop-blur-2xl">
+          <div className="
+            bg-white/5
+            border
+            border-white/10
+            rounded-[40px]
+            p-8
+            mb-10
+            backdrop-blur-2xl
+          ">
 
-            <h2 className="text-3xl font-black mb-8">
+            <h2 className="
+              text-3xl
+              font-black
+              mb-8
+            ">
 
               {
                 t(
@@ -349,7 +536,13 @@ if (Array.isArray(data)) {
 
             </h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5">
+            <div className="
+              grid
+              grid-cols-1
+              md:grid-cols-2
+              xl:grid-cols-4
+              gap-5
+            ">
 
               <input
                 type="text"
@@ -360,9 +553,18 @@ if (Array.isArray(data)) {
                 }
                 value={country}
                 onChange={(e) =>
-                  setCountry(e.target.value)
+                  setCountry(
+                    e.target.value
+                  )
                 }
-                className="bg-black/40 border border-white/10 rounded-2xl px-5 py-4"
+                className="
+                  bg-black/40
+                  border
+                  border-white/10
+                  rounded-2xl
+                  px-5
+                  py-4
+                "
               />
 
               <input
@@ -378,7 +580,14 @@ if (Array.isArray(data)) {
                     e.target.value
                   )
                 }
-                className="bg-black/40 border border-white/10 rounded-2xl px-5 py-4"
+                className="
+                  bg-black/40
+                  border
+                  border-white/10
+                  rounded-2xl
+                  px-5
+                  py-4
+                "
               />
 
               <input
@@ -390,14 +599,31 @@ if (Array.isArray(data)) {
                 }
                 value={salary}
                 onChange={(e) =>
-                  setSalary(e.target.value)
+                  setSalary(
+                    e.target.value
+                  )
                 }
-                className="bg-black/40 border border-white/10 rounded-2xl px-5 py-4"
+                className="
+                  bg-black/40
+                  border
+                  border-white/10
+                  rounded-2xl
+                  px-5
+                  py-4
+                "
               />
 
               <button
                 onClick={searchJobs}
-                className="bg-yellow-400 text-black rounded-2xl font-black text-xl hover:scale-105 transition-all"
+                className="
+                  bg-yellow-400
+                  text-black
+                  rounded-2xl
+                  font-black
+                  text-xl
+                  hover:scale-105
+                  transition-all
+                "
               >
 
                 {
@@ -416,9 +642,20 @@ if (Array.isArray(data)) {
 
           {jobs.length === 0 && (
 
-            <div className="bg-white/5 border border-white/10 rounded-[40px] p-16 text-center">
+            <div className="
+              bg-white/5
+              border
+              border-white/10
+              rounded-[40px]
+              p-16
+              text-center
+            ">
 
-              <h2 className="text-4xl font-black mb-4">
+              <h2 className="
+                text-4xl
+                font-black
+                mb-4
+              ">
 
                 {
                   t(
@@ -428,16 +665,6 @@ if (Array.isArray(data)) {
 
               </h2>
 
-              <p className="text-gray-400 text-xl">
-
-                {
-                  t(
-                    "jobs.no_jobs_subtitle"
-                  )
-                }
-
-              </p>
-
             </div>
 
           )}
@@ -446,8 +673,8 @@ if (Array.isArray(data)) {
 
           <div className="space-y-8">
 
-           {Array.isArray(jobs) &&
-  jobs.map((job) => (
+            {Array.isArray(jobs) &&
+              jobs.map((job) => (
 
               <div
                 key={job.id}
@@ -458,40 +685,37 @@ if (Array.isArray(data)) {
                   rounded-[40px]
                   p-8
                   backdrop-blur-2xl
-                  hover:border-yellow-400/30
-                  transition-all
                 "
               >
 
                 {/* TOP */}
 
-                <div className="flex flex-col xl:flex-row items-start justify-between gap-10">
+                <div className="
+                  flex
+                  flex-col
+                  xl:flex-row
+                  items-start
+                  justify-between
+                  gap-10
+                ">
 
                   <div>
 
-                    <div className="flex items-center gap-4 mb-4">
-
-                      <div className="w-4 h-4 bg-green-400 rounded-full animate-pulse" />
-
-                      <p className="uppercase tracking-[4px] text-yellow-400">
-
-                        {
-                          t(
-                            "jobs.active_job"
-                          )
-                        }
-
-                      </p>
-
-                    </div>
-
-                    <h2 className="text-5xl font-black">
+                    <h2 className="
+                      text-5xl
+                      font-black
+                    ">
 
                       {job.title}
 
                     </h2>
 
-                    <p className="text-gray-400 mt-5 text-xl max-w-4xl">
+                    <p className="
+                      text-gray-400
+                      mt-5
+                      text-xl
+                      max-w-4xl
+                    ">
 
                       {job.description}
 
@@ -499,19 +723,18 @@ if (Array.isArray(data)) {
 
                   </div>
 
-                  <div className="bg-yellow-400 text-black px-8 py-5 rounded-3xl">
+                  <div className="
+                    bg-yellow-400
+                    text-black
+                    px-8
+                    py-5
+                    rounded-3xl
+                  ">
 
-                    <p className="text-sm font-bold">
-
-                      {
-                        t(
-                          "jobs.salary"
-                        )
-                      }
-
-                    </p>
-
-                    <h2 className="text-4xl font-black">
+                    <h2 className="
+                      text-4xl
+                      font-black
+                    ">
 
                       €{job.salary}
 
@@ -523,11 +746,25 @@ if (Array.isArray(data)) {
 
                 {/* INFO */}
 
-                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 mt-10">
+                <div className="
+                  grid
+                  grid-cols-1
+                  md:grid-cols-2
+                  xl:grid-cols-3
+                  gap-5
+                  mt-10
+                ">
 
-                  <div className="bg-black/30 rounded-2xl p-5">
+                  <div className="
+                    bg-black/30
+                    rounded-2xl
+                    p-5
+                  ">
 
-                    <p className="text-gray-400 mb-2">
+                    <p className="
+                      text-gray-400
+                      mb-2
+                    ">
 
                       {
                         t(
@@ -537,7 +774,10 @@ if (Array.isArray(data)) {
 
                     </p>
 
-                    <h3 className="text-2xl font-bold">
+                    <h3 className="
+                      text-2xl
+                      font-bold
+                    ">
 
                       {job.country}
 
@@ -545,9 +785,16 @@ if (Array.isArray(data)) {
 
                   </div>
 
-                  <div className="bg-black/30 rounded-2xl p-5">
+                  <div className="
+                    bg-black/30
+                    rounded-2xl
+                    p-5
+                  ">
 
-                    <p className="text-gray-400 mb-2">
+                    <p className="
+                      text-gray-400
+                      mb-2
+                    ">
 
                       {
                         t(
@@ -557,33 +804,12 @@ if (Array.isArray(data)) {
 
                     </p>
 
-                    <h3 className="text-2xl font-bold">
+                    <h3 className="
+                      text-2xl
+                      font-bold
+                    ">
 
                       {job.transport_type}
-
-                    </h3>
-
-                  </div>
-
-                  <div className="bg-black/30 rounded-2xl p-5">
-
-                    <p className="text-gray-400 mb-2">
-
-                      {
-                        t(
-                          "jobs.status"
-                        )
-                      }
-
-                    </p>
-
-                    <h3 className="text-2xl font-bold text-green-400">
-
-                      {
-                        t(
-                          "jobs.available"
-                        )
-                      }
 
                     </h3>
 
@@ -593,53 +819,65 @@ if (Array.isArray(data)) {
 
                 {/* BUTTONS */}
 
-                <div className="flex gap-5 mt-10 flex-wrap">
+                <div className="
+                  flex
+                  gap-5
+                  mt-10
+                  flex-wrap
+                ">
 
-                  <button
-                    onClick={() =>
-                      applyToJob(job.id)
-                    }
-                    className="
-                      bg-yellow-400
-                      text-black
-                      px-8
-                      py-4
-                      rounded-2xl
-                      font-black
-                      text-xl
-                      hover:scale-105
-                      transition-all
-                    "
-                  >
+                  {appliedJobs.includes(job.id) ? (
 
-                    {
-                      t(
-                        "jobs.apply"
-                      )
-                    }
+                    <button
+                      disabled
+                      className="
+                        bg-green-500/20
+                        text-green-400
+                        px-8
+                        py-4
+                        rounded-2xl
+                        font-black
+                        text-xl
+                        cursor-not-allowed
+                      "
+                    >
 
-                  </button>
+                      {
+                        t(
+                          "jobs.already_applied"
+                        )
+                      }
 
-                  <button
-                    className="
-                      bg-white/10
-                      px-8
-                      py-4
-                      rounded-2xl
-                      font-black
-                      text-xl
-                      hover:bg-white/20
-                      transition-all
-                    "
-                  >
+                    </button>
 
-                    {
-                      t(
-                        "jobs.save"
-                      )
-                    }
+                  ) : (
 
-                  </button>
+                    <button
+                      onClick={() =>
+                        applyToJob(job.id)
+                      }
+                      className="
+                        bg-yellow-400
+                        text-black
+                        px-8
+                        py-4
+                        rounded-2xl
+                        font-black
+                        text-xl
+                        hover:scale-105
+                        transition-all
+                      "
+                    >
+
+                      {
+                        t(
+                          "jobs.apply"
+                        )
+                      }
+
+                    </button>
+
+                  )}
 
                 </div>
 

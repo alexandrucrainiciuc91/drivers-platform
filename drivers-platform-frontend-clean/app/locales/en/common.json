@@ -294,8 +294,32 @@
     "companies_count": "Companies",
     "applications_count": "Applications",
     "support_count": "Support"
+  },
+
+  "register": {
+    "badge": "Premium Transport Platform",
+    "title": "Create Account",
+    "subtitle": "Join the logistics platform connecting professional drivers and transport companies across Europe.",
+    "email": "Email",
+    "password": "Password",
+    "password_placeholder": "Minimum 6 characters",
+    "confirm_password": "Confirm Password",
+    "confirm_placeholder": "Repeat password",
+    "account_type": "Account Type",
+    "driver": "Driver",
+    "company": "Company",
+    "password_error": "Password must contain at least 6 characters.",
+    "match_error": "Passwords do not match.",
+    "terms_error": "You must accept Terms & Conditions.",
+    "server_error": "Server error.",
+    "terms": "I accept the Terms & Conditions and Privacy Policy.",
+"creating": "Creating account...",
+"create_account": "Create Account",
+"have_account": "Already have an account?",
+"login": "Login"
   }
 }
+
 
 
 

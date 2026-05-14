@@ -294,8 +294,50 @@
     "companies_count": "Companii",
     "applications_count": "Aplicații",
     "support_count": "Suport"
+  },
+  "register": {
+    "badge": "Platformă Premium Transport",
+
+    "title": "Creează Cont",
+
+    "subtitle": "Alătură-te platformei logistice care conectează șoferii profesioniști și companiile de transport din Europa.",
+
+    "email": "Email",
+
+    "password": "Parolă",
+
+    "password_placeholder": "Minim 6 caractere",
+
+    "confirm_password": "Confirmă parola",
+
+    "confirm_placeholder": "Repetă parola",
+
+    "account_type": "Tip cont",
+
+    "driver": "Driver",
+
+    "company": "Companie",
+
+    "terms": "Accept Termenii și Condițiile și Politica de Confidențialitate.",
+
+    "creating": "Se creează contul...",
+
+    "create_account": "Creează cont",
+
+    "have_account": "Ai deja cont?",
+
+    "login": "Autentificare",
+
+    "password_error": "Parola trebuie să conțină minim 6 caractere.",
+
+    "match_error": "Parolele nu coincid.",
+
+    "terms_error": "Trebuie să accepți Termenii și Condițiile.",
+
+    "server_error": "Eroare server."
   }
 }
+
 
 
 
