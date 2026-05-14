@@ -1,0 +1,14 @@
+# ENV
+.env
+
+# PYTHON
+.venv/
+__pycache__/
+*.pyc
+
+# NODE
+node_modules/
+.next/
+
+# IDE
+.idea/

@@ -1,0 +1,308 @@
+{
+  "login": {
+    "secure_access": "Acces securizat",
+    "title": "AUTENTIFICARE",
+    "subtitle": "Accesează centrul tău logistic și gestionează operațiunile de transport din toată Europa.",
+    "email": "Email",
+    "password": "Parolă",
+    "driver_access": "Acces Șofer",
+    "pro_driver": "Șofer PRO",
+    "company_access": "Acces Companie",
+    "business": "Business",
+    "signing_in": "Se realizează autentificarea...",
+    "login_button": "Autentificare",
+    "forgot_password": "Ai uitat parola?",
+    "no_account": "Nu ai cont?",
+    "create_account": "Creează cont",
+    "invalid_credentials": "Date de autentificare invalide",
+    "login_success": "Autentificare reușită",
+    "server_error": "Eroare server"
+  },
+  "register": {
+    "title": "Creează cont",
+    "subtitle": "Intră în ecosistemul premium de logistică ce conectează companii de transport și șoferi profesioniști din Europa.",
+
+    "email": "Email",
+
+    "password": "Parolă",
+
+    "password_placeholder": "Minim 6 caractere",
+
+    "confirm_password": "Confirmă parola",
+
+    "confirm_password_placeholder": "Repetă parola",
+
+    "account_type": "Tip cont",
+
+    "driver": "Șofer",
+
+    "company": "Companie de transport",
+
+    "subscription_plan": "Plan abonament",
+
+    "free_description": "Acces de bază la platformă.",
+
+    "pro_driver": "ȘOFER PRO",
+
+    "business": "BUSINESS",
+
+    "premium_description": "Funcții premium pentru logistică.",
+
+    "accept_terms": "Accept termenii și condițiile",
+
+    "creating_account": "Se creează contul...",
+
+    "create_account": "Creează cont",
+
+    "already_account": "Ai deja cont?",
+
+    "login": "Autentificare",
+
+    "password_min": "Parola trebuie să conțină minim 6 caractere",
+
+    "passwords_not_match": "Parolele nu coincid",
+
+    "accept_terms_error": "Te rugăm să accepți termenii și condițiile",
+
+    "registration_failed": "Înregistrarea a eșuat",
+
+    "server_error": "Eroare server"
+  },
+  "driver_dashboard": {
+    "control_center": "Centru Control Șofer",
+    "online": "ONLINE",
+    "welcome": "Bine ai venit,",
+    "subtitle": "Gestionează aplicațiile, joburile salvate și oportunitățile de transport din Europa.",
+    "pro_driver": "ȘOFER PRO",
+    "free_plan": "PLAN GRATUIT",
+    "upgrade_plan": "Upgrade Plan",
+    "logout": "Deconectare",
+    "applications": "Aplicații",
+    "saved_jobs": "Joburi Salvate",
+    "messages": "Mesaje",
+    "notifications": "Notificări",
+    "browse_jobs": "Caută Joburi",
+    "browse_jobs_subtitle": "Explorează oportunități de transport de la companii premium.",
+    "driver_profile": "Profil Șofer",
+    "driver_profile_subtitle": "Actualizează licențele, experiența și certificările.",
+    "upgrade_account": "Upgrade Cont",
+    "upgrade_account_subtitle": "Deblochează vizibilitate premium și unelte avansate.",
+    "loading": "Se încarcă dashboard-ul..."
+  },
+  "company_dashboard": {
+    "dashboard": "Dashboard Companie",
+    "subtitle": "Gestionează șoferi, joburi și operațiuni logistice în Europa.",
+    "upgrade_plan": "Upgrade Plan",
+    "active_jobs": "Joburi Active",
+    "applications": "Aplicații",
+    "pending": "În Așteptare",
+    "fleet_size": "Mărime Flotă",
+    "company_information": "Informații Companie",
+    "country": "Țară",
+    "city": "Oraș",
+    "phone": "Telefon",
+    "website": "Website",
+    "about_company": "Despre Companie",
+    "create_jobs": "Creează Joburi",
+    "browse_drivers": "Caută Șoferi",
+    "loading": "Se încarcă dashboard-ul...",
+    "plan_upgraded": "Plan upgradat cu succes",
+    "upgrade_failed": "Upgrade eșuat"
+  },
+  "applications": {
+    "loading": "Se încarcă aplicațiile...",
+    "control_center": "Centru Control Șofer",
+    "title": "Aplicațiile Mele",
+    "subtitle": "Urmărește toate joburile de transport la care ai aplicat în Europa.",
+    "empty_title": "Nicio Aplicație Încă",
+    "empty_subtitle": "Începe să aplici la joburi și aplicațiile tale vor apărea aici.",
+    "browse_jobs": "Caută Joburi",
+    "active_application": "Aplicație Activă",
+    "transport_company": "Companie Transport",
+    "status": "Status",
+    "application_id": "ID Aplicație",
+    "application": "Aplicație",
+    "active": "ACTIV",
+    "browse_more_jobs": "Vezi Mai Multe Joburi",
+    "contact_company": "Contactează Compania",
+    "messaging_soon": "Sistemul de mesagerie vine în curând"
+  },
+  "browse_drivers": {
+    "loading": "Se încarcă șoferii...",
+    "recruitment_center": "Centru Recrutare",
+    "title": "Caută Șoferi",
+    "subtitle": "Descoperă șoferi profesioniști disponibili pentru operațiuni de transport în Europa.",
+    "no_drivers": "Nu Au Fost Găsiți Șoferi",
+    "no_drivers_subtitle": "Șoferii vor apărea aici după crearea profilelor.",
+    "active": "ACTIV",
+    "unknown_city": "Oraș Necunoscut",
+    "experience": "Experiență",
+    "years": "ani",
+    "license": "Permis",
+    "availability": "Disponibilitate",
+    "immediate": "Imediat",
+    "about": "Despre",
+    "no_description": "Nu există descriere disponibilă.",
+    "contact_driver": "Contactează Șoferul",
+    "view_profile": "Vezi Profil",
+    "driver_phone": "Telefon Șofer",
+    "phone_not_available": "Telefonul șoferului nu este disponibil",
+    "no": "Nu"
+  },
+  "company_applications": {
+    "loading": "Se încarcă aplicațiile...",
+    "recruitment_center": "Centru Recrutare",
+    "title": "Aplicații Șoferi",
+    "subtitle": "Revizuiește și administrează toate aplicațiile primite de la șoferi.",
+    "no_applications": "Nu Există Aplicații",
+    "no_applications_subtitle": "Șoferii care aplică la joburile tale vor apărea aici.",
+    "driver_candidate": "Candidat Șofer",
+    "applied_for": "A aplicat pentru",
+    "experience": "Experiență",
+    "years": "ani",
+    "license": "Permis",
+    "status": "Status",
+    "application_id": "ID Aplicație",
+    "accept_driver": "Acceptă Șoferul",
+    "reject": "Respinge"
+  },
+  "company_jobs": {
+    "hiring_center": "Centru Logistic de Recrutare",
+    "title": "JOBURI COMPANIE",
+    "subtitle": "Creează joburi de transport și angajează șoferi profesioniști din toată Europa.",
+    "create_job": "Creează Job Nou",
+    "job_title": "Titlu Job",
+    "truck_type": "Tip Camion",
+    "pickup_country": "Țara Încărcare",
+    "delivery_country": "Țara Livrare",
+    "transport_type": "Tip Transport",
+    "salary": "Salariu €",
+    "experience_required": "Experiență Necesară",
+    "adr_required": "ADR Necesar",
+    "description": "Descriere Job",
+    "creating": "Se creează...",
+    "create_transport_job": "Creează Job Transport",
+    "job_created": "Job creat cu succes",
+    "server_error": "Eroare server",
+    "active_job": "Job Activ",
+    "route": "Rută",
+    "truck": "Camion",
+    "view": "Vezi",
+    "delete": "Șterge"
+  },
+  "company_profile": {
+    "network": "Rețea Premium de Transport",
+    "build": "CONSTRUIEȘTE",
+    "profile": "PROFILUL COMPANIEI",
+    "subtitle": "Conectează-te cu șoferi profesioniști, publică joburi logistice și extinde operațiunile de transport în toată Europa.",
+    "transport_companies": "Companii Transport",
+    "verified_drivers": "Șoferi Verificați",
+    "freight_coverage": "Acoperire Transport",
+    "company_information": "Informații Companie",
+    "business_ready": "BUSINESS READY",
+    "company_name": "Nume Companie",
+    "country": "Țară",
+    "city": "Oraș",
+    "fleet_size": "Dimensiune Flotă",
+    "transport_type": "Tip Transport",
+    "website": "Website",
+    "phone": "Număr Telefon",
+    "description": "Descriere Companie",
+    "creating": "Se creează profilul...",
+    "create_button": "Creează Profil Companie",
+    "required_fields": "Completează câmpurile obligatorii",
+    "created_success": "Profilul companiei a fost creat cu succes",
+    "server_error": "Eroare server"
+  },
+  "driver_profile": {
+    "setup": "Configurare Șofer Profesionist",
+    "build": "CONSTRUIEȘTE",
+    "profile": "PROFILUL DE ȘOFER",
+    "subtitle": "Conectează-te cu firme de transport și descoperă oportunități logistice premium în toată Europa.",
+    "active_drivers": "Șoferi Activi",
+    "monthly_loads": "Curse Lunare",
+    "routes": "Rute Internaționale",
+    "driver_information": "Informații Șofer",
+    "pro_ready": "PRO READY",
+    "full_name": "Nume Complet",
+    "city": "Oraș",
+    "experience": "Ani de Experiență",
+    "select_license": "Selectează Licența",
+    "preferred_countries": "Țări Preferate",
+    "adr_certificate": "Certificat ADR",
+    "yes": "Da",
+    "no": "Nu",
+    "phone": "Număr Telefon",
+    "about": "Despre Tine",
+    "creating": "Se creează profilul...",
+    "create_button": "Creează Profil Șofer",
+    "required_fields": "Completează câmpurile obligatorii",
+    "created_success": "Profil creat cu succes",
+    "server_error": "Eroare server"
+  },
+  "driver_jobs": {
+    "loading": "Se încarcă joburile...",
+    "control_center": "Centru Control Șofer",
+    "title": "JOBURI ȘOFER",
+    "subtitle": "Explorează oportunități premium de transport în toată Europa.",
+    "no_jobs": "Nu există joburi disponibile",
+    "no_jobs_subtitle": "Revino mai târziu pentru noi oportunități logistice.",
+    "active_opportunity": "Oportunitate Activă",
+    "salary": "Salariu",
+    "country": "Țară",
+    "transport_type": "Tip Transport",
+    "availability": "Disponibilitate",
+    "open": "Deschis",
+    "apply": "Aplică Acum",
+    "save": "Salvează Job",
+    "application_sent": "Aplicație trimisă!",
+    "job_saved": "Job salvat!",
+    "server_error": "Eroare server"
+  },
+  "jobs": {
+    "loading": "Se încarcă joburile...",
+    "marketplace": "Marketplace Șoferi",
+    "title": "GĂSEȘTE JOBURI TRANSPORT",
+    "subtitle": "Descoperă oportunități premium logistice în toată Europa.",
+    "filters": "Filtre de Căutare",
+    "country": "Țară",
+    "transport_type": "Tip Transport",
+    "minimum_salary": "Salariu Minim",
+    "search": "Caută Joburi",
+    "no_jobs": "Nu au fost găsite joburi",
+    "no_jobs_subtitle": "Încearcă alte filtre sau revino mai târziu.",
+    "active_job": "Job Activ",
+    "salary": "Salariu",
+    "status": "Status",
+    "available": "Disponibil",
+    "apply": "Aplică Acum",
+    "save": "Salvează Job",
+    "login_required": "Te rugăm să te autentifici",
+    "application_success": "Aplicație trimisă cu succes",
+    "server_error": "Eroare server"
+  },
+  "home": {
+    "platform": "PLATFORMA EUROPEANĂ DE TRANSPORT",
+    "find": "GĂSEȘTE",
+    "drivers": "ȘOFERI",
+    "transport": "TRANSPORT",
+    "jobs": "JOBURI",
+    "subtitle": "Ecosistemul modern de logistică unde companiile de transport angajează șoferi profesioniști iar șoferii descoperă oportunități mai bune în Europa.",
+    "register": "Înregistrează-te",
+    "login": "Autentificare",
+    "drivers_count": "Șoferi",
+    "companies_count": "Companii",
+    "applications_count": "Aplicații",
+    "support_count": "Suport"
+  }
+}
+
+
+
+
+
+
+
+
+
+
