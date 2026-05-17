@@ -52,7 +52,7 @@ from app.routes.notification_routes import (
 from fastapi.middleware.cors import CORSMiddleware
 app = FastAPI()
 @app.get("/")
-def root():
+async def root():
     return {"status": "ok"}
 app.add_middleware(
     CORSMiddleware,
