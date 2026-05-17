@@ -63,7 +63,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-#Base.metadata.create_all(bind=engine)
+Base.metadata.create_all(bind=engine)
 
 app.include_router(user_router)
 app.include_router(driver_profile_router)
@@ -78,11 +78,7 @@ app.include_router(
     chat_router
 )
 
-@app.get("/")
-def home():
-    return {
-        "message": "Drivers Platform API is running"
-    }
+
 @app.get("/company/stats")
 def get_company_stats():
 
