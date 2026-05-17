@@ -150,7 +150,10 @@ export default function LoginPage() {
         "token",
         data.access_token
       );
-
+localStorage.setItem(
+    "user_id",
+    data.user_id
+);
       // SAVE USER TYPE
 
       localStorage.setItem(
@@ -171,7 +174,10 @@ export default function LoginPage() {
           "login.login_success"
         )
       );
-
+localStorage.setItem(
+  "user_id",
+  data.user.id
+);
       // COMPANY
 
       if (

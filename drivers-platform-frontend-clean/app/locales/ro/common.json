@@ -340,9 +340,23 @@
   "already_applied": "Ai aplicat deja",
   "application_success": "Aplicare trimisă cu succes",
   "server_error": "Eroare server"
-}
+},
+  "jobs": {
+    "title": "Găsește Joburi",
+    "search": "Caută",
+    "apply": "Aplică",
+    "applied": "Aplicat",
+    "loading": "Se încarcă...",
+    "marketplace": "Piața Locurilor de Muncă",
+    "country": "Țară",
+    "transport_type": "Tip Transport",
+    "minimum_salary": "Salariu Minim",
+    "application_success": "Aplicarea a fost trimisă cu succes",
+    "free_limit": "Limita planului gratuit a fost atinsă"
   }
 }
+  }
+
 
 
 

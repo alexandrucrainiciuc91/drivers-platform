@@ -2,13 +2,19 @@ from fastapi import (
     APIRouter,
     Depends
 )
-
+from app.models.conversation import Conversation
 from sqlalchemy.orm import Session
 
 from app.database.database import (
     SessionLocal
 )
+from app.models.notification import (
+    Notification
+)
 
+from app.models.user import (
+    User
+)
 from app.models.application import (
     Application
 )
@@ -23,6 +29,10 @@ from app.models.driver_profile import (
 
 from app.models.job_post import (
     JobPost
+)
+
+from app.models.saved_job import (
+    SavedJob
 )
 
 from app.auth.dependencies import (
@@ -50,10 +60,6 @@ def apply_to_job(
 
     try:
 
-        # ============================================
-        # DRIVER PROFILE
-        # ============================================
-
         driver_profile = db.query(
             DriverProfile
         ).filter(
@@ -68,10 +74,6 @@ def apply_to_job(
                     "Driver profile not found"
             }
 
-        # ============================================
-        # JOB
-        # ============================================
-
         job = db.query(
             JobPost
         ).filter(
@@ -85,33 +87,30 @@ def apply_to_job(
                     "Job not found"
             }
 
-        # ============================================
-        # ALREADY APPLIED
-        # ============================================
-
         existing_application = db.query(
             Application
         ).filter(
+
             Application.driver_profile_id ==
             driver_profile.id,
 
             Application.job_post_id ==
             job.id
+
         ).first()
 
         if existing_application:
 
             return {
+
                 "error":
                     "ALREADY_APPLIED",
 
                 "message":
-                    "You already applied to this job."
+                    "You already applied."
             }
 
-        # ============================================
-        # FREE PLAN LIMIT
-        # ============================================
+        # FREE DRIVER LIMIT
 
         if (
             current_user.subscription_plan ==
@@ -128,16 +127,10 @@ def apply_to_job(
             if applications_count >= 3:
 
                 return {
+
                     "error":
-                        "FREE_PLAN_LIMIT_REACHED",
-
-                    "message":
-                        "Upgrade to PRO DRIVER to apply to unlimited jobs."
+                        "FREE_PLAN_LIMIT_REACHED"
                 }
-
-        # ============================================
-        # CREATE APPLICATION
-        # ============================================
 
         new_application = Application(
 
@@ -158,14 +151,61 @@ def apply_to_job(
         db.commit()
 
         db.refresh(new_application)
+        # GET COMPANY PROFILE
 
+        company_profile = db.query(
+            CompanyProfile
+        ).filter(
+            CompanyProfile.id ==
+            job.company_profile_id
+        ).first()
+
+        # SEND NOTIFICATION TO COMPANY
+
+        if company_profile:
+            notification = Notification(
+
+                user_id=
+                company_profile.user_id,
+
+                title=
+                "New Application",
+
+                message=
+                f"{driver_profile.full_name} applied to '{job.title}'",
+
+                is_read=False
+            )
+
+            db.add(notification)
+
+            db.commit()
+        company_user_id = db.query(
+            CompanyProfile
+        ).filter(
+            CompanyProfile.id ==
+            job.company_profile_id
+        ).first().user_id
+
+        notification = Notification(
+
+            user_id=
+            company_user_id,
+
+            title=
+            "New Application",
+
+            message=
+            f"{driver_profile.full_name} applied to {job.title}"
+        )
+
+        db.add(notification)
+
+        db.commit()
         return {
 
             "success":
                 True,
-
-            "message":
-                "Applied successfully",
 
             "application_id":
                 new_application.id,
@@ -203,13 +243,6 @@ def get_driver_applications(
 
     try:
 
-        print("CURRENT USER:")
-        print(current_user.id)
-
-        # ============================================
-        # DRIVER PROFILE
-        # ============================================
-
         driver_profile = db.query(
             DriverProfile
         ).filter(
@@ -217,16 +250,9 @@ def get_driver_applications(
             current_user.id
         ).first()
 
-        print("DRIVER PROFILE:")
-        print(driver_profile)
-
         if not driver_profile:
 
             return []
-
-        # ============================================
-        # APPLICATIONS
-        # ============================================
 
         applications = db.query(
             Application
@@ -235,15 +261,9 @@ def get_driver_applications(
             driver_profile.id
         ).all()
 
-        print("APPLICATIONS:")
-        print(applications)
-
         results = []
 
         for application in applications:
-
-            print("APPLICATION:")
-            print(application.id)
 
             job = db.query(
                 JobPost
@@ -251,9 +271,6 @@ def get_driver_applications(
                 JobPost.id ==
                 application.job_post_id
             ).first()
-
-            print("JOB:")
-            print(job)
 
             if not job:
                 continue
@@ -275,25 +292,31 @@ def get_driver_applications(
                 "salary":
                     job.salary,
 
+                "pickup_country":
+                    job.pickup_country,
+
+                "delivery_country":
+                    job.delivery_country,
+
+                "transport_type":
+                    job.transport_type,
+
                 "status":
                     application.status
             })
-
-        print("FINAL RESULTS:")
-        print(results)
 
         return results
 
     except Exception as e:
 
-        print("DRIVER APPLICATIONS ERROR:")
-        print(e)
+        print("DRIVER APPLICATIONS ERROR:", e)
 
         return []
 
     finally:
 
         db.close()
+
 # ============================================
 # COMPANY APPLICATIONS
 # ============================================
@@ -310,10 +333,6 @@ def get_company_applications(
 
     try:
 
-        # ============================================
-        # COMPANY PROFILE
-        # ============================================
-
         company_profile = db.query(
             CompanyProfile
         ).filter(
@@ -328,16 +347,25 @@ def get_company_applications(
                     "Company profile not found"
             }
 
-        # ============================================
-        # APPLICATIONS
-        # ============================================
-
-        applications = db.query(
+        applications_query = db.query(
             Application
         ).filter(
             Application.company_profile_id ==
             company_profile.id
-        ).all()
+        )
+
+        # FREE COMPANY LIMIT
+
+        if (
+            current_user.subscription_plan ==
+            "free"
+        ):
+
+            applications = applications_query.limit(5).all()
+
+        else:
+
+            applications = applications_query.all()
 
         results = []
 
@@ -403,6 +431,10 @@ def get_company_applications(
 # UPDATE APPLICATION STATUS
 # ============================================
 
+# ============================================
+# UPDATE APPLICATION STATUS
+# ============================================
+
 @router.put(
     "/application/{application_id}/status"
 )
@@ -449,10 +481,6 @@ def update_application_status(
                     "Company profile not found"
             }
 
-        # ============================================
-        # SECURITY
-        # ============================================
-
         if (
             application.company_profile_id !=
             company_profile.id
@@ -462,10 +490,6 @@ def update_application_status(
                 "error":
                     "Unauthorized"
             }
-
-        # ============================================
-        # VALID STATUS
-        # ============================================
 
         if status not in [
             "accepted",
@@ -478,11 +502,98 @@ def update_application_status(
                     "Invalid status"
             }
 
-        # ============================================
         # UPDATE STATUS
-        # ============================================
 
         application.status = status
+
+        # GET DRIVER
+
+        driver_profile = db.query(
+            DriverProfile
+        ).filter(
+            DriverProfile.id ==
+            application.driver_profile_id
+        ).first()
+
+        # GET JOB
+
+        job = db.query(
+            JobPost
+        ).filter(
+            JobPost.id ==
+            application.job_post_id
+        ).first()
+
+        # NOTIFICATIONS
+
+        if driver_profile and job:
+
+            if status == "accepted":
+
+                notification = Notification(
+
+                    user_id=
+                        driver_profile.user_id,
+
+                    title=
+                        "Application Accepted",
+
+                    message=
+                        f"Your application for '{job.title}' was accepted.",
+
+                    is_read=False
+                )
+
+                db.add(notification)
+
+            elif status == "rejected":
+
+                notification = Notification(
+
+                    user_id=
+                        driver_profile.user_id,
+
+                    title=
+                        "Application Rejected",
+
+                    message=
+                        f"Your application for '{job.title}' was rejected.",
+
+                    is_read=False
+                )
+
+                db.add(notification)
+
+        # CREATE CONVERSATION
+        # ONLY FOR ACCEPTED
+
+        if (
+            status == "accepted" and
+            driver_profile
+        ):
+
+            existing_conversation = db.query(
+                Conversation
+            ).filter(
+                Conversation.application_id ==
+                application.id
+            ).first()
+
+            if not existing_conversation:
+
+                conversation = Conversation(
+
+                    driver_user_id=
+                        driver_profile.user_id,
+
+                    company_user_id=
+                        current_user.id,
+
+                    application_id=
+                        application.id
+                )
+
+                db.add(conversation)
 
         db.commit()
 
@@ -511,18 +622,16 @@ def update_application_status(
         db.close()
 
 # ============================================
-# ACCEPT APPLICATION
+# SAVE JOB
 # ============================================
 
-@router.put(
-    "/applications/{application_id}/accept"
-)
-def accept_application(
+@router.post("/save-job/{job_id}")
+def save_job(
 
-        application_id: int,
+        job_id: int,
 
         current_user=Depends(
-            require_company
+            require_driver
         )
 ):
 
@@ -530,34 +639,60 @@ def accept_application(
 
     try:
 
-        application = db.query(
-            Application
+        driver_profile = db.query(
+            DriverProfile
         ).filter(
-            Application.id ==
-            application_id
+            DriverProfile.user_id ==
+            current_user.id
         ).first()
 
-        if not application:
+        if not driver_profile:
 
             return {
                 "error":
-                    "Application not found"
+                    "Driver profile not found"
             }
 
-        application.status = "accepted"
+        existing = db.query(
+            SavedJob
+        ).filter(
+
+            SavedJob.driver_profile_id ==
+            driver_profile.id,
+
+            SavedJob.job_post_id ==
+            job_id
+
+        ).first()
+
+        if existing:
+
+            return {
+                "error":
+                    "JOB_ALREADY_SAVED"
+            }
+
+        saved_job = SavedJob(
+
+            driver_profile_id=
+                driver_profile.id,
+
+            job_post_id=
+                job_id
+        )
+
+        db.add(saved_job)
 
         db.commit()
 
-        db.refresh(application)
-
         return {
             "message":
-                "Application accepted"
+                "Job saved"
         }
 
     except Exception as e:
 
-        print("ACCEPT ERROR:", e)
+        print("SAVE JOB ERROR:", e)
 
         return {
             "error":
@@ -569,18 +704,14 @@ def accept_application(
         db.close()
 
 # ============================================
-# REJECT APPLICATION
+# GET SAVED JOBS
 # ============================================
 
-@router.put(
-    "/applications/{application_id}/reject"
-)
-def reject_application(
-
-        application_id: int,
+@router.get("/saved-jobs")
+def get_saved_jobs(
 
         current_user=Depends(
-            require_company
+            require_driver
         )
 ):
 
@@ -588,34 +719,140 @@ def reject_application(
 
     try:
 
-        application = db.query(
-            Application
+        driver_profile = db.query(
+            DriverProfile
         ).filter(
-            Application.id ==
-            application_id
+            DriverProfile.user_id ==
+            current_user.id
         ).first()
 
-        if not application:
+        if not driver_profile:
+
+            return []
+
+        saved_jobs = db.query(
+            SavedJob
+        ).filter(
+            SavedJob.driver_profile_id ==
+            driver_profile.id
+        ).all()
+
+        results = []
+
+        for saved in saved_jobs:
+
+            job = db.query(
+                JobPost
+            ).filter(
+                JobPost.id ==
+                saved.job_post_id
+            ).first()
+
+            if not job:
+                continue
+
+            results.append({
+
+                "saved_id":
+                    saved.id,
+
+                "job_id":
+                    job.id,
+
+                "title":
+                    job.title,
+
+                "description":
+                    job.description,
+
+                "salary":
+                    job.salary,
+
+                "pickup_country":
+                    job.pickup_country,
+
+                "delivery_country":
+                    job.delivery_country,
+
+                "transport_type":
+                    job.transport_type
+            })
+
+        return results
+
+    except Exception as e:
+
+        print("GET SAVED JOBS ERROR:", e)
+
+        return []
+
+    finally:
+
+        db.close()
+
+# ============================================
+# REMOVE SAVED JOB
+# ============================================
+
+@router.delete("/saved-job/{job_id}")
+def remove_saved_job(
+
+        job_id: int,
+
+        current_user=Depends(
+            require_driver
+        )
+):
+
+    db: Session = SessionLocal()
+
+    try:
+
+        driver_profile = db.query(
+            DriverProfile
+        ).filter(
+            DriverProfile.user_id ==
+            current_user.id
+        ).first()
+
+        if not driver_profile:
 
             return {
                 "error":
-                    "Application not found"
+                    "Driver profile not found"
             }
 
-        application.status = "rejected"
+        saved_job = db.query(
+            SavedJob
+        ).filter(
+
+            SavedJob.driver_profile_id ==
+            driver_profile.id,
+
+            SavedJob.job_post_id ==
+            job_id
+
+        ).first()
+
+        if not saved_job:
+
+            return {
+                "error":
+                    "Saved job not found"
+            }
+
+        db.delete(saved_job)
 
         db.commit()
 
-        db.refresh(application)
-
         return {
             "message":
-                "Application rejected"
+                "Saved job removed"
         }
 
     except Exception as e:
 
-        print("REJECT ERROR:", e)
+        print("REMOVE SAVED JOB ERROR:", e)
 
         return {
             "error":

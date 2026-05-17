@@ -157,8 +157,11 @@ def get_saved_jobs(
             "title":
                 job.title,
 
-            "country":
-                job.country,
+            "pickup_country":
+                job.pickup_country,
+
+            "delivery_country":
+                job.delivery_country,
 
             "salary":
                 job.salary

@@ -1,114 +1,4 @@
 {
-  "login": {
-    "title": "LOGIN",
-    "secure_access": "Secure Access",
-    "subtitle": "Access your logistics control center and manage transport operations across Europe.",
-    "email": "Email",
-    "password": "Password",
-    "driver_access": "Driver Access",
-    "pro_driver": "PRO Driver",
-    "company_access": "Company Access",
-    "business": "Business",
-    "signing_in": "Signing in...",
-    "login_button": "Login",
-    "forgot_password": "Forgot Password?",
-    "no_account": "Don't have an account?",
-    "create_account": "Create Account",
-    "invalid_credentials": "Invalid credentials",
-    "login_success": "Login successful",
-    "server_error": "Server error"
-  },
- "register": {
-    "title": "Create Account",
-    "subtitle": "Join the premium logistics ecosystem connecting transport companies and professional truck drivers across Europe.",
-
-    "email": "Email",
-
-    "password": "Password",
-
-    "password_placeholder": "Minimum 6 characters",
-
-    "confirm_password": "Confirm Password",
-
-    "confirm_password_placeholder": "Repeat password",
-
-    "account_type": "Account Type",
-
-    "driver": "Driver",
-
-    "company": "Transport Company",
-
-    "subscription_plan": "Subscription Plan",
-
-    "free_description": "Basic platform access.",
-
-    "pro_driver": "PRO DRIVER",
-
-    "business": "BUSINESS",
-
-    "premium_description": "Premium logistics features.",
-
-    "accept_terms": "I accept the terms and conditions",
-
-    "creating_account": "Creating account...",
-
-    "create_account": "Create Account",
-
-    "already_account": "Already have an account?",
-
-    "login": "Login",
-
-    "password_min": "Password must contain at least 6 characters",
-
-    "passwords_not_match": "Passwords do not match",
-
-    "accept_terms_error": "Please accept terms and conditions",
-
-    "registration_failed": "Registration failed",
-
-    "server_error": "Server error"
-  },
-  "driver_dashboard": {
-    "control_center": "Driver Control Center",
-    "online": "ONLINE",
-    "welcome": "Welcome,",
-    "subtitle": "Manage applications, saved jobs and transport opportunities across Europe.",
-    "pro_driver": "PRO DRIVER",
-    "free_plan": "FREE PLAN",
-    "upgrade_plan": "Upgrade Plan",
-    "logout": "Logout",
-    "applications": "Applications",
-    "saved_jobs": "Saved Jobs",
-    "messages": "Messages",
-    "notifications": "Notifications",
-    "browse_jobs": "Browse Jobs",
-    "browse_jobs_subtitle": "Explore transport opportunities from premium logistics companies.",
-    "driver_profile": "Driver Profile",
-    "driver_profile_subtitle": "Update your licenses, experience and certifications.",
-    "upgrade_account": "Upgrade Account",
-    "upgrade_account_subtitle": "Unlock premium visibility and advanced logistics tools.",
-    "loading": "Loading Dashboard..."
-  },
-  "company_dashboard": {
-    "dashboard": "Company Dashboard",
-    "subtitle": "Manage drivers, jobs and logistics operations across Europe.",
-    "upgrade_plan": "Upgrade Plan",
-    "active_jobs": "Active Jobs",
-    "applications": "Applications",
-    "pending": "Pending",
-    "fleet_size": "Fleet Size",
-    "company_information": "Company Information",
-    "country": "Country",
-    "city": "City",
-    "phone": "Phone",
-    "website": "Website",
-    "about_company": "About Company",
-    "create_jobs": "Create Jobs",
-    "browse_drivers": "Browse Drivers",
-    "loading": "Loading Dashboard...",
-    "plan_upgraded": "Plan upgraded successfully",
-    "upgrade_failed": "Upgrade failed"
-  },
   "applications": {
     "loading": "Loading Applications...",
     "control_center": "Driver Control Center",
@@ -166,6 +56,26 @@
     "accept_driver": "Accept Driver",
     "reject": "Reject"
   },
+  "company_dashboard": {
+    "dashboard": "Company Dashboard",
+    "subtitle": "Manage drivers, jobs and logistics operations across Europe.",
+    "upgrade_plan": "Upgrade Plan",
+    "active_jobs": "Active Jobs",
+    "applications": "Applications",
+    "pending": "Pending",
+    "fleet_size": "Fleet Size",
+    "company_information": "Company Information",
+    "country": "Country",
+    "city": "City",
+    "phone": "Phone",
+    "website": "Website",
+    "about_company": "About Company",
+    "create_jobs": "Create Jobs",
+    "browse_drivers": "Browse Drivers",
+    "loading": "Loading Dashboard...",
+    "plan_upgraded": "Plan upgraded successfully",
+    "upgrade_failed": "Upgrade failed"
+  },
   "company_jobs": {
     "hiring_center": "Logistics Hiring Center",
     "title": "COMPANY JOBS",
@@ -214,6 +124,46 @@
     "created_success": "Company profile created successfully",
     "server_error": "Server error"
   },
+  "driver_dashboard": {
+    "control_center": "Driver Control Center",
+    "online": "ONLINE",
+    "welcome": "Welcome,",
+    "subtitle": "Manage applications, saved jobs and transport opportunities across Europe.",
+    "pro_driver": "PRO DRIVER",
+    "free_plan": "FREE PLAN",
+    "upgrade_plan": "Upgrade Plan",
+    "logout": "Logout",
+    "applications": "Applications",
+    "saved_jobs": "Saved Jobs",
+    "messages": "Messages",
+    "notifications": "Notifications",
+    "browse_jobs": "Browse Jobs",
+    "browse_jobs_subtitle": "Explore transport opportunities from premium logistics companies.",
+    "driver_profile": "Driver Profile",
+    "driver_profile_subtitle": "Update your licenses, experience and certifications.",
+    "upgrade_account": "Upgrade Account",
+    "upgrade_account_subtitle": "Unlock premium visibility and advanced logistics tools.",
+    "loading": "Loading Dashboard..."
+  },
+  "driver_jobs": {
+      "loading": "Loading jobs...",
+      "control_center": "Driver Control Center",
+      "title": "DRIVER JOBS",
+      "subtitle": "Explore premium transport opportunities across Europe.",
+      "no_jobs": "No jobs available",
+      "no_jobs_subtitle": "Come back later for new logistics opportunities.",
+      "active_opportunity": "Active Opportunity",
+      "salary": "Salary",
+      "country": "Country",
+      "transport_type": "Transport Type",
+      "availability": "Availability",
+      "open": "Open",
+      "apply": "Apply Now",
+      "save": "Save Job",
+      "application_sent": "Application sent!",
+      "job_saved": "Job saved!",
+      "server_error": "Server error"
+    },
   "driver_profile": {
     "setup": "Professional Driver Setup",
     "build": "BUILD YOUR",
@@ -240,25 +190,26 @@
     "created_success": "Profile created successfully",
     "server_error": "Server error"
   },
-  "driver_jobs": {
-    "loading": "Loading jobs...",
-    "control_center": "Driver Control Center",
-    "title": "DRIVER JOBS",
-    "subtitle": "Explore premium transport opportunities across Europe.",
-    "no_jobs": "No jobs available",
-    "no_jobs_subtitle": "Come back later for new logistics opportunities.",
-    "active_opportunity": "Active Opportunity",
-    "salary": "Salary",
-    "country": "Country",
-    "transport_type": "Transport Type",
-    "availability": "Availability",
-    "open": "Open",
-    "apply": "Apply Now",
-    "save": "Save Job",
-    "application_sent": "Application sent!",
-    "job_saved": "Job saved!",
-    "server_error": "Server error"
+  "home": {
+    "platform": "EUROPEAN TRANSPORT PLATFORM",
+    "find": "FIND",
+    "drivers": "DRIVERS",
+    "transport": "TRANSPORT",
+    "jobs": "JOBS",
+    "subtitle": "The modern logistics ecosystem where transport companies hire professional truck drivers and drivers discover better transport opportunities across Europe.",
+    "register": "Register Now",
+    "login": "Login",
+    "drivers_count": "Drivers",
+    "companies_count": "Companies",
+    "applications_count": "Applications",
+    "support_count": "Support"
   },
+  "jobs": {
+  "applied": "Already applied",
+  "already_applied": "Already applied",
+  "application_success": "Application sent successfully",
+  "server_error": "Server error"
+},
   "jobs": {
     "loading": "Loading jobs...",
     "marketplace": "Driver Marketplace",
@@ -281,21 +232,38 @@
     "application_success": "Application sent successfully",
     "server_error": "Server error"
   },
-  "home": {
-    "platform": "EUROPEAN TRANSPORT PLATFORM",
-    "find": "FIND",
-    "drivers": "DRIVERS",
-    "transport": "TRANSPORT",
-    "jobs": "JOBS",
-    "subtitle": "The modern logistics ecosystem where transport companies hire professional truck drivers and drivers discover better transport opportunities across Europe.",
-    "register": "Register Now",
-    "login": "Login",
-    "drivers_count": "Drivers",
-    "companies_count": "Companies",
-    "applications_count": "Applications",
-    "support_count": "Support"
+  "jobs": {
+    "title": "Find Jobs",
+    "search": "Search",
+    "apply": "Apply",
+    "applied": "Applied",
+    "loading": "Loading...",
+    "marketplace": "Jobs Marketplace",
+    "country": "Country",
+    "transport_type": "Transport Type",
+    "minimum_salary": "Minimum Salary",
+    "application_success": "Application sent successfully",
+    "free_limit": "Free plan limit reached"
   },
-
+  "login": {
+    "title": "LOGIN",
+    "secure_access": "Secure Access",
+    "subtitle": "Access your logistics control center and manage transport operations across Europe.",
+    "email": "Email",
+    "password": "Password",
+    "driver_access": "Driver Access",
+    "pro_driver": "PRO Driver",
+    "company_access": "Company Access",
+    "business": "Business",
+    "signing_in": "Signing in...",
+    "login_button": "Login",
+    "forgot_password": "Forgot Password?",
+    "no_account": "Don't have an account?",
+    "create_account": "Create Account",
+    "invalid_credentials": "Invalid credentials",
+    "login_success": "Login successful",
+    "server_error": "Server error"
+  },
   "register": {
     "badge": "Premium Transport Platform",
     "title": "Create Account",
@@ -318,12 +286,56 @@
 "have_account": "Already have an account?",
 "login": "Login"
   },
-  "jobs": {
-  "applied": "Already applied",
-  "already_applied": "Already applied",
-  "application_success": "Application sent successfully",
-  "server_error": "Server error"
-}
+  "register": {
+     "title": "Create Account",
+     "subtitle": "Join the premium logistics ecosystem connecting transport companies and professional truck drivers across Europe.",
+
+     "email": "Email",
+
+     "password": "Password",
+
+     "password_placeholder": "Minimum 6 characters",
+
+     "confirm_password": "Confirm Password",
+
+     "confirm_password_placeholder": "Repeat password",
+
+     "account_type": "Account Type",
+
+     "driver": "Driver",
+
+     "company": "Transport Company",
+
+     "subscription_plan": "Subscription Plan",
+
+     "free_description": "Basic platform access.",
+
+     "pro_driver": "PRO DRIVER",
+
+     "business": "BUSINESS",
+
+     "premium_description": "Premium logistics features.",
+
+     "accept_terms": "I accept the terms and conditions",
+
+     "creating_account": "Creating account...",
+
+     "create_account": "Create Account",
+
+     "already_account": "Already have an account?",
+
+     "login": "Login",
+
+     "password_min": "Password must contain at least 6 characters",
+
+     "passwords_not_match": "Passwords do not match",
+
+     "accept_terms_error": "Please accept terms and conditions",
+
+     "registration_failed": "Registration failed",
+
+     "server_error": "Server error"
+   }
 }
 
 

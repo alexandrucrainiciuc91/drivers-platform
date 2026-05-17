@@ -186,7 +186,13 @@ def login_user(
             existing_user.role,
 
         "subscription_plan":
-            existing_user.subscription_plan
+            existing_user.subscription_plan,
+
+        "user": {
+
+            "id":
+                existing_user.id
+        }
     }
 
 

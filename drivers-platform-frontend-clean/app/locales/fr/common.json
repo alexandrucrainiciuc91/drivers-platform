@@ -318,6 +318,19 @@
 "create_account": "Créer un compte",
 "have_account": "Vous avez déjà un compte ?",
 "login": "Connexion"
+  },
+  "jobs": {
+    "title": "Trouver des emplois",
+    "search": "Rechercher",
+    "apply": "Postuler",
+    "applied": "Déjà postulé",
+    "loading": "Chargement...",
+    "marketplace": "Marché des emplois",
+    "country": "Pays",
+    "transport_type": "Type de transport",
+    "minimum_salary": "Salaire minimum",
+    "application_success": "Candidature envoyée avec succès",
+    "free_limit": "Limite du plan gratuit atteinte"
   }
 }
 

@@ -33,13 +33,22 @@ from app.routes.saved_job_routes import (
 from app.models.notification import (
     Notification
 )
-from app.routes.notification_routes import (
-    router as notification_router
-)
 from app.routes.payment_routes import (
     router as payment_router
 )
 from app.models.job import Job
+from app.models.conversation import (
+    Conversation
+)
+from app.routes.chat_routes import (
+    router as chat_router
+)
+from app.models.message import (
+    Message
+)
+from app.routes.notification_routes import (
+    router as notification_router
+)
 from fastapi.middleware.cors import CORSMiddleware
 app = FastAPI()
 app.add_middleware(
@@ -65,7 +74,9 @@ app.include_router(job_post_router)
 app.include_router(saved_job_router)
 app.include_router(notification_router)
 app.include_router(payment_router)
-
+app.include_router(
+    chat_router
+)
 
 @app.get("/")
 def home():

@@ -8,7 +8,6 @@ from sqlalchemy import (
 
 from app.database.database import Base
 
-
 class Notification(Base):
 
     __tablename__ = "notifications"
@@ -23,7 +22,9 @@ class Notification(Base):
         ForeignKey("users.id")
     )
 
-    text = Column(String)
+    title = Column(String)
+
+    message = Column(String)
 
     is_read = Column(
         Boolean,

@@ -23,7 +23,7 @@ export default function JobsPage() {
     useTranslation();
 
   // ============================================
-  // HYDRATION FIX
+  // HYDRATION
   // ============================================
 
   const [mounted, setMounted] =
@@ -43,6 +43,9 @@ export default function JobsPage() {
     useState<any[]>([]);
 
   const [appliedJobs, setAppliedJobs] =
+    useState<number[]>([]);
+
+  const [savedJobs, setSavedJobs] =
     useState<number[]>([]);
 
   const [loading, setLoading] =
@@ -100,8 +103,13 @@ export default function JobsPage() {
     setLoading(true);
 
     await Promise.all([
+
       fetchJobs(),
-      fetchApplications()
+
+      fetchApplications(),
+
+      fetchSavedJobs()
+
     ]);
 
     setLoading(false);
@@ -132,11 +140,6 @@ export default function JobsPage() {
       const data =
         await response.json();
 
-      console.log(
-        "JOBS:",
-        data
-      );
-
       if (Array.isArray(data)) {
 
         setJobs(data);
@@ -148,10 +151,7 @@ export default function JobsPage() {
 
     } catch (error) {
 
-      console.log(
-        "FETCH JOBS ERROR:",
-        error
-      );
+      console.log(error);
 
       setJobs([]);
     }
@@ -182,11 +182,6 @@ export default function JobsPage() {
       const data =
         await response.json();
 
-      console.log(
-        "APPLICATIONS:",
-        data
-      );
-
       if (Array.isArray(data)) {
 
         const ids =
@@ -206,12 +201,57 @@ export default function JobsPage() {
 
     } catch (error) {
 
-      console.log(
-        "FETCH APPLICATIONS ERROR:",
-        error
-      );
+      console.log(error);
 
       setAppliedJobs([]);
+    }
+  }
+
+  // ============================================
+  // FETCH SAVED JOBS
+  // ============================================
+
+  async function fetchSavedJobs() {
+
+    try {
+
+      const token =
+        localStorage.getItem("token");
+
+      const response =
+        await fetch(
+          "http://127.0.0.1:8000/saved-jobs",
+          {
+            headers: {
+              Authorization:
+                `Bearer ${token}`
+            }
+          }
+        );
+
+      const data =
+        await response.json();
+
+      if (Array.isArray(data)) {
+
+        const ids =
+          data.map(
+            (job: any) =>
+              Number(job.job_id)
+          );
+
+        setSavedJobs(ids);
+
+      } else {
+
+        setSavedJobs([]);
+      }
+
+    } catch (error) {
+
+      console.log(error);
+
+      setSavedJobs([]);
     }
   }
 
@@ -272,6 +312,56 @@ export default function JobsPage() {
   }
 
   // ============================================
+  // SAVE JOB
+  // ============================================
+
+  async function saveJob(
+    jobId: number
+  ) {
+
+    try {
+
+      const token =
+        localStorage.getItem("token");
+
+      const response =
+        await fetch(
+          `http://127.0.0.1:8000/save-job/${jobId}`,
+          {
+            method: "POST",
+
+            headers: {
+              Authorization:
+                `Bearer ${token}`
+            }
+          }
+        );
+
+      const data =
+        await response.json();
+
+      if (
+        data.error ===
+        "JOB_ALREADY_SAVED"
+      ) {
+
+        return;
+      }
+
+      setSavedJobs(prev => [
+
+        ...prev,
+        Number(jobId)
+
+      ]);
+
+    } catch (error) {
+
+      console.log(error);
+    }
+  }
+
+  // ============================================
   // APPLY
   // ============================================
 
@@ -283,12 +373,6 @@ export default function JobsPage() {
       localStorage.getItem("token");
 
     if (!token) {
-
-      alert(
-        t(
-          "jobs.login_required"
-        )
-      );
 
       return;
     }
@@ -311,15 +395,6 @@ export default function JobsPage() {
       const data =
         await response.json();
 
-      console.log(
-        "APPLY RESPONSE:",
-        data
-      );
-
-      // ============================================
-      // ALREADY APPLIED
-      // ============================================
-
       if (
         data.error ===
         "ALREADY_APPLIED"
@@ -332,16 +407,8 @@ export default function JobsPage() {
 
         ]);
 
-        alert(
-          t("jobs.applied")
-        );
-
         return;
       }
-
-      // ============================================
-      // FREE PLAN
-      // ============================================
 
       if (
         data.error ===
@@ -357,20 +424,12 @@ export default function JobsPage() {
         return;
       }
 
-      // ============================================
-      // OTHER ERROR
-      // ============================================
-
       if (data.error) {
 
         alert(data.error);
 
         return;
       }
-
-      // ============================================
-      // SUCCESS
-      // ============================================
 
       setAppliedJobs(prev => [
 
@@ -387,21 +446,12 @@ export default function JobsPage() {
 
     } catch (error) {
 
-      console.log(
-        "APPLY ERROR:",
-        error
-      );
-
-      alert(
-        t(
-          "jobs.server_error"
-        )
-      );
+      console.log(error);
     }
   }
 
   // ============================================
-  // SSR FIX
+  // HYDRATION FIX
   // ============================================
 
   if (!mounted) {
@@ -461,8 +511,6 @@ export default function JobsPage() {
 
       <div className="flex-1 overflow-hidden">
 
-        {/* BG */}
-
         <div className="fixed inset-0">
 
           <div className="
@@ -508,64 +556,36 @@ export default function JobsPage() {
 
           {/* HEADER */}
 
-          <div className="
-            flex
-            flex-col
-            xl:flex-row
-            items-start
-            xl:items-center
-            justify-between
-            gap-10
-            mb-14
-          ">
+          <div className="mb-14">
 
-            <div>
+            <p className="
+              uppercase
+              tracking-[6px]
+              text-yellow-400
+              mb-4
+            ">
 
-              <p className="
-                uppercase
-                tracking-[6px]
-                text-yellow-400
-                mb-4
-              ">
+              {
+                t(
+                  "jobs.marketplace"
+                )
+              }
 
-                {
-                  t(
-                    "jobs.marketplace"
-                  )
-                }
+            </p>
 
-              </p>
+            <h1 className="
+              text-7xl
+              font-black
+              leading-none
+            ">
 
-              <h1 className="
-                text-7xl
-                font-black
-                leading-none
-              ">
+              {
+                t(
+                  "jobs.title"
+                )
+              }
 
-                {
-                  t(
-                    "jobs.title"
-                  )
-                }
-
-              </h1>
-
-              <p className="
-                text-gray-400
-                text-2xl
-                mt-6
-                max-w-3xl
-              ">
-
-                {
-                  t(
-                    "jobs.subtitle"
-                  )
-                }
-
-              </p>
-
-            </div>
+            </h1>
 
           </div>
 
@@ -580,20 +600,6 @@ export default function JobsPage() {
             mb-10
             backdrop-blur-2xl
           ">
-
-            <h2 className="
-              text-3xl
-              font-black
-              mb-8
-            ">
-
-              {
-                t(
-                  "jobs.filters"
-                )
-              }
-
-            </h2>
 
             <div className="
               grid
@@ -680,8 +686,6 @@ export default function JobsPage() {
                   rounded-2xl
                   font-black
                   text-xl
-                  hover:scale-105
-                  transition-all
                 "
               >
 
@@ -715,15 +719,11 @@ export default function JobsPage() {
                 "
               >
 
-                {/* TOP */}
-
                 <div className="
                   flex
-                  flex-col
-                  xl:flex-row
-                  items-start
                   justify-between
                   gap-10
+                  flex-wrap
                 ">
 
                   <div>
@@ -741,7 +741,6 @@ export default function JobsPage() {
                       text-gray-400
                       mt-5
                       text-xl
-                      max-w-4xl
                     ">
 
                       {job.description}
@@ -771,81 +770,17 @@ export default function JobsPage() {
 
                 </div>
 
-                {/* INFO */}
+                {/* BUTTONS */}
 
                 <div className="
-                  grid
-                  grid-cols-1
-                  md:grid-cols-2
-                  gap-5
                   mt-10
+                  flex
+                  items-center
+                  gap-4
+                  flex-wrap
                 ">
 
-                  <div className="
-                    bg-black/30
-                    rounded-2xl
-                    p-5
-                  ">
-
-                    <p className="
-                      text-gray-400
-                      mb-2
-                    ">
-
-                      {
-                        t(
-                          "jobs.country"
-                        )
-                      }
-
-                    </p>
-
-                    <h3 className="
-                      text-2xl
-                      font-bold
-                    ">
-
-                      {job.country}
-
-                    </h3>
-
-                  </div>
-
-                  <div className="
-                    bg-black/30
-                    rounded-2xl
-                    p-5
-                  ">
-
-                    <p className="
-                      text-gray-400
-                      mb-2
-                    ">
-
-                      {
-                        t(
-                          "jobs.transport_type"
-                        )
-                      }
-
-                    </p>
-
-                    <h3 className="
-                      text-2xl
-                      font-bold
-                    ">
-
-                      {job.transport_type}
-
-                    </h3>
-
-                  </div>
-
-                </div>
-
-                {/* BUTTON */}
-
-                <div className="mt-10">
+                  {/* APPLY */}
 
                   <button
                     disabled={
@@ -857,6 +792,7 @@ export default function JobsPage() {
                       applyToJob(job.id)
                     }
                     className={`
+
                       px-8
                       py-4
                       rounded-2xl
@@ -868,7 +804,9 @@ export default function JobsPage() {
                         appliedJobs.includes(
                           Number(job.id)
                         )
+
                           ? "bg-green-500 text-white cursor-not-allowed"
+
                           : "bg-yellow-400 text-black hover:scale-105"
                       }
                     `}
@@ -878,8 +816,54 @@ export default function JobsPage() {
                       appliedJobs.includes(
                         Number(job.id)
                       )
+
                         ? t("jobs.applied")
+
                         : t("jobs.apply")
+                    }
+
+                  </button>
+
+                  {/* SAVE */}
+
+                  <button
+                    disabled={
+                      savedJobs.includes(
+                        Number(job.id)
+                      )
+                    }
+                    onClick={() =>
+                      saveJob(job.id)
+                    }
+                    className={`
+
+                      px-8
+                      py-4
+                      rounded-2xl
+                      font-black
+                      text-xl
+                      transition-all
+
+                      ${
+                        savedJobs.includes(
+                          Number(job.id)
+                        )
+
+                          ? "bg-blue-500 text-white cursor-not-allowed"
+
+                          : "bg-white/10 text-white hover:bg-white/20"
+                      }
+                    `}
+                  >
+
+                    {
+                      savedJobs.includes(
+                        Number(job.id)
+                      )
+
+                        ? "Saved"
+
+                        : "Save Job"
                     }
 
                   </button>

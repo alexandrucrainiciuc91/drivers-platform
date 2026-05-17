@@ -31,10 +31,6 @@ from app.models.saved_job import (
     SavedJob
 )
 
-from app.models.message import (
-    Message
-)
-
 from app.models.notification import (
     Notification
 )
@@ -121,7 +117,6 @@ def create_driver_profile(
             new_profile.id
     }
 
-
 # =====================================================
 # DRIVER DASHBOARD
 # =====================================================
@@ -136,74 +131,83 @@ def driver_dashboard(
 
     db: Session = SessionLocal()
 
-    driver_profile = db.query(
-        DriverProfile
-    ).filter(
-        DriverProfile.user_id ==
-        current_user.id
-    ).first()
+    try:
 
-    if not driver_profile:
+        driver_profile = db.query(
+            DriverProfile
+        ).filter(
+            DriverProfile.user_id ==
+            current_user.id
+        ).first()
 
-        db.close()
+        if not driver_profile:
+
+            return {
+                "error":
+                    "Driver profile not found"
+            }
+
+        applications_count = db.query(
+            Application
+        ).filter(
+            Application.driver_profile_id ==
+            driver_profile.id
+        ).count()
+
+        saved_jobs_count = db.query(
+            SavedJob
+        ).filter(
+            SavedJob.driver_profile_id ==
+            driver_profile.id
+        ).count()
+
+        # TEMP CHAT COUNT
+        unread_messages = 0
+
+        notifications_count = db.query(
+            Notification
+        ).filter(
+
+            Notification.user_id ==
+            current_user.id,
+
+            Notification.is_read == False
+
+        ).count()
+
+        return {
+
+            "driver_name":
+                driver_profile.full_name,
+
+            "applications_count":
+                applications_count,
+
+            "saved_jobs_count":
+                saved_jobs_count,
+
+            "messages_count":
+                unread_messages,
+
+            "notifications_count":
+                notifications_count
+        }
+
+    except Exception as e:
+
+        print(
+            "DRIVER DASHBOARD ERROR:",
+            e
+        )
 
         return {
             "error":
-                "Driver profile not found"
+                "SERVER_ERROR"
         }
 
-    applications_count = db.query(
-        Application
-    ).filter(
-        Application.driver_profile_id ==
-        driver_profile.id
-    ).count()
+    finally:
 
-    saved_jobs_count = db.query(
-        SavedJob
-    ).filter(
-        SavedJob.driver_profile_id ==
-        driver_profile.id
-    ).count()
-
-    messages_count = db.query(
-        Message
-    ).filter(
-        Message.receiver_id ==
-        current_user.id
-    ).count()
-
-    notifications_count = db.query(
-        Notification
-    ).filter(
-
-        Notification.user_id ==
-        current_user.id,
-
-        Notification.is_read == False
-
-    ).count()
-
-    db.close()
-
-    return {
-
-        "driver_name":
-            driver_profile.full_name,
-
-        "applications_count":
-            applications_count,
-
-        "saved_jobs_count":
-            saved_jobs_count,
-
-        "messages_count":
-            messages_count,
-
-        "notifications_count":
-            notifications_count
-    }
-
+        db.close()
 
 # =====================================================
 # MY DRIVER PROFILE
@@ -239,7 +243,6 @@ def my_driver_profile(
         "profile": profile
     }
 
-
 # =====================================================
 # GET ALL DRIVERS
 # =====================================================
@@ -265,7 +268,6 @@ def get_drivers(
     db.close()
 
     return drivers
-
 
 # =====================================================
 # SEARCH DRIVERS
@@ -314,7 +316,6 @@ def search_drivers(
 
     return results
 
-
 # =====================================================
 # MATCH DRIVERS
 # =====================================================
@@ -353,7 +354,6 @@ def match_drivers():
     db.close()
 
     return results
-
 
 # =====================================================
 # GET SINGLE DRIVER PROFILE

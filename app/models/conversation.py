@@ -1,17 +1,15 @@
 from sqlalchemy import (
     Column,
     Integer,
-    String,
-    Boolean,
     ForeignKey
 )
 
 from app.database.database import Base
 
 
-class Message(Base):
+class Conversation(Base):
 
-    __tablename__ = "messages"
+    __tablename__ = "conversations"
 
     id = Column(
         Integer,
@@ -19,21 +17,17 @@ class Message(Base):
         index=True
     )
 
-    conversation_id = Column(
-        Integer,
-        ForeignKey("conversations.id")
-    )
-
-    sender_user_id = Column(
+    driver_user_id = Column(
         Integer,
         ForeignKey("users.id")
     )
 
-    content = Column(
-        String
+    company_user_id = Column(
+        Integer,
+        ForeignKey("users.id")
     )
 
-    is_read = Column(
-        Boolean,
-        default=False
+    application_id = Column(
+        Integer,
+        ForeignKey("applications.id")
     )

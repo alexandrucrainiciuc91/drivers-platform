@@ -121,7 +121,7 @@ export default function CompanyApplicationsPage() {
       const token =
         localStorage.getItem("token");
 
-      await fetch(
+      const response = await fetch(
         `http://127.0.0.1:8000/application/${applicationId}/status?status=${status}`,
         {
           method: "PUT",
@@ -133,7 +133,29 @@ export default function CompanyApplicationsPage() {
         }
       );
 
-      fetchApplications();
+      const data =
+        await response.json();
+
+      console.log(data);
+
+      // ============================================
+      // LIVE UPDATE UI
+      // ============================================
+
+      setApplications(prev =>
+        prev.map(app =>
+
+          app.application_id ===
+          applicationId
+
+            ? {
+                ...app,
+                status: status
+              }
+
+            : app
+        )
+      );
 
     } catch (error) {
 
@@ -392,7 +414,18 @@ export default function CompanyApplicationsPage() {
                         :
                         {" "}
 
-                        <span className="text-yellow-400 font-bold">
+                        <span
+                          className={`
+                            font-bold
+                            ${
+                              application.status === "accepted"
+                                ? "text-green-400"
+                                : application.status === "rejected"
+                                ? "text-red-400"
+                                : "text-yellow-400"
+                            }
+                          `}
+                        >
 
                           {application.status}
 
@@ -437,65 +470,70 @@ export default function CompanyApplicationsPage() {
 
                 {/* ACTIONS */}
 
-                <div className="flex gap-5 mt-10 flex-wrap">
+                {
+                  application.status === "pending" && (
 
-                  <button
-                    onClick={() =>
-                      updateStatus(
-                        application.application_id,
-                        "accepted"
-                      )
-                    }
-                    className="
-                      bg-green-500
-                      text-black
-                      px-8
-                      py-4
-                      rounded-2xl
-                      font-black
-                      text-xl
-                      hover:scale-105
-                      transition-all
-                    "
-                  >
+                    <div className="flex gap-5 mt-10 flex-wrap">
 
-                    {
-                      t(
-                        "company_applications.accept_driver"
-                      )
-                    }
+                      <button
+                        onClick={() =>
+                          updateStatus(
+                            application.application_id,
+                            "accepted"
+                          )
+                        }
+                        className="
+                          bg-green-500
+                          text-black
+                          px-8
+                          py-4
+                          rounded-2xl
+                          font-black
+                          text-xl
+                          hover:scale-105
+                          transition-all
+                        "
+                      >
 
-                  </button>
+                        {
+                          t(
+                            "company_applications.accept_driver"
+                          )
+                        }
 
-                  <button
-                    onClick={() =>
-                      updateStatus(
-                        application.application_id,
-                        "rejected"
-                      )
-                    }
-                    className="
-                      bg-red-500
-                      text-white
-                      px-8
-                      py-4
-                      rounded-2xl
-                      font-black
-                      text-xl
-                      hover:scale-105
-                      transition-all
-                    "
-                  >
+                      </button>
 
-                    {
-                      t(
-                        "company_applications.reject"
-                      )
-                    }
+                      <button
+                        onClick={() =>
+                          updateStatus(
+                            application.application_id,
+                            "rejected"
+                          )
+                        }
+                        className="
+                          bg-red-500
+                          text-white
+                          px-8
+                          py-4
+                          rounded-2xl
+                          font-black
+                          text-xl
+                          hover:scale-105
+                          transition-all
+                        "
+                      >
 
-                  </button>
+                        {
+                          t(
+                            "company_applications.reject"
+                          )
+                        }
 
-                </div>
+                      </button>
+
+                    </div>
+                  )
+                }
 
               </div>
 
