@@ -105,7 +105,7 @@ export default function LoginPage() {
       );
 
       const response = await fetch(
-        "http://127.0.0.1:8000/login",
+        "https://drivers-platform-production.up.railway.app/register/login",
         {
           method: "POST",
 
