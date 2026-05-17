@@ -88,7 +88,7 @@ export default function Sidebar() {
 
       const response =
         await fetch(
-          "http://127.0.0.1:8000/notifications",
+          "https://drivers-platform-production.up.railway.app/notifications",
           {
             headers: {
               Authorization:
@@ -139,7 +139,7 @@ async function fetchMessagesCount() {
     const response =
       await fetch(
 
-        "http://127.0.0.1:8000/notifications",
+        "https://drivers-platform-production.up.railway.app/notifications",
 
         {
           headers: {

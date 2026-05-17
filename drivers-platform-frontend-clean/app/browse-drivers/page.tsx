@@ -72,7 +72,7 @@ export default function BrowseDriversPage() {
         localStorage.getItem("token");
 
       const response = await fetch(
-        "http://127.0.0.1:8000/drivers",
+        "https://drivers-platform-production.up.railway.app/drivers",
         {
           headers: {
             Authorization:

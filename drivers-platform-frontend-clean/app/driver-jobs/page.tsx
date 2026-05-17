@@ -70,7 +70,7 @@ export default function DriverJobsPage() {
 
       const response =
         await fetch(
-          "http://127.0.0.1:8000/jobs"
+          "https://drivers-platform-production.up.railway.app/jobs"
         );
 
       const data =
@@ -105,7 +105,7 @@ export default function DriverJobsPage() {
 
       const response =
         await fetch(
-          `http://127.0.0.1:8000/apply-job/${jobId}`,
+          `https://drivers-platform-production.up.railway.app/apply-job/${jobId}`,
           {
             method: "POST",
 
@@ -161,7 +161,7 @@ export default function DriverJobsPage() {
 
       const response =
         await fetch(
-          `http://127.0.0.1:8000/save-job/${jobId}`,
+          `https://drivers-platform-production.up.railway.app/save-job/${jobId}`,
           {
             method: "POST",
 

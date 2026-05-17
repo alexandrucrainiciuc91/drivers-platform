@@ -27,7 +27,7 @@ export default function SuccessPage() {
 
         const response =
           await fetch(
-            "http://127.0.0.1:8000/me",
+            "https://drivers-platform-production.up.railway.app/me",
             {
               headers: {
                 Authorization:

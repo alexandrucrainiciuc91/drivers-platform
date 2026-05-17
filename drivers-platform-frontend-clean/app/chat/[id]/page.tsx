@@ -54,7 +54,7 @@ export default function ChatPage() {
 
             const response =
                 await fetch(
-                    `http://127.0.0.1:8000/messages/${conversationId}`
+                    `https://drivers-platform-production.up.railway.app/messages/${conversationId}`
                 );
 
             const data =
@@ -83,7 +83,7 @@ export default function ChatPage() {
 
             await fetch(
 
-                `http://127.0.0.1:8000/messages/${conversationId}/read`,
+                `https://drivers-platform-production.up.railway.app/messages/${conversationId}/read`,
 
                 {
                     method: "PUT",
@@ -111,9 +111,8 @@ export default function ChatPage() {
     function connectWebSocket() {
 
         const ws =
-            new WebSocket(
-                `ws://127.0.0.1:8000/ws/chat/${conversationId}`
-            );
+            new WebSocket(`wss://drivers-platform-production.up.railway.app/ws/chat/${conversationId}`
+);
 
         ws.onopen = () => {
 

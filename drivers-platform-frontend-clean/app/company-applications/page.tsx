@@ -72,7 +72,7 @@ export default function CompanyApplicationsPage() {
         localStorage.getItem("token");
 
       const response = await fetch(
-        "http://127.0.0.1:8000/company/applications",
+        "https://drivers-platform-production.up.railway.app/company/applications",
         {
           headers: {
             Authorization:
@@ -122,7 +122,7 @@ export default function CompanyApplicationsPage() {
         localStorage.getItem("token");
 
       const response = await fetch(
-        `http://127.0.0.1:8000/application/${applicationId}/status?status=${status}`,
+        `https://drivers-platform-production.up.railway.app/application/${applicationId}/status?status=${status}`,
         {
           method: "PUT",
 

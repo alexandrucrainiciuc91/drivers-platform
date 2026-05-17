@@ -90,7 +90,7 @@ export default function CompanyDashboard() {
 
       const response =
         await fetch(
-          "http://127.0.0.1:8000/company/dashboard",
+          "https://drivers-platform-production.up.railway.app/company/dashboard",
           {
             headers: {
               Authorization:
@@ -129,7 +129,7 @@ export default function CompanyDashboard() {
 
       const response =
         await fetch(
-          "http://127.0.0.1:8000/subscribe",
+          "https://drivers-platform-production.up.railway.app/subscribe",
           {
             method: "POST",
 

@@ -34,7 +34,7 @@ export default function NotificationsPage() {
 
       const response =
         await fetch(
-          "http://127.0.0.1:8000/notifications",
+          "https://drivers-platform-production.up.railway.app/notifications",
           {
             headers: {
               Authorization:
@@ -79,7 +79,7 @@ export default function NotificationsPage() {
         localStorage.getItem("token");
 
       await fetch(
-        `http://127.0.0.1:8000/notifications/${notificationId}/read`,
+        `https://drivers-platform-production.up.railway.app/notifications/${notificationId}/read`,
         {
           method: "PUT",
 

@@ -128,7 +128,7 @@ export default function JobsPage() {
 
       const response =
         await fetch(
-          "http://127.0.0.1:8000/jobs",
+          "https://drivers-platform-production.up.railway.app/jobs",
           {
             headers: {
               Authorization:
@@ -170,7 +170,7 @@ export default function JobsPage() {
 
       const response =
         await fetch(
-          "http://127.0.0.1:8000/driver/applications",
+          "https://drivers-platform-production.up.railway.app/driver/applications",
           {
             headers: {
               Authorization:
@@ -220,7 +220,7 @@ export default function JobsPage() {
 
       const response =
         await fetch(
-          "http://127.0.0.1:8000/saved-jobs",
+          "https://drivers-platform-production.up.railway.app/saved-jobs",
           {
             headers: {
               Authorization:
@@ -266,7 +266,7 @@ export default function JobsPage() {
     try {
 
       let url =
-        "http://127.0.0.1:8000/jobs/search?";
+        "https://drivers-platform-production.up.railway.app/jobs/search?";
 
       if (country) {
 
@@ -326,7 +326,7 @@ export default function JobsPage() {
 
       const response =
         await fetch(
-          `http://127.0.0.1:8000/save-job/${jobId}`,
+          `https://drivers-platform-production.up.railway.app/save-job/${jobId}`,
           {
             method: "POST",
 
@@ -381,7 +381,7 @@ export default function JobsPage() {
 
       const response =
         await fetch(
-          `http://127.0.0.1:8000/apply-job/${jobId}`,
+          `https://drivers-platform-production.up.railway.app/apply-job/${jobId}`,
           {
             method: "POST",
 

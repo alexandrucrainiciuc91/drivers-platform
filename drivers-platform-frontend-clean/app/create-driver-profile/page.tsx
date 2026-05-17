@@ -126,7 +126,7 @@ export default function CreateDriverProfilePage() {
         localStorage.getItem("token");
 
       const response = await fetch(
-        "http://127.0.0.1:8000/driver-profile",
+        "https://drivers-platform-production.up.railway.app/driver-profile",
         {
           method: "POST",
 

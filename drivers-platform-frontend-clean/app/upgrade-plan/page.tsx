@@ -51,7 +51,7 @@ export default function UpgradePlanPage() {
         localStorage.getItem("token");
 
       const response = await fetch(
-        "http://127.0.0.1:8000/subscribe?price_id=" + priceId,
+        "https://drivers-platform-production.up.railway.app/subscribe?price_id=" + priceId,
         {
           method: "POST",
 

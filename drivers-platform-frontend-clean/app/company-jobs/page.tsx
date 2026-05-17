@@ -93,7 +93,7 @@ export default function CompanyJobsPage() {
       localStorage.getItem("token");
 
     const response = await fetch(
-      "http://127.0.0.1:8000/company/jobs",
+      "https://drivers-platform-production.up.railway.app/company/jobs",
       {
         headers: {
           Authorization:
@@ -126,7 +126,7 @@ export default function CompanyJobsPage() {
         localStorage.getItem("token");
 
       const response = await fetch(
-        "http://127.0.0.1:8000/job-post",
+        "https://drivers-platform-production.up.railway.app/job-post",
         {
           method: "POST",
 
@@ -232,7 +232,7 @@ export default function CompanyJobsPage() {
       localStorage.getItem("token");
 
     const response = await fetch(
-      `http://127.0.0.1:8000/job-post/${jobId}`,
+      `https://drivers-platform-production.up.railway.app/job-post/${jobId}`,
       {
         method: "DELETE",
 

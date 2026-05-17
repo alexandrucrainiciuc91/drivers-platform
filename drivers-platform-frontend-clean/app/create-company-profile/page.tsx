@@ -113,7 +113,7 @@ export default function CreateCompanyProfilePage() {
         localStorage.getItem("token");
 
       const response = await fetch(
-        "http://127.0.0.1:8000/company-profile",
+        "https://drivers-platform-production.up.railway.app/company-profile",
         {
           method: "POST",
 

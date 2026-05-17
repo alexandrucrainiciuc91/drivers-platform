@@ -106,7 +106,7 @@ export default function DriverDashboard() {
 
       const response =
         await fetch(
-          "http://127.0.0.1:8000/driver/dashboard",
+          "https://drivers-platform-production.up.railway.app/driver/dashboard",
           {
             method: "GET",
 
@@ -164,7 +164,7 @@ export default function DriverDashboard() {
 
       const response =
         await fetch(
-          "http://127.0.0.1:8000/subscribe",
+          "https://drivers-platform-production.up.railway.app/subscribe",
           {
             method: "POST",
 
