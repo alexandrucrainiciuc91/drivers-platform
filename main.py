@@ -68,8 +68,8 @@ async def root():
     return {"status": "ok"}
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "*"
+allow_origins=[
+    "https://drivers-platform-rho.vercel.app",
     ],
     allow_credentials=True,
     allow_methods=["*"],
