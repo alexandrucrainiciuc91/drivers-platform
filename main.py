@@ -1,3 +1,7 @@
+import os
+
+print("PORT =", os.getenv("PORT"))
+
 from fastapi import FastAPI
 from app.models.company_profile import CompanyProfile
 from app.database.database import engine, Base
@@ -50,7 +54,15 @@ from app.routes.notification_routes import (
     router as notification_router
 )
 from fastapi.middleware.cors import CORSMiddleware
+
 app = FastAPI()
+@app.on_event("startup")
+async def startup_event():
+    print("APP STARTED SUCCESSFULLY")
+
+    @app.get("/health")
+    async def health():
+        return {"ok": True}
 @app.get("/")
 async def root():
     return {"status": "ok"}
