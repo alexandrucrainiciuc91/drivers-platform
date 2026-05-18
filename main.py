@@ -69,7 +69,7 @@ async def root():
 app.add_middleware(
     CORSMiddleware,
 allow_origins=[
-    "https://drivers-platform-rho.vercel.app",
+    "https://drivelink-rho.vercel.app/",
     ],
     allow_credentials=True,
     allow_methods=["*"],
