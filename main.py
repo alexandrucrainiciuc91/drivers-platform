@@ -66,10 +66,13 @@ async def startup_event():
 @app.get("/")
 async def root():
     return {"status": "ok"}
+from fastapi.middleware.cors import CORSMiddleware
+
 app.add_middleware(
     CORSMiddleware,
-allow_origins=[
-    "https://drivelink-rho.vercel.app/",
+    allow_origins=[
+        "https://drivelink-rho.vercel.app",
+        "http://localhost:3000",
     ],
     allow_credentials=True,
     allow_methods=["*"],
