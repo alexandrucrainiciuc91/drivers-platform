@@ -45,7 +45,7 @@ def send_reset_password_email(
 
     resend.Emails.send({
 
-        "from": "Drivers Platform <onboarding@resend.dev>",
+        "from": "onboarding@resend.dev",
 
         "to": email,
 
@@ -63,3 +63,14 @@ def send_reset_password_email(
         </a>
         """
     })
+    try:
+
+        resend.Emails.send({
+            ...
+        })
+
+    except Exception as e:
+
+        print("RESEND ERROR:", e)
+
+        raise e
