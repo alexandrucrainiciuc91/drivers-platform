@@ -331,8 +331,23 @@
     "minimum_salary": "Salaire minimum",
     "application_success": "Candidature envoyée avec succès",
     "free_limit": "Limite du plan gratuit atteinte"
-  }
+  },
+"register": {
+  "title": "Créer un Compte",
+  "subtitle": "Rejoignez l’écosystème logistique premium reliant les entreprises de transport et les chauffeurs professionnels en Europe.",
+  "email": "Email",
+  "password": "Mot de passe",
+  "confirm_password": "Confirmer le mot de passe",
+  "confirm_placeholder": "Répétez votre mot de passe",
+  "account_type": "Type de compte",
+  "driver": "Chauffeur",
+  "company": "Entreprise de transport",
+  "terms": "J’accepte les Conditions Générales",
+  "button": "Créer un Compte",
+  "have_account": "Vous avez déjà un compte ?",
+  "login": "Connexion"
 }
+  }
 
 
 

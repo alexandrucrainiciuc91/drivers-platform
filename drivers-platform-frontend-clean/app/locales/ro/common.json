@@ -353,8 +353,23 @@
     "minimum_salary": "Salariu Minim",
     "application_success": "Aplicarea a fost trimisă cu succes",
     "free_limit": "Limita planului gratuit a fost atinsă"
-  }
+  },
+"register": {
+  "title": "Creează Cont",
+  "subtitle": "Alătură-te ecosistemului premium de logistică ce conectează companii de transport și șoferi profesioniști din Europa.",
+  "email": "Email",
+  "password": "Parolă",
+  "confirm_password": "Confirmă Parola",
+  "confirm_placeholder": "Repetă parola",
+  "account_type": "Tip Cont",
+  "driver": "Șofer",
+  "company": "Companie Transport",
+  "terms": "Sunt de acord cu Termenii și Condițiile",
+  "button": "Creează Cont",
+  "have_account": "Ai deja cont?",
+  "login": "Autentificare"
 }
+  }
   }
 
 

@@ -335,7 +335,22 @@
      "registration_failed": "Registration failed",
 
      "server_error": "Server error"
-   }
+   },
+  "register": {
+  "title": "Create Account",
+  "subtitle": "Join the premium logistics ecosystem connecting transport companies and professional truck drivers across Europe.",
+  "email": "Email",
+  "password": "Password",
+  "confirm_password": "Confirm Password",
+  "confirm_placeholder": "Repeat your password",
+  "account_type": "Account Type",
+  "driver": "Driver",
+  "company": "Transport Company",
+  "terms": "I agree with Terms & Conditions",
+  "button": "Create Account",
+  "have_account": "Already have an account?",
+  "login": "Login"
+}
 }
 
 
