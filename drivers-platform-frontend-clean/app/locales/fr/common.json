@@ -1,79 +1,44 @@
 {
-  "login": {
-    "secure_access": "Accès sécurisé",
-    "title": "CONNEXION",
-    "subtitle": "Accédez à votre centre logistique et gérez les opérations de transport à travers l'Europe.",
-    "email": "Email",
-    "password": "Mot de passe",
-    "driver_access": "Accès Chauffeur",
-    "pro_driver": "Chauffeur PRO",
-    "company_access": "Accès Entreprise",
-    "business": "Business",
-    "signing_in": "Connexion...",
-    "login_button": "Connexion",
-    "forgot_password": "Mot de passe oublié ?",
-    "no_account": "Vous n'avez pas de compte ?",
-    "create_account": "Créer un compte",
-    "invalid_credentials": "Identifiants invalides",
-    "login_success": "Connexion réussie",
-    "server_error": "Erreur serveur"
-   },
-  "register": {
-    "title": "Créer un compte",
-
-    "subtitle": "Rejoignez l’écosystème logistique premium reliant les entreprises de transport et les chauffeurs professionnels à travers l’Europe.",
-
-    "email": "Email",
-
-    "password": "Mot de passe",
-
-    "password_placeholder": "Minimum 6 caractères",
-
-    "confirm_password": "Confirmer le mot de passe",
-
-    "confirm_password_placeholder": "Répétez le mot de passe",
-
-    "account_type": "Type de compte",
-
-    "driver": "Chauffeur",
-
-    "company": "Entreprise de transport",
-
-    "subscription_plan": "Abonnement",
-
-    "free_description": "Accès de base à la plateforme.",
-
-    "pro_driver": "CHAUFFEUR PRO",
-
-    "business": "BUSINESS",
-
-    "premium_description": "Fonctionnalités logistiques premium.",
-
-    "accept_terms": "J'accepte les conditions générales",
-
-    "creating_account": "Création du compte...",
-
-    "create_account": "Créer un compte",
-
-    "already_account": "Vous avez déjà un compte ?",
-
-    "login": "Connexion",
-
-    "password_min": "Le mot de passe doit contenir au moins 6 caractères",
-
-    "passwords_not_match": "Les mots de passe ne correspondent pas",
-
-    "accept_terms_error": "Veuillez accepter les conditions générales",
-
-    "registration_failed": "L'inscription a échoué",
-
-    "server_error": "Erreur serveur"
+  "applications": {
+    "loading": "Chargement des candidatures...",
+    "control_center": "Centre de Contrôle Chauffeur",
+    "title": "Mes Candidatures",
+    "subtitle": "Suivez tous les emplois de transport auxquels vous avez postulé en Europe.",
+    "empty_title": "Aucune Candidature",
+    "empty_subtitle": "Commencez à postuler aux emplois.",
+    "browse_jobs": "Voir les emplois",
+    "contact_company": "Contacter l'entreprise"
   },
+
+  "browse_drivers": {
+    "loading": "Chargement des chauffeurs...",
+    "recruitment_center": "Centre de Recrutement",
+    "title": "Voir les Chauffeurs",
+    "subtitle": "Découvrez des chauffeurs professionnels disponibles en Europe.",
+    "experience": "Expérience",
+    "years": "ans",
+    "license": "Permis",
+    "availability": "Disponibilité",
+    "contact_driver": "Contacter le Chauffeur",
+    "view_profile": "Voir le Profil"
+  },
+
+  "company_dashboard": {
+    "dashboard": "Dashboard Entreprise",
+    "subtitle": "Gérez chauffeurs, emplois et opérations logistiques.",
+    "upgrade_plan": "Améliorer le Plan",
+    "active_jobs": "Emplois Actifs",
+    "applications": "Candidatures",
+    "pending": "En attente",
+    "fleet_size": "Taille de Flotte",
+    "loading": "Chargement du Dashboard..."
+  },
+
   "driver_dashboard": {
     "control_center": "Centre de Contrôle Chauffeur",
     "online": "EN LIGNE",
     "welcome": "Bienvenue,",
-    "subtitle": "Gérez les candidatures, les emplois sauvegardés et les opportunités de transport en Europe.",
+    "subtitle": "Gérez vos candidatures et opportunités de transport en Europe.",
     "pro_driver": "CHAUFFEUR PRO",
     "free_plan": "PLAN GRATUIT",
     "upgrade_plan": "Améliorer le Plan",
@@ -82,278 +47,109 @@
     "saved_jobs": "Emplois Sauvegardés",
     "messages": "Messages",
     "notifications": "Notifications",
-    "browse_jobs": "Parcourir les Emplois",
-    "browse_jobs_subtitle": "Explorez les opportunités de transport des entreprises premium.",
-    "driver_profile": "Profil Chauffeur",
-    "driver_profile_subtitle": "Mettez à jour vos licences, expérience et certifications.",
-    "upgrade_account": "Améliorer le Compte",
-    "upgrade_account_subtitle": "Débloquez des outils logistiques avancés.",
-    "loading": "Chargement du tableau de bord..."
+    "browse_jobs": "Voir les Emplois",
+    "loading": "Chargement du Dashboard..."
   },
-  "company_dashboard": {
-    "dashboard": "Tableau de Bord Entreprise",
-    "subtitle": "Gérez les chauffeurs, les emplois et les opérations logistiques en Europe.",
-    "upgrade_plan": "Améliorer le Plan",
-    "active_jobs": "Emplois Actifs",
-    "applications": "Candidatures",
-    "pending": "En Attente",
-    "fleet_size": "Taille de la Flotte",
-    "company_information": "Informations Entreprise",
-    "country": "Pays",
+
+  "driver_profile": {
+    "setup": "Configuration Chauffeur Professionnel",
+    "build": "CRÉEZ VOTRE",
+    "profile": "PROFIL CHAUFFEUR",
+    "subtitle": "Connectez-vous avec des entreprises de transport en Europe.",
+    "driver_information": "Informations Chauffeur",
+    "full_name": "Nom Complet",
     "city": "Ville",
+    "experience": "Années d'Expérience",
+    "select_license": "Sélectionnez le Permis",
+    "preferred_countries": "Pays Préférés",
+    "adr_certificate": "Certificat ADR",
+    "yes": "Oui",
+    "no": "Non",
     "phone": "Téléphone",
-    "website": "Site Web",
-    "about_company": "À Propos de l’Entreprise",
-    "create_jobs": "Créer des Emplois",
-    "browse_drivers": "Parcourir les Chauffeurs",
-    "loading": "Chargement du tableau de bord...",
-    "plan_upgraded": "Plan amélioré avec succès",
-    "upgrade_failed": "Échec de l'amélioration"
+    "about": "À propos",
+    "creating": "Création du profil...",
+    "create_button": "Créer le Profil",
+    "required_fields": "Veuillez compléter les champs obligatoires",
+    "created_success": "Profil créé avec succès",
+    "server_error": "Erreur serveur"
   },
-  "applications": {
-    "loading": "Chargement des candidatures...",
-    "control_center": "Centre de Contrôle Chauffeur",
-    "title": "Mes Candidatures",
-    "subtitle": "Suivez tous les emplois de transport auxquels vous avez postulé en Europe.",
-    "empty_title": "Aucune Candidature",
-    "empty_subtitle": "Commencez à postuler et vos candidatures apparaîtront ici.",
-    "browse_jobs": "Parcourir les Emplois",
-    "active_application": "Candidature Active",
-    "transport_company": "Entreprise de Transport",
-    "status": "Statut",
-    "application_id": "ID Candidature",
-    "application": "Candidature",
-    "active": "ACTIVE",
-    "browse_more_jobs": "Voir Plus d’Emplois",
-    "contact_company": "Contacter l’Entreprise",
-    "messaging_soon": "Le système de messagerie arrive bientôt"
-  },
-  "browse_drivers": {
-    "loading": "Chargement des chauffeurs...",
-    "recruitment_center": "Centre de Recrutement",
-    "title": "Parcourir les Chauffeurs",
-    "subtitle": "Découvrez des chauffeurs professionnels disponibles pour des opérations de transport en Europe.",
-    "no_drivers": "Aucun Chauffeur Trouvé",
-    "no_drivers_subtitle": "Les chauffeurs apparaîtront ici une fois les profils créés.",
-    "active": "ACTIF",
-    "unknown_city": "Ville Inconnue",
-    "experience": "Expérience",
-    "years": "ans",
-    "license": "Permis",
-    "availability": "Disponibilité",
-    "immediate": "Immédiate",
-    "about": "À Propos",
-    "no_description": "Aucune description disponible.",
-    "contact_driver": "Contacter le Chauffeur",
-    "view_profile": "Voir le Profil",
-    "driver_phone": "Téléphone du Chauffeur",
-    "phone_not_available": "Téléphone du chauffeur indisponible",
-    "no": "Non"
-  },
-  "company_applications": {
-    "loading": "Chargement des candidatures...",
-    "recruitment_center": "Centre de Recrutement",
-    "title": "Candidatures Chauffeurs",
-    "subtitle": "Examinez et gérez toutes les candidatures des chauffeurs.",
-    "no_applications": "Aucune Candidature",
-    "no_applications_subtitle": "Les chauffeurs qui postulent à vos offres apparaîtront ici.",
-    "driver_candidate": "Candidat Chauffeur",
-    "applied_for": "Postulé pour",
-    "experience": "Expérience",
-    "years": "ans",
-    "license": "Permis",
-    "status": "Statut",
-    "application_id": "ID Candidature",
-    "accept_driver": "Accepter le Chauffeur",
-    "reject": "Refuser"
-  },
-  "company_jobs": {
-    "hiring_center": "Centre de Recrutement Logistique",
-    "title": "OFFRES ENTREPRISE",
-    "subtitle": "Créez des offres de transport et recrutez des chauffeurs professionnels à travers l’Europe.",
-    "create_job": "Créer une Offre",
-    "job_title": "Titre du Poste",
-    "truck_type": "Type de Camion",
-    "pickup_country": "Pays de Chargement",
-    "delivery_country": "Pays de Livraison",
-    "transport_type": "Type de Transport",
-    "salary": "Salaire €",
-    "experience_required": "Expérience Requise",
-    "adr_required": "ADR Requis",
-    "description": "Description du Poste",
-    "creating": "Création...",
-    "create_transport_job": "Créer Offre Transport",
-    "job_created": "Offre créée avec succès",
-    "server_error": "Erreur serveur",
-    "active_job": "Offre Active",
-    "route": "Route",
-    "truck": "Camion",
-    "view": "Voir",
-    "delete": "Supprimer"
-  },
+
   "company_profile": {
-    "network": "Réseau Premium de Transport",
+    "network": "Réseau Premium Transport",
     "build": "CRÉEZ VOTRE",
     "profile": "PROFIL ENTREPRISE",
-    "subtitle": "Connectez-vous avec des chauffeurs professionnels, publiez des offres logistiques et développez vos opérations de transport à travers l’Europe.",
-    "transport_companies": "Entreprises de Transport",
-    "verified_drivers": "Chauffeurs Vérifiés",
-    "freight_coverage": "Couverture Fret",
+    "subtitle": "Connectez-vous avec des chauffeurs professionnels.",
     "company_information": "Informations Entreprise",
-    "business_ready": "BUSINESS READY",
-    "company_name": "Nom de l’Entreprise",
+    "company_name": "Nom de l'Entreprise",
     "country": "Pays",
     "city": "Ville",
     "fleet_size": "Taille de Flotte",
     "transport_type": "Type de Transport",
     "website": "Site Web",
     "phone": "Téléphone",
-    "description": "Description de l’Entreprise",
+    "description": "Description de l'Entreprise",
     "creating": "Création du profil...",
-    "create_button": "Créer Profil Entreprise",
+    "create_button": "Créer le Profil Entreprise",
     "required_fields": "Veuillez compléter les champs obligatoires",
     "created_success": "Profil entreprise créé avec succès",
     "server_error": "Erreur serveur"
   },
-  "driver_profile": {
-    "setup": "Configuration Chauffeur Professionnel",
-    "build": "CRÉEZ VOTRE",
-    "profile": "PROFIL CHAUFFEUR",
-    "subtitle": "Connectez-vous avec des entreprises de transport et découvrez des opportunités logistiques premium à travers l’Europe.",
-    "active_drivers": "Chauffeurs Actifs",
-    "monthly_loads": "Chargements Mensuels",
-    "routes": "Routes Internationales",
-    "driver_information": "Informations Chauffeur",
-    "pro_ready": "PRO READY",
-    "full_name": "Nom Complet",
-    "city": "Ville",
-    "experience": "Années d’Expérience",
-    "select_license": "Sélectionner la Licence",
-    "preferred_countries": "Pays Préférés",
-    "adr_certificate": "Certificat ADR",
-    "yes": "Oui",
-    "no": "Non",
-    "phone": "Numéro de Téléphone",
-    "about": "À Propos de Vous",
-    "creating": "Création du profil...",
-    "create_button": "Créer Profil Chauffeur",
-    "required_fields": "Veuillez compléter les champs obligatoires",
-    "created_success": "Profil créé avec succès",
-    "server_error": "Erreur serveur"
-  },
-  "driver_jobs": {
-    "loading": "Chargement des offres...",
-    "control_center": "Centre de Contrôle Chauffeur",
-    "title": "EMPLOIS CHAUFFEUR",
-    "subtitle": "Découvrez des opportunités de transport premium à travers l’Europe.",
-    "no_jobs": "Aucune offre disponible",
-    "no_jobs_subtitle": "Revenez plus tard pour de nouvelles opportunités logistiques.",
-    "active_opportunity": "Opportunité Active",
-    "salary": "Salaire",
-    "country": "Pays",
-    "transport_type": "Type de Transport",
-    "availability": "Disponibilité",
-    "open": "Ouvert",
-    "apply": "Postuler",
-    "save": "Sauvegarder",
-    "application_sent": "Candidature envoyée !",
-    "job_saved": "Offre sauvegardée !",
-    "server_error": "Erreur serveur"
-  },
+
   "jobs": {
-    "loading": "Chargement des offres...",
-    "marketplace": "Marketplace Chauffeurs",
-    "title": "TROUVER DES EMPLOIS TRANSPORT",
-    "subtitle": "Découvrez des opportunités logistiques premium à travers l’Europe.",
+    "loading": "Chargement des emplois...",
+    "marketplace": "Marketplace Emplois",
+    "title": "TROUVER DES EMPLOIS",
+    "subtitle": "Découvrez des opportunités premium de transport en Europe.",
     "filters": "Filtres de Recherche",
     "country": "Pays",
     "transport_type": "Type de Transport",
     "minimum_salary": "Salaire Minimum",
     "search": "Rechercher",
-    "no_jobs": "Aucune offre trouvée",
-    "no_jobs_subtitle": "Essayez d’autres filtres ou revenez plus tard.",
-    "active_job": "Offre Active",
-    "salary": "Salaire",
-    "status": "Statut",
-    "available": "Disponible",
+    "no_jobs": "Aucun emploi trouvé",
     "apply": "Postuler",
     "save": "Sauvegarder",
-    "login_required": "Veuillez vous connecter",
-    "application_success": "Candidature envoyée avec succès",
+    "application_success": "Candidature envoyée",
+    "already_applied": "Déjà postulé",
     "server_error": "Erreur serveur"
   },
-  "home": {
-    "platform": "PLATEFORME EUROPÉENNE DE TRANSPORT",
-    "find": "TROUVER",
-    "drivers": "CHAUFFEURS",
-    "transport": "TRANSPORT",
-    "jobs": "EMPLOIS",
-    "subtitle": "L’écosystème logistique moderne où les entreprises de transport recrutent des chauffeurs professionnels et où les chauffeurs trouvent de meilleures opportunités en Europe.",
-    "register": "Créer un compte",
-    "login": "Connexion",
-    "drivers_count": "Chauffeurs",
-    "companies_count": "Entreprises",
-    "applications_count": "Candidatures",
-    "support_count": "Support"
+
+  "login": {
+    "title": "CONNEXION",
+    "secure_access": "Accès Sécurisé",
+    "subtitle": "Accédez au centre logistique.",
+    "email": "Email",
+    "password": "Mot de passe",
+    "signing_in": "Connexion...",
+    "login_button": "Connexion",
+    "forgot_password": "Mot de passe oublié ?",
+    "no_account": "Vous n'avez pas de compte ?",
+    "create_account": "Créer un compte",
+    "invalid_credentials": "Identifiants invalides",
+    "login_success": "Connexion réussie",
+    "server_error": "Erreur serveur"
   },
 
   "register": {
-    "badge": "Plateforme Transport Premium",
-    "title": "Créer un compte",
-    "subtitle": "Rejoignez la plateforme logistique reliant les chauffeurs professionnels et les entreprises de transport en Europe.",
+    "badge": "Plateforme Premium Transport",
+    "title": "Créer un Compte",
+    "subtitle": "Rejoignez l’écosystème logistique premium.",
     "email": "Email",
     "password": "Mot de passe",
     "password_placeholder": "Minimum 6 caractères",
     "confirm_password": "Confirmer le mot de passe",
-    "confirm_placeholder": "Répéter le mot de passe",
+    "confirm_placeholder": "Répétez votre mot de passe",
     "account_type": "Type de compte",
     "driver": "Chauffeur",
-    "company": "Entreprise",
+    "company": "Entreprise de transport",
+    "terms": "J’accepte les Conditions Générales",
+    "creating": "Création du compte...",
+    "create_account": "Créer un compte",
+    "have_account": "Vous avez déjà un compte ?",
+    "login": "Connexion",
     "password_error": "Le mot de passe doit contenir au moins 6 caractères.",
     "match_error": "Les mots de passe ne correspondent pas.",
-    "terms_error": "Vous devez accepter les Conditions générales.",
-    "server_error": "Erreur serveur.",
-    "terms": "J'accepte les Conditions générales et la Politique de confidentialité.",
-"creating": "Création du compte...",
-"create_account": "Créer un compte",
-"have_account": "Vous avez déjà un compte ?",
-"login": "Connexion"
-  },
-  "jobs": {
-    "title": "Trouver des emplois",
-    "search": "Rechercher",
-    "apply": "Postuler",
-    "applied": "Déjà postulé",
-    "loading": "Chargement...",
-    "marketplace": "Marché des emplois",
-    "country": "Pays",
-    "transport_type": "Type de transport",
-    "minimum_salary": "Salaire minimum",
-    "application_success": "Candidature envoyée avec succès",
-    "free_limit": "Limite du plan gratuit atteinte"
-  },
-"register": {
-  "title": "Créer un Compte",
-  "subtitle": "Rejoignez l’écosystème logistique premium reliant les entreprises de transport et les chauffeurs professionnels en Europe.",
-  "email": "Email",
-  "password": "Mot de passe",
-  "confirm_password": "Confirmer le mot de passe",
-  "confirm_placeholder": "Répétez votre mot de passe",
-  "account_type": "Type de compte",
-  "driver": "Chauffeur",
-  "company": "Entreprise de transport",
-  "terms": "J’accepte les Conditions Générales",
-  "button": "Créer un Compte",
-  "have_account": "Vous avez déjà un compte ?",
-  "login": "Connexion"
-}
+    "terms_error": "Vous devez accepter les Conditions Générales.",
+    "registration_failed": "Échec de l'inscription",
+    "server_error": "Erreur serveur"
   }
-
-
-
-
-
-
-
-
-
+}
