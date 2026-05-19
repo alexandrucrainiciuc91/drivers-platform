@@ -1,5 +1,5 @@
 from sqlalchemy import Column, Integer, String, Boolean
-
+from sqlalchemy import Boolean
 from app.database.database import Base
 
 
@@ -19,3 +19,4 @@ class User(Base):
     )
 
     is_active = Column(Boolean, default=True)
+    is_verified = Column(Boolean, default=False)

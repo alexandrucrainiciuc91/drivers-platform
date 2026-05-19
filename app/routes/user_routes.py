@@ -1,6 +1,7 @@
 from fastapi import (
     APIRouter,
-    Depends
+    Depends,
+    HTTPException
 )
 
 from fastapi.security import (
@@ -32,6 +33,16 @@ from app.auth.jwt_handler import (
 
 from app.auth.dependencies import (
     get_current_user
+)
+
+from app.services.email_service import (
+    send_verification_email,
+    send_reset_password_email
+)
+
+from app.services.token_service import (
+    create_email_token,
+    verify_email_token
 )
 
 router = APIRouter()
@@ -73,7 +84,9 @@ def register_user(
 
         role=user.role,
 
-        subscription_plan="free"
+        subscription_plan="free",
+
+        is_verified=False
     )
 
     db.add(new_user)
@@ -82,14 +95,15 @@ def register_user(
 
     db.refresh(new_user)
 
-    token = create_access_token(
-        data={
-            "user_id":
-                new_user.id,
+    # SEND VERIFY EMAIL
 
-            "role":
-                new_user.role
-        }
+    token = create_email_token(
+        new_user.email
+    )
+
+    send_verification_email(
+        new_user.email,
+        token
     )
 
     db.close()
@@ -97,23 +111,61 @@ def register_user(
     return {
 
         "message":
-            "User created successfully",
-
-        "user_id":
-            new_user.id,
-
-        "access_token":
-            token,
-
-        "token_type":
-            "bearer",
-
-        "user_type":
-            new_user.role,
-
-        "subscription_plan":
-            new_user.subscription_plan
+            "Account created successfully. Please verify your email."
     }
+
+
+# =====================================================
+# VERIFY EMAIL
+# =====================================================
+
+@router.get("/verify-email")
+def verify_email(
+    token: str
+):
+
+    db: Session = SessionLocal()
+
+    try:
+
+        payload = verify_email_token(
+            token
+        )
+
+        email = payload["email"]
+
+        user = db.query(User).filter(
+            User.email == email
+        ).first()
+
+        if not user:
+
+            db.close()
+
+            return {
+                "error":
+                    "User not found"
+            }
+
+        user.is_verified = True
+
+        db.commit()
+
+        db.close()
+
+        return {
+            "message":
+                "Email verified successfully"
+        }
+
+    except Exception as e:
+
+        db.close()
+
+        return {
+            "error":
+                str(e)
+        }
 
 
 # =====================================================
@@ -161,6 +213,20 @@ def login_user(
             "error":
                 "Invalid email or password"
         }
+
+    # EMAIL NOT VERIFIED
+
+    if not existing_user.is_verified:
+
+        db.close()
+
+        raise HTTPException(
+
+            status_code=403,
+
+            detail=
+            "Please verify your email first"
+        )
 
     token = create_access_token(
         data={
