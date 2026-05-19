@@ -79,41 +79,52 @@ export default function CompanyDashboard() {
   // FETCH DASHBOARD
   // ============================================
 
-  async function fetchDashboard() {
+ async function fetchDashboard() {
 
-    try {
+  try {
 
-      const token =
-        localStorage.getItem(
-          "token"
-        );
+    const token =
+      localStorage.getItem(
+        "token"
+      );
 
-      const response =
-        await fetch(
-          "https://drivers-platform-production.up.railway.app/company/dashboard",
-          {
-            headers: {
-              Authorization:
-                `Bearer ${token}`
-            }
+    const response =
+      await fetch(
+        "https://drivers-platform-production.up.railway.app/company/dashboard",
+        {
+          headers: {
+            Authorization:
+              `Bearer ${token}`
           }
-        );
+        }
+      );
 
-      const data =
-        await response.json();
+    // ============================================
+    // NO COMPANY PROFILE
+    // ============================================
 
-      setDashboard(data);
+    if (response.status === 404) {
 
-    } catch (error) {
+      window.location.href =
+        "/create-company-profile";
 
-      console.log(error);
-
-    } finally {
-
-      setLoading(false);
+      return;
     }
-  }
 
+    const data =
+      await response.json();
+
+    setDashboard(data);
+
+  } catch (error) {
+
+    console.log(error);
+
+  } finally {
+
+    setLoading(false);
+  }
+}
   // ============================================
   // STRIPE CHECKOUT
   // ============================================

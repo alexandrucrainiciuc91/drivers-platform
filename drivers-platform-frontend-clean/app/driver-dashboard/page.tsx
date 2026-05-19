@@ -98,52 +98,64 @@ export default function DriverDashboard() {
   // FETCH DASHBOARD
   // ============================================
 
-  async function fetchDashboard(
-    token: string
-  ) {
+async function fetchDashboard(
+  token: string
+) {
 
-    try {
+  try {
 
-      const response =
-        await fetch(
-          "https://drivers-platform-production.up.railway.app/driver/dashboard",
-          {
-            method: "GET",
+    const response =
+      await fetch(
+        "https://drivers-platform-production.up.railway.app/driver/dashboard",
+        {
+          method: "GET",
 
-            headers: {
-              "Content-Type":
-                "application/json",
+          headers: {
+            "Content-Type":
+              "application/json",
 
-              Authorization:
-                `Bearer ${token}`
-            }
+            Authorization:
+              `Bearer ${token}`
           }
-        );
-
-      console.log(
-        "DASHBOARD STATUS:",
-        response.status
+        }
       );
 
-      const data =
-        await response.json();
+    console.log(
+      "DASHBOARD STATUS:",
+      response.status
+    );
 
-      console.log(
-  "FULL DASHBOARD ERROR:",
-  JSON.stringify(data, null, 2)
-);
+    // ============================================
+    // NO PROFILE
+    // ============================================
 
-      setDashboard(data);
+    if (response.status === 404) {
 
-    } catch (error) {
+      window.location.href =
+        "/create-driver-profile";
 
-      console.log(error);
-
-    } finally {
-
-      setLoading(false);
+      return;
     }
+
+    const data =
+      await response.json();
+
+    console.log(
+      "FULL DASHBOARD:",
+      data
+    );
+
+    setDashboard(data);
+
+  } catch (error) {
+
+    console.log(error);
+
+  } finally {
+
+    setLoading(false);
   }
+}
 
   // ============================================
   // STRIPE CHECKOUT
