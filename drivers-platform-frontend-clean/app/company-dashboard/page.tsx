@@ -99,20 +99,27 @@ export default function CompanyDashboard() {
         }
       );
 
+    const data =
+      await response.json();
+
+    console.log(
+      "FULL COMPANY DASHBOARD:",
+      data
+    );
+
     // ============================================
     // NO COMPANY PROFILE
     // ============================================
 
-    if (response.status === 404) {
+    if (
+      !data.company_name
+    ) {
 
       window.location.href =
         "/create-company-profile";
 
       return;
     }
-
-    const data =
-      await response.json();
 
     setDashboard(data);
 

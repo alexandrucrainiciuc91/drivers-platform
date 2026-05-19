@@ -125,18 +125,6 @@ async function fetchDashboard(
       response.status
     );
 
-    // ============================================
-    // NO PROFILE
-    // ============================================
-
-    if (response.status === 404) {
-
-      window.location.href =
-        "/create-driver-profile";
-
-      return;
-    }
-
     const data =
       await response.json();
 
@@ -144,6 +132,20 @@ async function fetchDashboard(
       "FULL DASHBOARD:",
       data
     );
+
+    // ============================================
+    // NO DRIVER PROFILE
+    // ============================================
+
+    if (
+      !data.driver_name
+    ) {
+
+      window.location.href =
+        "/create-driver-profile";
+
+      return;
+    }
 
     setDashboard(data);
 
