@@ -39,10 +39,6 @@ def send_verification_email(
                 f"""
                 <h2>Verify your account</h2>
 
-                <p>
-                    Click below to activate your account
-                </p>
-
                 <a href="{verify_link}">
                     Verify Account
                 </a>
@@ -51,10 +47,7 @@ def send_verification_email(
 
     except Exception as e:
 
-        print(
-            "RESEND ERROR:",
-            e
-        )
+        print("RESEND ERROR:", e)
 
         raise e
 
@@ -89,10 +82,6 @@ def send_reset_password_email(
                 f"""
                 <h2>Password Reset</h2>
 
-                <p>
-                    Click below to reset password
-                </p>
-
                 <a href="{reset_link}">
                     Reset Password
                 </a>
@@ -101,9 +90,6 @@ def send_reset_password_email(
 
     except Exception as e:
 
-        print(
-            "RESEND ERROR:",
-            e
-        )
+        print("RESEND ERROR:", e)
 
         raise e
