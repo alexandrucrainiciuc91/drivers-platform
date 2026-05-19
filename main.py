@@ -1,7 +1,9 @@
 import os
 
 print("PORT =", os.getenv("PORT"))
-
+from app.routes.auth_routes import (
+    router as auth_router
+)
 from fastapi import FastAPI
 from app.models.company_profile import CompanyProfile
 from app.database.database import engine, Base
@@ -93,7 +95,7 @@ app.include_router(payment_router)
 app.include_router(
     chat_router
 )
-
+app.include_router(auth_router)
 
 @app.get("/company/stats")
 def get_company_stats():
