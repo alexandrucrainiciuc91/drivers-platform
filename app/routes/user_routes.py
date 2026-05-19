@@ -4,11 +4,21 @@ from fastapi import (
     HTTPException
 )
 
+from fastapi.responses import (
+    RedirectResponse
+)
+
 from fastapi.security import (
     OAuth2PasswordRequestForm
 )
 
 from sqlalchemy.orm import Session
+
+from jose import jwt
+
+import os
+
+from dotenv import load_dotenv
 
 from app.database.database import (
     SessionLocal
@@ -40,12 +50,30 @@ from app.services.email_service import (
     send_reset_password_email
 )
 
-from app.services.token_service import (
-    create_email_token,
-    verify_email_token
+router = APIRouter()
+
+load_dotenv()
+
+JWT_SECRET = os.getenv(
+    "JWT_SECRET"
 )
 
-router = APIRouter()
+
+# =====================================================
+# DATABASE
+# =====================================================
+
+def get_db():
+
+    db = SessionLocal()
+
+    try:
+
+        yield db
+
+    finally:
+
+        db.close()
 
 
 # =====================================================
@@ -95,14 +123,30 @@ def register_user(
 
     db.refresh(new_user)
 
-    # SEND VERIFY EMAIL
+    # ============================================
+    # CREATE VERIFY TOKEN
+    # ============================================
 
-    token = create_email_token(
-        new_user.email
+    token = jwt.encode(
+
+        {
+            "user_id":
+                new_user.id
+        },
+
+        JWT_SECRET,
+
+        algorithm="HS256"
     )
 
+    # ============================================
+    # SEND VERIFY EMAIL
+    # ============================================
+
     send_verification_email(
+
         new_user.email,
+
         token
     )
 
@@ -119,7 +163,7 @@ def register_user(
 # VERIFY EMAIL
 # =====================================================
 
-@router.get("/verify-email")
+@router.get("/verify-email/{token}")
 def verify_email(
     token: str
 ):
@@ -128,24 +172,49 @@ def verify_email(
 
     try:
 
-        payload = verify_email_token(
-            token
+        payload = jwt.decode(
+
+            token,
+
+            JWT_SECRET,
+
+            algorithms=["HS256"]
         )
 
-        email = payload["email"]
+        user_id = payload.get(
+            "user_id"
+        )
 
         user = db.query(User).filter(
-            User.email == email
+            User.id == user_id
         ).first()
 
         if not user:
 
             db.close()
 
-            return {
-                "error":
-                    "User not found"
-            }
+            raise HTTPException(
+
+                status_code=404,
+
+                detail="User not found"
+            )
+
+        # ============================================
+        # ALREADY VERIFIED
+        # ============================================
+
+        if user.is_verified:
+
+            db.close()
+
+            return RedirectResponse(
+                url="https://drivelink-rho.vercel.app/login"
+            )
+
+        # ============================================
+        # VERIFY USER
+        # ============================================
 
         user.is_verified = True
 
@@ -153,19 +222,20 @@ def verify_email(
 
         db.close()
 
-        return {
-            "message":
-                "Email verified successfully"
-        }
+        return RedirectResponse(
+            url="https://drivelink-rho.vercel.app/login"
+        )
 
-    except Exception as e:
+    except Exception:
 
         db.close()
 
-        return {
-            "error":
-                str(e)
-        }
+        raise HTTPException(
+
+            status_code=400,
+
+            detail="Invalid or expired token"
+        )
 
 
 # =====================================================
@@ -189,14 +259,24 @@ def login_user(
         form_data.username
     ).first()
 
+    # ============================================
+    # USER EXISTS
+    # ============================================
+
     if not existing_user:
 
         db.close()
 
-        return {
-            "error":
-                "Invalid email or password"
-        }
+        raise HTTPException(
+
+            status_code=401,
+
+            detail="Invalid email or password"
+        )
+
+    # ============================================
+    # VERIFY PASSWORD
+    # ============================================
 
     valid_password = verify_password(
 
@@ -209,12 +289,16 @@ def login_user(
 
         db.close()
 
-        return {
-            "error":
-                "Invalid email or password"
-        }
+        raise HTTPException(
 
-    # EMAIL NOT VERIFIED
+            status_code=401,
+
+            detail="Invalid email or password"
+        )
+
+    # ============================================
+    # EMAIL VERIFIED
+    # ============================================
 
     if not existing_user.is_verified:
 
@@ -228,8 +312,14 @@ def login_user(
             "Please verify your email first"
         )
 
+    # ============================================
+    # CREATE LOGIN TOKEN
+    # ============================================
+
     token = create_access_token(
+
         data={
+
             "user_id":
                 existing_user.id,
 
@@ -315,18 +405,24 @@ def upgrade_plan(
 
         db.close()
 
-        return {
-            "error":
-                "User not found"
-        }
+        raise HTTPException(
 
+            status_code=404,
+
+            detail="User not found"
+        )
+
+    # ============================================
     # DRIVER PLAN
+    # ============================================
 
     if user.role == "driver":
 
         user.subscription_plan = "pro"
 
+    # ============================================
     # COMPANY PLAN
+    # ============================================
 
     elif user.role == "company":
 

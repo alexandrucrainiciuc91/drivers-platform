@@ -4,6 +4,10 @@ from fastapi import (
     Depends
 )
 
+from fastapi.responses import (
+    RedirectResponse
+)
+
 from sqlalchemy.orm import Session
 
 from jose import jwt
@@ -25,6 +29,7 @@ router = APIRouter()
 JWT_SECRET = os.getenv(
     "JWT_SECRET"
 )
+
 
 # ============================================
 # DATABASE
@@ -83,15 +88,21 @@ def verify_email(
                 detail="User not found"
             )
 
+        # ALREADY VERIFIED
+
+        if user.is_verified:
+
+            return RedirectResponse(
+                url="https://drivelink-rho.vercel.app/login"
+            )
+
         user.is_verified = True
 
         db.commit()
 
-        return {
-
-            "message":
-                "Email verified successfully"
-        }
+        return RedirectResponse(
+            url="https://drivelink-rho.vercel.app/login"
+        )
 
     except Exception:
 
