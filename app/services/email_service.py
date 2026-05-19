@@ -58,51 +58,52 @@ def send_verification_email(
 
         raise e
 
-    # ============================================
-    # RESET PASSWORD EMAIL
-    # ============================================
 
-    def send_reset_password_email(
-            email: str,
-            token: str
-    ):
+# ============================================
+# RESET PASSWORD EMAIL
+# ============================================
 
-        reset_link = (
-            f"{FRONTEND_URL}/reset-password/{token}"
+def send_reset_password_email(
+    email: str,
+    token: str
+):
+
+    reset_link = (
+        f"{FRONTEND_URL}/reset-password/{token}"
+    )
+
+    try:
+
+        resend.Emails.send({
+
+            "from":
+                "onboarding@resend.dev",
+
+            "to":
+                email,
+
+            "subject":
+                "Reset your password",
+
+            "html":
+                f"""
+                <h2>Password Reset</h2>
+
+                <p>
+                    Click below to reset password
+                </p>
+
+                <a href="{reset_link}">
+                    Reset Password
+                </a>
+                """
+        })
+
+    except Exception as e:
+
+        print(
+            "RESEND ERROR:",
+            e
         )
 
-        try:
-
-            resend.Emails.send({
-
-                "from":
-                    "onboarding@resend.dev",
-
-                "to":
-                    email,
-
-                "subject":
-                    "Reset your password",
-
-                "html":
-                    f"""
-                    <h2>Password Reset</h2>
-
-                    <p>
-                        Click below to reset password
-                    </p>
-
-                    <a href="{reset_link}">
-                        Reset Password
-                    </a>
-                    """
-            })
-
-        except Exception as e:
-
-            print(
-                "RESEND ERROR:",
-                e
-            )
-
-            raise e
+        raise e
