@@ -5,6 +5,20 @@ import {
   useState
 } from "react";
 
+import {
+
+  Select,
+
+  SelectContent,
+
+  SelectItem,
+
+  SelectTrigger,
+
+  SelectValue
+
+} from "@/components/ui/select";
+
 export default function LoadsPage() {
 
   // =====================================================
@@ -60,7 +74,7 @@ export default function LoadsPage() {
 
       const response =
         await fetch(
-          "http://127.0.0.1:8000/loads"
+          `${process.env.NEXT_PUBLIC_API_URL}/loads`
         );
 
       const data =
@@ -221,122 +235,172 @@ export default function LoadsPage() {
           gap-4
         ">
 
-          <select
+          {/* PICKUP COUNTRY */}
+
+          <Select
             value={pickupCountry}
-            onChange={(e) =>
-              setPickupCountry(
-                e.target.value
-              )
+            onValueChange={
+              setPickupCountry
             }
-            className="
-              bg-white/5
-              border
-              border-white/10
-              rounded-2xl
-              px-5
-              py-4
-            "
           >
 
-            <option value="">
-              Pickup Country
-            </option>
+            <SelectTrigger
+              className="
+                h-14
+                rounded-2xl
+                bg-white/5
+                border-white/10
+                text-white
+              "
+            >
 
-            <option>
-              Romania
-            </option>
+              <SelectValue
+                placeholder="
+                  Pickup Country
+                "
+              />
 
-            <option>
-              Germany
-            </option>
+            </SelectTrigger>
 
-            <option>
-              France
-            </option>
+            <SelectContent
+              className="
+                bg-black
+                border-white/10
+                text-white
+              "
+            >
 
-            <option>
-              Spain
-            </option>
+              <SelectItem value="Romania">
+                🇷🇴 Romania
+              </SelectItem>
 
-          </select>
+              <SelectItem value="Germany">
+                🇩🇪 Germany
+              </SelectItem>
 
-          <select
+              <SelectItem value="France">
+                🇫🇷 France
+              </SelectItem>
+
+              <SelectItem value="Spain">
+                🇪🇸 Spain
+              </SelectItem>
+
+            </SelectContent>
+
+          </Select>
+
+          {/* DELIVERY COUNTRY */}
+
+          <Select
             value={deliveryCountry}
-            onChange={(e) =>
-              setDeliveryCountry(
-                e.target.value
-              )
+            onValueChange={
+              setDeliveryCountry
             }
-            className="
-              bg-white/5
-              border
-              border-white/10
-              rounded-2xl
-              px-5
-              py-4
-            "
           >
 
-            <option value="">
-              Delivery Country
-            </option>
+            <SelectTrigger
+              className="
+                h-14
+                rounded-2xl
+                bg-white/5
+                border-white/10
+                text-white
+              "
+            >
 
-            <option>
-              Romania
-            </option>
+              <SelectValue
+                placeholder="
+                  Delivery Country
+                "
+              />
 
-            <option>
-              Germany
-            </option>
+            </SelectTrigger>
 
-            <option>
-              France
-            </option>
+            <SelectContent
+              className="
+                bg-black
+                border-white/10
+                text-white
+              "
+            >
 
-            <option>
-              Spain
-            </option>
+              <SelectItem value="Romania">
+                🇷🇴 Romania
+              </SelectItem>
 
-          </select>
+              <SelectItem value="Germany">
+                🇩🇪 Germany
+              </SelectItem>
 
-          <select
+              <SelectItem value="France">
+                🇫🇷 France
+              </SelectItem>
+
+              <SelectItem value="Spain">
+                🇪🇸 Spain
+              </SelectItem>
+
+            </SelectContent>
+
+          </Select>
+
+          {/* TRANSPORT TYPE */}
+
+          <Select
             value={transportType}
-            onChange={(e) =>
-              setTransportType(
-                e.target.value
-              )
+            onValueChange={
+              setTransportType
             }
-            className="
-              bg-white/5
-              border
-              border-white/10
-              rounded-2xl
-              px-5
-              py-4
-            "
           >
 
-            <option value="">
-              Transport Type
-            </option>
+            <SelectTrigger
+              className="
+                h-14
+                rounded-2xl
+                bg-white/5
+                border-white/10
+                text-white
+              "
+            >
 
-            <option>
-              Frigo
-            </option>
+              <SelectValue
+                placeholder="
+                  Transport Type
+                "
+              />
 
-            <option>
-              Curtain
-            </option>
+            </SelectTrigger>
 
-            <option>
-              ADR
-            </option>
+            <SelectContent
+              className="
+                bg-black
+                border-white/10
+                text-white
+              "
+            >
 
-            <option>
-              Container
-            </option>
+              <SelectItem value="Frigo">
+                ❄️ Frigo
+              </SelectItem>
 
-          </select>
+              <SelectItem value="Curtain">
+                🚛 Curtain
+              </SelectItem>
+
+              <SelectItem value="ADR">
+                ☣️ ADR
+              </SelectItem>
+
+              <SelectItem value="Container">
+                📦 Container
+              </SelectItem>
+
+            </SelectContent>
+
+          </Select>
+
+          {/* MIN PRICE */}
 
           <input
             type="number"
@@ -348,12 +412,16 @@ export default function LoadsPage() {
               )
             }
             className="
+              h-14
               bg-white/5
               border
               border-white/10
               rounded-2xl
               px-5
-              py-4
+              text-white
+              placeholder:text-gray-500
+              focus:outline-none
+              focus:border-yellow-400/40
             "
           />
 
@@ -385,7 +453,9 @@ export default function LoadsPage() {
               p-8
               backdrop-blur-xl
               hover:border-yellow-400/40
+              hover:scale-[1.01]
               transition
+              duration-300
             "
           >
 
