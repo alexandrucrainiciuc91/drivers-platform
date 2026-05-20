@@ -13,7 +13,8 @@ import {
   useTranslation
 } from "react-i18next";
 
-import LanguageSwitcher from "../components/LanguageSwitcher";
+import LanguageSwitcher
+from "../components/LanguageSwitcher";
 
 export default function RegisterPage() {
 
@@ -63,7 +64,7 @@ export default function RegisterPage() {
     useState(false);
 
   // ============================================
-  // REDIRECT
+  // REDIRECT IF LOGGED
   // ============================================
 
   useEffect(() => {
@@ -189,42 +190,12 @@ export default function RegisterPage() {
         return;
       }
 
-      // SAVE AUTH
+      // ============================================
+      // VERIFY EMAIL PAGE
+      // ============================================
 
-      localStorage.setItem(
-        "token",
-        data.access_token
-      );
-
-      localStorage.setItem(
-        "user_type",
-        data.user_type
-      );
-
-      localStorage.setItem(
-        "subscription_plan",
-        data.subscription_plan
-      );
-
-      // REDIRECT
-
-      if (
-        data.user_type ===
-        "driver"
-      ) {
-
-        window.location.href =
-          "/create-driver-profile";
-      }
-
-      if (
-        data.user_type ===
-        "company"
-      ) {
-
-        window.location.href =
-          "/create-company-profile";
-      }
+      window.location.href =
+        "/verify-email";
 
     } catch (error) {
 
@@ -387,195 +358,113 @@ export default function RegisterPage() {
           className="space-y-7"
         >
 
-          {/* EMAIL */}
+          <input
+            type="email"
+            placeholder="john@email.com"
+            value={email}
+            onChange={(e) =>
+              setEmail(
+                e.target.value
+              )
+            }
+            className="
+              w-full
+              bg-black/40
+              border
+              border-white/10
+              rounded-2xl
+              px-5
+              py-4
+            "
+            required
+          />
 
-          <div>
+          <input
+            type="password"
+            placeholder={
+              t(
+                "register.password_placeholder"
+              )
+            }
+            value={password}
+            onChange={(e) =>
+              setPassword(
+                e.target.value
+              )
+            }
+            className="
+              w-full
+              bg-black/40
+              border
+              border-white/10
+              rounded-2xl
+              px-5
+              py-4
+            "
+            required
+          />
 
-            <label className="
-              block
-              mb-3
-              text-gray-300
-              font-medium
-            ">
+          <input
+            type="password"
+            placeholder={
+              t(
+                "register.confirm_placeholder"
+              )
+            }
+            value={confirmPassword}
+            onChange={(e) =>
+              setConfirmPassword(
+                e.target.value
+              )
+            }
+            className="
+              w-full
+              bg-black/40
+              border
+              border-white/10
+              rounded-2xl
+              px-5
+              py-4
+            "
+            required
+          />
 
-              {t("register.email")}
+          <select
+            value={role}
+            onChange={(e) =>
+              setRole(
+                e.target.value
+              )
+            }
+            className="
+              w-full
+              bg-black/40
+              border
+              border-white/10
+              rounded-2xl
+              px-5
+              py-4
+            "
+          >
 
-            </label>
+            <option value="driver">
 
-            <input
-              type="email"
-              placeholder="john@email.com"
-              value={email}
-              onChange={(e) =>
-                setEmail(
-                  e.target.value
-                )
-              }
-              className="
-                w-full
-                bg-black/40
-                border
-                border-white/10
-                rounded-2xl
-                px-5
-                py-4
-                text-lg
-                focus:outline-none
-                focus:border-yellow-400
-              "
-              required
-            />
+              {t("register.driver")}
 
-          </div>
+            </option>
 
-          {/* PASSWORD */}
+            <option value="company">
 
-          <div>
+              {t("register.company")}
 
-            <label className="
-              block
-              mb-3
-              text-gray-300
-              font-medium
-            ">
+            </option>
 
-              {t("register.password")}
-
-            </label>
-
-            <input
-              type="password"
-              placeholder={
-                t(
-                  "register.password_placeholder"
-                )
-              }
-              value={password}
-              onChange={(e) =>
-                setPassword(
-                  e.target.value
-                )
-              }
-              className="
-                w-full
-                bg-black/40
-                border
-                border-white/10
-                rounded-2xl
-                px-5
-                py-4
-                text-lg
-                focus:outline-none
-                focus:border-yellow-400
-              "
-              required
-            />
-
-          </div>
-
-          {/* CONFIRM */}
-
-          <div>
-
-            <label className="
-              block
-              mb-3
-              text-gray-300
-              font-medium
-            ">
-
-              {t("register.confirm_password")}
-
-            </label>
-
-            <input
-              type="password"
-              placeholder={
-                t(
-                  "register.confirm_placeholder"
-                )
-              }
-              value={confirmPassword}
-              onChange={(e) =>
-                setConfirmPassword(
-                  e.target.value
-                )
-              }
-              className="
-                w-full
-                bg-black/40
-                border
-                border-white/10
-                rounded-2xl
-                px-5
-                py-4
-                text-lg
-                focus:outline-none
-                focus:border-yellow-400
-              "
-              required
-            />
-
-          </div>
-
-          {/* ROLE */}
-
-          <div>
-
-            <label className="
-              block
-              mb-3
-              text-gray-300
-              font-medium
-            ">
-
-              {t("register.account_type")}
-
-            </label>
-
-            <select
-              value={role}
-              onChange={(e) =>
-                setRole(
-                  e.target.value
-                )
-              }
-              className="
-                w-full
-                bg-black/40
-                border
-                border-white/10
-                rounded-2xl
-                px-5
-                py-4
-                text-lg
-                focus:outline-none
-                focus:border-yellow-400
-              "
-            >
-
-              <option value="driver">
-
-                {t("register.driver")}
-
-              </option>
-
-              <option value="company">
-
-                {t("register.company")}
-
-              </option>
-
-            </select>
-
-          </div>
-
-          {/* TERMS */}
+          </select>
 
           <div className="
             flex
-            items-start
-            gap-4
+            items-center
+            gap-3
           ">
 
             <input
@@ -586,21 +475,15 @@ export default function RegisterPage() {
                   e.target.checked
                 )
               }
-              className="mt-1"
             />
 
-            <p className="
-              text-gray-400
-              leading-relaxed
-            ">
+            <p>
 
               {t("register.terms")}
 
             </p>
 
           </div>
-
-          {/* BUTTON */}
 
           <button
             type="submit"
@@ -613,10 +496,6 @@ export default function RegisterPage() {
               rounded-2xl
               font-black
               text-xl
-              hover:scale-[1.02]
-              transition-all
-              disabled:opacity-50
-              shadow-[0_0_40px_rgba(250,204,21,0.35)]
             "
           >
 
@@ -628,15 +507,12 @@ export default function RegisterPage() {
 
         </form>
 
-        {/* MESSAGE */}
-
         {message && (
 
           <div className="
             mt-6
             text-center
             text-yellow-400
-            font-semibold
           ">
 
             {message}
@@ -644,8 +520,6 @@ export default function RegisterPage() {
           </div>
 
         )}
-
-        {/* LOGIN */}
 
         <div className="
           mt-10
@@ -660,7 +534,6 @@ export default function RegisterPage() {
             className="
               text-yellow-400
               ml-2
-              hover:text-yellow-300
             "
           >
 
