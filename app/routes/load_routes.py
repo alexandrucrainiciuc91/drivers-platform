@@ -184,3 +184,31 @@ def get_loads(
     ).all()
 
     return loads
+# =====================================================
+# GET SINGLE LOAD
+# =====================================================
+
+@router.get("/load/{load_id}")
+def get_load(
+
+    load_id: int,
+
+    db: Session = Depends(get_db)
+):
+
+    load = db.query(
+        Load
+    ).filter(
+        Load.id == load_id
+    ).first()
+
+    if not load:
+
+        raise HTTPException(
+
+            status_code=404,
+
+            detail="Load not found"
+        )
+
+    return load
