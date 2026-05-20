@@ -2,7 +2,25 @@
 
 import { useState } from "react";
 
+import {
+
+  Select,
+
+  SelectContent,
+
+  SelectItem,
+
+  SelectTrigger,
+
+  SelectValue
+
+} from "@/components/ui/select";
+
 export default function PostLoadPage() {
+
+  // =====================================================
+  // STATES
+  // =====================================================
 
   const [
     pickupCountry,
@@ -87,7 +105,7 @@ export default function PostLoadPage() {
 
       const response =
         await fetch(
-          "https://drivers-platform-production.up.railway.app/create-load",
+          `${process.env.NEXT_PUBLIC_API_URL}/create-load`,
           {
             method: "POST",
 
@@ -172,6 +190,10 @@ export default function PostLoadPage() {
     }
   }
 
+  // =====================================================
+  // UI
+  // =====================================================
+
   return (
 
     <div className="
@@ -183,9 +205,11 @@ export default function PostLoadPage() {
     ">
 
       <div className="
-        max-w-4xl
+        max-w-5xl
         mx-auto
       ">
+
+        {/* HEADER */}
 
         <h1 className="
           text-6xl
@@ -200,13 +224,15 @@ export default function PostLoadPage() {
         <p className="
           text-gray-400
           text-xl
-          mb-10
+          mb-12
         ">
 
           Publish transport loads
           for drivers and carriers.
 
         </p>
+
+        {/* FORM */}
 
         <form
           onSubmit={handleSubmit}
@@ -219,45 +245,58 @@ export default function PostLoadPage() {
 
           {/* PICKUP COUNTRY */}
 
-          <select
+          <Select
             value={pickupCountry}
-            onChange={(e) =>
-              setPickupCountry(
-                e.target.value
-              )
+            onValueChange={
+              setPickupCountry
             }
-            className="
-              bg-white/5
-              border
-              border-white/10
-              rounded-2xl
-              px-5
-              py-4
-            "
-            required
           >
 
-            <option value="">
-              Pickup Country
-            </option>
+            <SelectTrigger
+              className="
+                h-14
+                rounded-2xl
+                bg-white/5
+                border-white/10
+                text-white
+              "
+            >
 
-            <option>
-              Romania
-            </option>
+              <SelectValue
+                placeholder="
+                  Pickup Country
+                "
+              />
 
-            <option>
-              Germany
-            </option>
+            </SelectTrigger>
 
-            <option>
-              France
-            </option>
+            <SelectContent
+              className="
+                bg-black
+                border-white/10
+                text-white
+              "
+            >
 
-            <option>
-              Spain
-            </option>
+              <SelectItem value="Romania">
+                🇷🇴 Romania
+              </SelectItem>
 
-          </select>
+              <SelectItem value="Germany">
+                🇩🇪 Germany
+              </SelectItem>
+
+              <SelectItem value="France">
+                🇫🇷 France
+              </SelectItem>
+
+              <SelectItem value="Spain">
+                🇪🇸 Spain
+              </SelectItem>
+
+            </SelectContent>
+
+          </Select>
 
           {/* PICKUP CITY */}
 
@@ -271,57 +310,72 @@ export default function PostLoadPage() {
               )
             }
             className="
+              h-14
               bg-white/5
               border
               border-white/10
               rounded-2xl
               px-5
-              py-4
+              text-white
+              placeholder:text-gray-500
             "
             required
           />
 
           {/* DELIVERY COUNTRY */}
 
-          <select
+          <Select
             value={deliveryCountry}
-            onChange={(e) =>
-              setDeliveryCountry(
-                e.target.value
-              )
+            onValueChange={
+              setDeliveryCountry
             }
-            className="
-              bg-white/5
-              border
-              border-white/10
-              rounded-2xl
-              px-5
-              py-4
-            "
-            required
           >
 
-            <option value="">
-              Delivery Country
-            </option>
+            <SelectTrigger
+              className="
+                h-14
+                rounded-2xl
+                bg-white/5
+                border-white/10
+                text-white
+              "
+            >
 
-            <option>
-              Romania
-            </option>
+              <SelectValue
+                placeholder="
+                  Delivery Country
+                "
+              />
 
-            <option>
-              Germany
-            </option>
+            </SelectTrigger>
 
-            <option>
-              France
-            </option>
+            <SelectContent
+              className="
+                bg-black
+                border-white/10
+                text-white
+              "
+            >
 
-            <option>
-              Spain
-            </option>
+              <SelectItem value="Romania">
+                🇷🇴 Romania
+              </SelectItem>
 
-          </select>
+              <SelectItem value="Germany">
+                🇩🇪 Germany
+              </SelectItem>
+
+              <SelectItem value="France">
+                🇫🇷 France
+              </SelectItem>
+
+              <SelectItem value="Spain">
+                🇪🇸 Spain
+              </SelectItem>
+
+            </SelectContent>
+
+          </Select>
 
           {/* DELIVERY CITY */}
 
@@ -335,17 +389,19 @@ export default function PostLoadPage() {
               )
             }
             className="
+              h-14
               bg-white/5
               border
               border-white/10
               rounded-2xl
               px-5
-              py-4
+              text-white
+              placeholder:text-gray-500
             "
             required
           />
 
-          {/* KM */}
+          {/* DISTANCE */}
 
           <input
             type="number"
@@ -357,12 +413,14 @@ export default function PostLoadPage() {
               )
             }
             className="
+              h-14
               bg-white/5
               border
               border-white/10
               rounded-2xl
               px-5
-              py-4
+              text-white
+              placeholder:text-gray-500
             "
             required
           />
@@ -379,141 +437,182 @@ export default function PostLoadPage() {
               )
             }
             className="
+              h-14
               bg-white/5
               border
               border-white/10
               rounded-2xl
               px-5
-              py-4
+              text-white
+              placeholder:text-gray-500
             "
             required
           />
 
           {/* TRANSPORT TYPE */}
 
-          <select
+          <Select
             value={transportType}
-            onChange={(e) =>
-              setTransportType(
-                e.target.value
-              )
+            onValueChange={
+              setTransportType
             }
-            className="
-              bg-white/5
-              border
-              border-white/10
-              rounded-2xl
-              px-5
-              py-4
-            "
-            required
           >
 
-            <option value="">
-              Transport Type
-            </option>
+            <SelectTrigger
+              className="
+                h-14
+                rounded-2xl
+                bg-white/5
+                border-white/10
+                text-white
+              "
+            >
 
-            <option>
-              Frigo
-            </option>
+              <SelectValue
+                placeholder="
+                  Transport Type
+                "
+              />
 
-            <option>
-              Curtain
-            </option>
+            </SelectTrigger>
 
-            <option>
-              ADR
-            </option>
+            <SelectContent
+              className="
+                bg-black
+                border-white/10
+                text-white
+              "
+            >
 
-            <option>
-              Container
-            </option>
+              <SelectItem value="Frigo">
+                ❄️ Frigo
+              </SelectItem>
 
-          </select>
+              <SelectItem value="Curtain">
+                🚛 Curtain
+              </SelectItem>
+
+              <SelectItem value="ADR">
+                ☣️ ADR
+              </SelectItem>
+
+              <SelectItem value="Container">
+                📦 Container
+              </SelectItem>
+
+            </SelectContent>
+
+          </Select>
 
           {/* CARGO TYPE */}
 
-          <select
+          <Select
             value={cargoType}
-            onChange={(e) =>
-              setCargoType(
-                e.target.value
-              )
+            onValueChange={
+              setCargoType
             }
-            className="
-              bg-white/5
-              border
-              border-white/10
-              rounded-2xl
-              px-5
-              py-4
-            "
-            required
           >
 
-            <option value="">
-              Cargo Type
-            </option>
+            <SelectTrigger
+              className="
+                h-14
+                rounded-2xl
+                bg-white/5
+                border-white/10
+                text-white
+              "
+            >
 
-            <option>
-              General Cargo
-            </option>
+              <SelectValue
+                placeholder="
+                  Cargo Type
+                "
+              />
 
-            <option>
-              Food
-            </option>
+            </SelectTrigger>
 
-            <option>
-              ADR
-            </option>
+            <SelectContent
+              className="
+                bg-black
+                border-white/10
+                text-white
+              "
+            >
 
-            <option>
-              Cars
-            </option>
+              <SelectItem value="General Cargo">
+                📦 General Cargo
+              </SelectItem>
 
-          </select>
+              <SelectItem value="Food">
+                🍎 Food
+              </SelectItem>
+
+              <SelectItem value="ADR">
+                ☣️ ADR
+              </SelectItem>
+
+              <SelectItem value="Cars">
+                🚗 Cars
+              </SelectItem>
+
+            </SelectContent>
+
+          </Select>
 
           {/* WEIGHT */}
 
-          <select
+          <Select
             value={totalWeight}
-            onChange={(e) =>
-              setTotalWeight(
-                e.target.value
-              )
+            onValueChange={
+              setTotalWeight
             }
-            className="
-              bg-white/5
-              border
-              border-white/10
-              rounded-2xl
-              px-5
-              py-4
-            "
-            required
           >
 
-            <option value="">
-              Total Weight
-            </option>
+            <SelectTrigger
+              className="
+                h-14
+                rounded-2xl
+                bg-white/5
+                border-white/10
+                text-white
+              "
+            >
 
-            <option>
-              0-3.5T
-            </option>
+              <SelectValue
+                placeholder="
+                  Total Weight
+                "
+              />
 
-            <option>
-              3.5-7.5T
-            </option>
+            </SelectTrigger>
 
-            <option>
-              7.5-24T
-            </option>
+            <SelectContent
+              className="
+                bg-black
+                border-white/10
+                text-white
+              "
+            >
 
-            <option>
-              24T+
-            </option>
+              <SelectItem value="0-3.5T">
+                0-3.5T
+              </SelectItem>
 
-          </select>
+              <SelectItem value="3.5-7.5T">
+                3.5-7.5T
+              </SelectItem>
+
+              <SelectItem value="7.5-24T">
+                7.5-24T
+              </SelectItem>
+
+              <SelectItem value="24T+">
+                24T+
+              </SelectItem>
+
+            </SelectContent>
+
+          </Select>
 
           {/* DATE */}
 
@@ -526,12 +625,13 @@ export default function PostLoadPage() {
               )
             }
             className="
+              h-14
               bg-white/5
               border
               border-white/10
               rounded-2xl
               px-5
-              py-4
+              text-white
             "
             required
           />
@@ -548,12 +648,14 @@ export default function PostLoadPage() {
               )
             }
             className="
+              h-14
               bg-white/5
               border
               border-white/10
               rounded-2xl
               px-5
-              py-4
+              text-white
+              placeholder:text-gray-500
             "
             required
           />
@@ -576,7 +678,9 @@ export default function PostLoadPage() {
               rounded-2xl
               px-5
               py-4
-              min-h-[140px]
+              min-h-[160px]
+              text-white
+              placeholder:text-gray-500
             "
           />
 
@@ -593,6 +697,8 @@ export default function PostLoadPage() {
               rounded-2xl
               font-black
               text-xl
+              hover:scale-[1.01]
+              transition
             "
           >
 
