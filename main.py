@@ -52,6 +52,7 @@ from app.routes.chat_routes import (
 from app.models.message import (
     Message
 )
+from app.routes.load_routes import router as load_router
 from app.routes.notification_routes import (
     router as notification_router
 )
@@ -96,6 +97,7 @@ app.include_router(
     chat_router
 )
 app.include_router(auth_router)
+app.include_router(load_router)
 
 @app.get("/company/stats")
 def get_company_stats():
