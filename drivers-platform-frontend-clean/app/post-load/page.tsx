@@ -4,6 +4,14 @@ import { useState } from "react";
 
 import {
 
+  Country,
+
+  City
+
+} from "country-state-city";
+
+import {
+
   Select,
 
   SelectContent,
@@ -85,6 +93,84 @@ export default function PostLoadPage() {
     useState(false);
 
   // =====================================================
+  // EUROPE COUNTRIES
+  // =====================================================
+
+  const europeanCountryCodes = [
+
+    "AL",
+    "AD",
+    "AT",
+    "BY",
+    "BE",
+    "BA",
+    "BG",
+    "HR",
+    "CY",
+    "CZ",
+    "DK",
+    "EE",
+    "FI",
+    "FR",
+    "DE",
+    "GR",
+    "HU",
+    "IS",
+    "IE",
+    "IT",
+    "LV",
+    "LI",
+    "LT",
+    "LU",
+    "MT",
+    "MD",
+    "MC",
+    "ME",
+    "NL",
+    "MK",
+    "NO",
+    "PL",
+    "PT",
+    "RO",
+    "SM",
+    "RS",
+    "SK",
+    "SI",
+    "ES",
+    "SE",
+    "CH",
+    "TR",
+    "UA",
+    "GB",
+    "VA"
+
+  ];
+
+  const europeanCountries =
+    Country.getAllCountries()
+      .filter(
+        (country) =>
+
+          europeanCountryCodes.includes(
+            country.isoCode
+          )
+      );
+
+  const pickupCities =
+    pickupCountry
+      ? City.getCitiesOfCountry(
+          pickupCountry
+        ) || []
+      : [];
+
+  const deliveryCities =
+    deliveryCountry
+      ? City.getCitiesOfCountry(
+          deliveryCountry
+        ) || []
+      : [];
+
+  // =====================================================
   // SUBMIT
   // =====================================================
 
@@ -110,6 +196,7 @@ export default function PostLoadPage() {
             method: "POST",
 
             headers: {
+
               "Content-Type":
                 "application/json",
 
@@ -160,8 +247,6 @@ export default function PostLoadPage() {
       const data =
         await response.json();
 
-      console.log(data);
-
       if (response.ok) {
 
         setMessage(
@@ -205,14 +290,14 @@ export default function PostLoadPage() {
     ">
 
       <div className="
-        max-w-5xl
+        max-w-7xl
         mx-auto
       ">
 
         {/* HEADER */}
 
         <h1 className="
-          text-6xl
+          text-7xl
           font-black
           mb-4
         ">
@@ -223,8 +308,9 @@ export default function PostLoadPage() {
 
         <p className="
           text-gray-400
-          text-xl
+          text-2xl
           mb-12
+          max-w-3xl
         ">
 
           Publish transport loads
@@ -238,7 +324,7 @@ export default function PostLoadPage() {
           onSubmit={handleSubmit}
           className="
             grid
-            md:grid-cols-2
+            lg:grid-cols-2
             gap-6
           "
         >
@@ -275,24 +361,25 @@ export default function PostLoadPage() {
                 bg-black
                 border-white/10
                 text-white
+                max-h-72
               "
             >
 
-              <SelectItem value="Romania">
-                🇷🇴 Romania
-              </SelectItem>
+              {europeanCountries.map(
+                (country) => (
 
-              <SelectItem value="Germany">
-                🇩🇪 Germany
-              </SelectItem>
+                  <SelectItem
+                    key={country.isoCode}
+                    value={country.isoCode}
+                  >
 
-              <SelectItem value="France">
-                🇫🇷 France
-              </SelectItem>
+                    {country.flag}
+                    {" "}
+                    {country.name}
 
-              <SelectItem value="Spain">
-                🇪🇸 Spain
-              </SelectItem>
+                  </SelectItem>
+                )
+              )}
 
             </SelectContent>
 
@@ -300,27 +387,57 @@ export default function PostLoadPage() {
 
           {/* PICKUP CITY */}
 
-          <input
-            type="text"
-            placeholder="Pickup City"
+          <Select
             value={pickupCity}
-            onChange={(e) =>
-              setPickupCity(
-                e.target.value
-              )
+            onValueChange={
+              setPickupCity
             }
-            className="
-              h-14
-              bg-white/5
-              border
-              border-white/10
-              rounded-2xl
-              px-5
-              text-white
-              placeholder:text-gray-500
-            "
-            required
-          />
+          >
+
+            <SelectTrigger
+              className="
+                h-14
+                rounded-2xl
+                bg-white/5
+                border-white/10
+                text-white
+              "
+            >
+
+              <SelectValue
+                placeholder="
+                  Pickup City
+                "
+              />
+
+            </SelectTrigger>
+
+            <SelectContent
+              className="
+                bg-black
+                border-white/10
+                text-white
+                max-h-72
+              "
+            >
+
+              {pickupCities.map(
+                (city) => (
+
+                  <SelectItem
+                    key={city.name}
+                    value={city.name}
+                  >
+
+                    {city.name}
+
+                  </SelectItem>
+                )
+              )}
+
+            </SelectContent>
+
+          </Select>
 
           {/* DELIVERY COUNTRY */}
 
@@ -354,24 +471,25 @@ export default function PostLoadPage() {
                 bg-black
                 border-white/10
                 text-white
+                max-h-72
               "
             >
 
-              <SelectItem value="Romania">
-                🇷🇴 Romania
-              </SelectItem>
+              {europeanCountries.map(
+                (country) => (
 
-              <SelectItem value="Germany">
-                🇩🇪 Germany
-              </SelectItem>
+                  <SelectItem
+                    key={country.isoCode}
+                    value={country.isoCode}
+                  >
 
-              <SelectItem value="France">
-                🇫🇷 France
-              </SelectItem>
+                    {country.flag}
+                    {" "}
+                    {country.name}
 
-              <SelectItem value="Spain">
-                🇪🇸 Spain
-              </SelectItem>
+                  </SelectItem>
+                )
+              )}
 
             </SelectContent>
 
@@ -379,27 +497,57 @@ export default function PostLoadPage() {
 
           {/* DELIVERY CITY */}
 
-          <input
-            type="text"
-            placeholder="Delivery City"
+          <Select
             value={deliveryCity}
-            onChange={(e) =>
-              setDeliveryCity(
-                e.target.value
-              )
+            onValueChange={
+              setDeliveryCity
             }
-            className="
-              h-14
-              bg-white/5
-              border
-              border-white/10
-              rounded-2xl
-              px-5
-              text-white
-              placeholder:text-gray-500
-            "
-            required
-          />
+          >
+
+            <SelectTrigger
+              className="
+                h-14
+                rounded-2xl
+                bg-white/5
+                border-white/10
+                text-white
+              "
+            >
+
+              <SelectValue
+                placeholder="
+                  Delivery City
+                "
+              />
+
+            </SelectTrigger>
+
+            <SelectContent
+              className="
+                bg-black
+                border-white/10
+                text-white
+                max-h-72
+              "
+            >
+
+              {deliveryCities.map(
+                (city) => (
+
+                  <SelectItem
+                    key={city.name}
+                    value={city.name}
+                  >
+
+                    {city.name}
+
+                  </SelectItem>
+                )
+              )}
+
+            </SelectContent>
+
+          </Select>
 
           {/* DISTANCE */}
 
@@ -420,7 +568,6 @@ export default function PostLoadPage() {
               rounded-2xl
               px-5
               text-white
-              placeholder:text-gray-500
             "
             required
           />
@@ -444,7 +591,6 @@ export default function PostLoadPage() {
               rounded-2xl
               px-5
               text-white
-              placeholder:text-gray-500
             "
             required
           />
@@ -655,7 +801,6 @@ export default function PostLoadPage() {
               rounded-2xl
               px-5
               text-white
-              placeholder:text-gray-500
             "
             required
           />
@@ -671,16 +816,15 @@ export default function PostLoadPage() {
               )
             }
             className="
-              md:col-span-2
+              lg:col-span-2
               bg-white/5
               border
               border-white/10
               rounded-2xl
               px-5
               py-4
-              min-h-[160px]
+              min-h-[180px]
               text-white
-              placeholder:text-gray-500
             "
           />
 
@@ -690,7 +834,7 @@ export default function PostLoadPage() {
             type="submit"
             disabled={loading}
             className="
-              md:col-span-2
+              lg:col-span-2
               bg-yellow-400
               text-black
               py-5
@@ -718,6 +862,7 @@ export default function PostLoadPage() {
             mt-8
             text-yellow-400
             font-bold
+            text-xl
           ">
 
             {message}
