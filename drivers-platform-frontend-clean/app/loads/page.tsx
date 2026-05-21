@@ -6,8 +6,12 @@ import {
 } from "react";
 
 import {
-  europeanCountries
-} from "@/data/countries";
+
+  Country,
+
+  City
+
+} from "country-state-city";
 
 import {
 
@@ -40,7 +44,9 @@ export default function LoadsPage() {
   const [loading, setLoading] =
     useState(true);
 
+  // =====================================================
   // FILTERS
+  // =====================================================
 
   const [
     pickupCountry,
@@ -48,8 +54,18 @@ export default function LoadsPage() {
   ] = useState("");
 
   const [
+    pickupCity,
+    setPickupCity
+  ] = useState("");
+
+  const [
     deliveryCountry,
     setDeliveryCountry
+  ] = useState("");
+
+  const [
+    deliveryCity,
+    setDeliveryCity
   ] = useState("");
 
   const [
@@ -61,6 +77,84 @@ export default function LoadsPage() {
     minPrice,
     setMinPrice
   ] = useState("");
+
+  // =====================================================
+  // COUNTRIES + CITIES
+  // =====================================================
+
+const europeanCountryCodes = [
+
+  "AL",
+  "AD",
+  "AT",
+  "BY",
+  "BE",
+  "BA",
+  "BG",
+  "HR",
+  "CY",
+  "CZ",
+  "DK",
+  "EE",
+  "FI",
+  "FR",
+  "DE",
+  "GR",
+  "HU",
+  "IS",
+  "IE",
+  "IT",
+  "LV",
+  "LI",
+  "LT",
+  "LU",
+  "MT",
+  "MD",
+  "MC",
+  "ME",
+  "NL",
+  "MK",
+  "NO",
+  "PL",
+  "PT",
+  "RO",
+  "SM",
+  "RS",
+  "SK",
+  "SI",
+  "ES",
+  "SE",
+  "CH",
+  "TR",
+  "UA",
+  "GB",
+  "VA"
+
+];
+
+const europeanCountries =
+  Country.getAllCountries()
+    .filter(
+      (country) =>
+
+        europeanCountryCodes.includes(
+          country.isoCode
+        )
+    );
+
+  const pickupCities =
+    pickupCountry
+      ? City.getCitiesOfCountry(
+          pickupCountry
+        ) || []
+      : [];
+
+  const deliveryCities =
+    deliveryCountry
+      ? City.getCitiesOfCountry(
+          deliveryCountry
+        ) || []
+      : [];
 
   // =====================================================
   // FETCH LOADS
@@ -96,8 +190,6 @@ export default function LoadsPage() {
       const data =
         await response.json();
 
-      console.log(data);
-
       setLoads(data);
 
       setFilteredLoads(data);
@@ -121,19 +213,33 @@ export default function LoadsPage() {
     const filtered = loads.filter(
       (load) => {
 
-        const pickupMatch =
+        const pickupCountryMatch =
 
           pickupCountry === "" ||
 
           load.pickup_country ===
           pickupCountry;
 
-        const deliveryMatch =
+        const pickupCityMatch =
+
+          pickupCity === "" ||
+
+          load.pickup_city ===
+          pickupCity;
+
+        const deliveryCountryMatch =
 
           deliveryCountry === "" ||
 
           load.delivery_country ===
           deliveryCountry;
+
+        const deliveryCityMatch =
+
+          deliveryCity === "" ||
+
+          load.delivery_city ===
+          deliveryCity;
 
         const transportMatch =
 
@@ -151,8 +257,10 @@ export default function LoadsPage() {
 
         return (
 
-          pickupMatch &&
-          deliveryMatch &&
+          pickupCountryMatch &&
+          pickupCityMatch &&
+          deliveryCountryMatch &&
+          deliveryCityMatch &&
           transportMatch &&
           priceMatch
         );
@@ -165,7 +273,11 @@ export default function LoadsPage() {
 
     pickupCountry,
 
+    pickupCity,
+
     deliveryCountry,
+
+    deliveryCity,
 
     transportType,
 
@@ -247,7 +359,8 @@ export default function LoadsPage() {
 
         <div className="
           grid
-          md:grid-cols-4
+          md:grid-cols-3
+          lg:grid-cols-6
           gap-4
         ">
 
@@ -283,7 +396,7 @@ export default function LoadsPage() {
                 bg-black
                 border-white/10
                 text-white
-                max-h-[300px]
+                max-h-72
               "
             >
 
@@ -291,11 +404,67 @@ export default function LoadsPage() {
                 (country) => (
 
                   <SelectItem
-                    key={country}
-                    value={country}
+                    key={country.isoCode}
+                    value={country.isoCode}
                   >
 
-                    {country}
+                    {country.flag}
+                    {" "}
+                    {country.name}
+
+                  </SelectItem>
+                )
+              )}
+
+            </SelectContent>
+
+          </Select>
+
+          {/* PICKUP CITY */}
+
+          <Select
+            value={pickupCity}
+            onValueChange={
+              setPickupCity
+            }
+          >
+
+            <SelectTrigger
+              className="
+                h-14
+                rounded-2xl
+                bg-white/5
+                border-white/10
+                text-white
+              "
+            >
+
+              <SelectValue
+                placeholder="
+                  Pickup City
+                "
+              />
+
+            </SelectTrigger>
+
+            <SelectContent
+              className="
+                bg-black
+                border-white/10
+                text-white
+                max-h-72
+              "
+            >
+
+              {pickupCities.map(
+                (city) => (
+
+                  <SelectItem
+                    key={city.name}
+                    value={city.name}
+                  >
+
+                    {city.name}
 
                   </SelectItem>
                 )
@@ -337,7 +506,7 @@ export default function LoadsPage() {
                 bg-black
                 border-white/10
                 text-white
-                max-h-[300px]
+                max-h-72
               "
             >
 
@@ -345,11 +514,67 @@ export default function LoadsPage() {
                 (country) => (
 
                   <SelectItem
-                    key={country}
-                    value={country}
+                    key={country.isoCode}
+                    value={country.isoCode}
                   >
 
-                    {country}
+                    {country.flag}
+                    {" "}
+                    {country.name}
+
+                  </SelectItem>
+                )
+              )}
+
+            </SelectContent>
+
+          </Select>
+
+          {/* DELIVERY CITY */}
+
+          <Select
+            value={deliveryCity}
+            onValueChange={
+              setDeliveryCity
+            }
+          >
+
+            <SelectTrigger
+              className="
+                h-14
+                rounded-2xl
+                bg-white/5
+                border-white/10
+                text-white
+              "
+            >
+
+              <SelectValue
+                placeholder="
+                  Delivery City
+                "
+              />
+
+            </SelectTrigger>
+
+            <SelectContent
+              className="
+                bg-black
+                border-white/10
+                text-white
+                max-h-72
+              "
+            >
+
+              {deliveryCities.map(
+                (city) => (
+
+                  <SelectItem
+                    key={city.name}
+                    value={city.name}
+                  >
+
+                    {city.name}
 
                   </SelectItem>
                 )
@@ -523,7 +748,9 @@ export default function LoadsPage() {
 
               </div>
 
-              <div className="text-right">
+              <div className="
+                text-right
+              ">
 
                 <p className="
                   text-gray-500
