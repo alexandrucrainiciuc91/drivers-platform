@@ -185,73 +185,117 @@ export default function PostLoadPage() {
       setLoading(true);
 
       const token =
-        localStorage.getItem(
-          "token"
-        );
+          localStorage.getItem(
+              "token"
+          );
 
       const response =
-        await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/create-load`,
-          {
-            method: "POST",
+          await fetch(
+              `${process.env.NEXT_PUBLIC_API_URL}/create-load`,
+              {
+                method: "POST",
 
-            headers: {
+                headers: {
 
-              "Content-Type":
-                "application/json",
+                  "Content-Type":
+                      "application/json",
 
-              Authorization:
-                `Bearer ${token}`
-            },
+                  Authorization:
+                      `Bearer ${token}`
+                },
 
-            body: JSON.stringify({
+                body: JSON.stringify({
 
-              pickup_country:
-                pickupCountry,
+                  pickup_country:
+                  pickupCountry,
 
-              pickup_city:
-                pickupCity,
+                  pickup_city:
+                  pickupCity,
 
-              delivery_country:
-                deliveryCountry,
+                  delivery_country:
+                  deliveryCountry,
 
-              delivery_city:
-                deliveryCity,
+                  delivery_city:
+                  deliveryCity,
 
-              distance_km:
-                Number(distanceKm),
+                  distance_km:
+                      Number(distanceKm),
 
-              price:
-                Number(price),
+                  price:
+                      Number(price),
 
-              transport_type:
-                transportType,
+                  transport_type:
+                  transportType,
 
-              cargo_type:
-                cargoType,
+                  cargo_type:
+                  cargoType,
 
-              total_weight:
-                totalWeight,
+                  total_weight:
+                  totalWeight,
 
-              special_requirements:
-                specialRequirements,
+                  special_requirements:
+                  specialRequirements,
 
-              loading_date:
-                loadingDate,
+                  loading_date:
+                  loadingDate,
 
-              phone
-            })
-          }
-        );
+                  phone
+                })
+              }
+          );
 
       const data =
-        await response.json();
+          await response.json();
 
       if (response.ok) {
 
+        // ============================================
+        // SUCCESS MESSAGE
+        // ============================================
+
         setMessage(
-          "Load posted successfully"
+            "Load posted successfully"
         );
+
+        // ============================================
+        // RESET FORM
+        // ============================================
+
+        setPickupCountry("");
+
+        setPickupCity("");
+
+        setDeliveryCountry("");
+
+        setDeliveryCity("");
+
+        setDistanceKm("");
+
+        setPrice("");
+
+        setTransportType("");
+
+        setCargoType("");
+
+        setTotalWeight("");
+
+        setSpecialRequirements("");
+
+        setLoadingDate("");
+
+        setPhone("");
+
+        // ============================================
+        // REDIRECT
+        // ============================================
+
+        setTimeout(() => {
+
+          window.location.href =
+              "/loads";
+
+        }, 1200);
+        
 
       } else {
 
