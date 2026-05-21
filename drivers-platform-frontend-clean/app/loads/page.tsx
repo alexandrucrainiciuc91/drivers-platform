@@ -6,6 +6,10 @@ import {
 } from "react";
 
 import {
+  europeanCountries
+} from "@/data/countries";
+
+import {
 
   Select,
 
@@ -72,22 +76,23 @@ export default function LoadsPage() {
 
     try {
 
-     const token =
-  localStorage.getItem(
-    "token"
-  );
+      const token =
+        localStorage.getItem(
+          "token"
+        );
 
-const response =
-  await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/loads`,
-    {
-      headers: {
+      const response =
+        await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/loads`,
+          {
+            headers: {
 
-        Authorization:
-          `Bearer ${token}`
-      }
-    }
-  );
+              Authorization:
+                `Bearer ${token}`
+            }
+          }
+        );
+
       const data =
         await response.json();
 
@@ -278,24 +283,23 @@ const response =
                 bg-black
                 border-white/10
                 text-white
+                max-h-[300px]
               "
             >
 
-              <SelectItem value="Romania">
-                🇷🇴 Romania
-              </SelectItem>
+              {europeanCountries.map(
+                (country) => (
 
-              <SelectItem value="Germany">
-                🇩🇪 Germany
-              </SelectItem>
+                  <SelectItem
+                    key={country}
+                    value={country}
+                  >
 
-              <SelectItem value="France">
-                🇫🇷 France
-              </SelectItem>
+                    {country}
 
-              <SelectItem value="Spain">
-                🇪🇸 Spain
-              </SelectItem>
+                  </SelectItem>
+                )
+              )}
 
             </SelectContent>
 
@@ -333,24 +337,23 @@ const response =
                 bg-black
                 border-white/10
                 text-white
+                max-h-[300px]
               "
             >
 
-              <SelectItem value="Romania">
-                🇷🇴 Romania
-              </SelectItem>
+              {europeanCountries.map(
+                (country) => (
 
-              <SelectItem value="Germany">
-                🇩🇪 Germany
-              </SelectItem>
+                  <SelectItem
+                    key={country}
+                    value={country}
+                  >
 
-              <SelectItem value="France">
-                🇫🇷 France
-              </SelectItem>
+                    {country}
 
-              <SelectItem value="Spain">
-                🇪🇸 Spain
-              </SelectItem>
+                  </SelectItem>
+                )
+              )}
 
             </SelectContent>
 
