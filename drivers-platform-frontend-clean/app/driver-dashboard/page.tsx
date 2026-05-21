@@ -475,7 +475,180 @@ async function fetchDashboard(
                 >
 
                   Logout
+{/* MARKETPLACE ACTIONS */}
 
+<div className="
+  grid
+  md:grid-cols-3
+  gap-6
+  mt-14
+">
+
+  {/* LOADS */}
+
+  <a
+    href="/loads"
+    className="
+      bg-white/5
+      border
+      border-white/10
+      rounded-3xl
+      p-8
+      hover:border-yellow-400/40
+      transition
+      backdrop-blur-xl
+    "
+  >
+
+    <p className="
+      text-gray-500
+      uppercase
+      text-sm
+      mb-4
+    ">
+
+      Marketplace
+
+    </p>
+
+    <h2 className="
+      text-3xl
+      font-black
+      mb-3
+    ">
+
+      Loads Marketplace
+
+    </h2>
+
+    <p className="
+      text-gray-400
+      leading-relaxed
+    ">
+
+      Browse transport loads
+      across Europe.
+
+    </p>
+
+  </a>
+
+  {/* FREE LIMIT */}
+
+  <div
+    className="
+      bg-white/5
+      border
+      border-white/10
+      rounded-3xl
+      p-8
+      backdrop-blur-xl
+    "
+  >
+
+    <p className="
+      text-gray-500
+      uppercase
+      text-sm
+      mb-4
+    ">
+
+      Free Plan Limit
+
+    </p>
+
+    <h2 className="
+      text-5xl
+      font-black
+      text-yellow-400
+      mb-3
+    ">
+
+      {plan === "free"
+        ? "3"
+        : "∞"}
+
+    </h2>
+
+    <p className="
+      text-gray-400
+    ">
+
+      Visible loads
+
+    </p>
+
+  </div>
+
+  {/* PREMIUM */}
+
+  <div
+    className="
+      bg-gradient-to-br
+      from-yellow-500/10
+      to-orange-500/10
+      border
+      border-yellow-400/20
+      rounded-3xl
+      p-8
+    "
+  >
+
+    <p className="
+      text-yellow-400
+      uppercase
+      text-sm
+      mb-4
+      font-bold
+    ">
+
+      Premium Access
+
+    </p>
+
+    <h2 className="
+      text-3xl
+      font-black
+      mb-4
+    ">
+
+      Unlimited Loads
+
+    </h2>
+
+    <p className="
+      text-gray-300
+      mb-6
+    ">
+
+      Upgrade your account
+      to unlock all marketplace loads.
+
+    </p>
+
+    {plan === "free" && (
+
+      <button
+        onClick={openCheckout}
+        className="
+          bg-yellow-400
+          text-black
+          px-6
+          py-3
+          rounded-2xl
+          font-black
+        "
+      >
+
+        Upgrade Now
+
+      </button>
+
+    )}
+
+  </div>
+
+</div>
                 </button>
 
               </div>

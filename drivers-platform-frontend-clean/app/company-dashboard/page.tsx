@@ -370,7 +370,183 @@ export default function CompanyDashboard() {
             </div>
 
           </div>
+{/* LOAD MARKETPLACE */}
 
+<div className="
+  grid
+  lg:grid-cols-3
+  gap-6
+  mb-10
+">
+
+  {/* POST LOAD */}
+
+  <a
+    href="/post-load"
+    className="
+      bg-white/5
+      border
+      border-white/10
+      rounded-3xl
+      p-8
+      hover:border-yellow-400/40
+      transition
+      backdrop-blur-xl
+    "
+  >
+
+    <p className="
+      text-gray-500
+      uppercase
+      text-sm
+      mb-4
+    ">
+
+      Marketplace
+
+    </p>
+
+    <h2 className="
+      text-3xl
+      font-black
+      mb-3
+    ">
+
+      Post Load
+
+    </h2>
+
+    <p className="
+      text-gray-400
+      leading-relaxed
+    ">
+
+      Publish transport loads
+      for drivers and carriers.
+
+    </p>
+
+  </a>
+
+  {/* VIEW LOADS */}
+
+  <a
+    href="/loads"
+    className="
+      bg-white/5
+      border
+      border-white/10
+      rounded-3xl
+      p-8
+      hover:border-yellow-400/40
+      transition
+      backdrop-blur-xl
+    "
+  >
+
+    <p className="
+      text-gray-500
+      uppercase
+      text-sm
+      mb-4
+    ">
+
+      Marketplace
+
+    </p>
+
+    <h2 className="
+      text-3xl
+      font-black
+      mb-3
+    ">
+
+      Browse Loads
+
+    </h2>
+
+    <p className="
+      text-gray-400
+      leading-relaxed
+    ">
+
+      Explore all active
+      transport requests.
+
+    </p>
+
+  </a>
+
+  {/* LIMIT */}
+
+  <div
+    className="
+      bg-gradient-to-br
+      from-yellow-500/10
+      to-orange-500/10
+      border
+      border-yellow-400/20
+      rounded-3xl
+      p-8
+    "
+  >
+
+    <p className="
+      text-yellow-400
+      uppercase
+      text-sm
+      mb-4
+      font-bold
+    ">
+
+      Current Plan
+
+    </p>
+
+    <h2 className="
+      text-5xl
+      font-black
+      mb-3
+    ">
+
+      {plan === "free"
+        ? "5"
+        : "∞"}
+
+    </h2>
+
+    <p className="
+      text-gray-300
+      mb-6
+    ">
+
+      Posted loads limit
+
+    </p>
+
+    {plan === "free" && (
+
+      <button
+        onClick={openCheckout}
+        className="
+          bg-yellow-400
+          text-black
+          px-6
+          py-3
+          rounded-2xl
+          font-black
+        "
+      >
+
+        Upgrade Business
+
+      </button>
+
+    )}
+
+  </div>
+
+</div>
           {/* PREMIUM CARD */}
 
           {plan === "free" && (

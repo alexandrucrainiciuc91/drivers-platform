@@ -106,6 +106,31 @@ def create_load(
         )
 
     # ============================================
+    # FREE PLAN LIMIT
+    # ============================================
+
+    if current_user.subscription_plan == "free":
+
+        loads_count = db.query(
+            Load
+        ).filter(
+            Load.company_id ==
+            current_user.id
+        ).count()
+
+        if loads_count >= 5:
+
+            raise HTTPException(
+
+                status_code=403,
+
+                detail="""
+                Free plan allows
+                maximum 5 posted loads
+                """
+            )
+
+    # ============================================
     # CREATE LOAD
     # ============================================
 
@@ -176,14 +201,34 @@ def create_load(
 @router.get("/loads")
 def get_loads(
 
+    current_user: User = Depends(
+        get_current_user
+    ),
+
     db: Session = Depends(get_db)
 ):
 
     loads = db.query(
         Load
+    ).order_by(
+        Load.id.desc()
     ).all()
 
+    # ============================================
+    # FREE DRIVER LIMIT
+    # ============================================
+
+    if (
+        current_user.role == "driver"
+        and
+        current_user.subscription_plan == "free"
+    ):
+
+        loads = loads[:3]
+
     return loads
+
+
 # =====================================================
 # GET SINGLE LOAD
 # =====================================================
