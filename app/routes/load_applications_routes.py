@@ -210,3 +210,67 @@ def get_load_applications(
     ).all()
 
     return applications
+@router.post(
+    "/application/{application_id}/accept"
+)
+
+def accept_application(
+
+    application_id: int,
+
+    current_user: User = Depends(
+        get_current_user
+    ),
+
+    db: Session = Depends(get_db)
+):
+
+    application = db.query(
+        LoadApplication
+    ).filter(
+        LoadApplication.id
+        == application_id
+    ).first()
+
+    if not application:
+
+        raise HTTPException(
+
+            status_code=404,
+
+            detail="Application not found"
+        )
+
+    load = db.query(
+        Load
+    ).filter(
+        Load.id
+        == application.load_id
+    ).first()
+
+    # ONLY COMPANY OWNER
+
+    if load.company_id != current_user.id:
+
+        raise HTTPException(
+
+            status_code=403,
+
+            detail="Unauthorized"
+        )
+
+    # ACCEPT
+
+    application.status = "accepted"
+
+    # LOAD ASSIGNED
+
+    load.status = "assigned"
+
+    db.commit()
+
+    return {
+
+        "message":
+            "Driver accepted"
+    }

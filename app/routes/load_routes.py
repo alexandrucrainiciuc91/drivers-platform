@@ -257,3 +257,51 @@ def get_load(
         )
 
     return load
+@router.delete(
+    "/load/{load_id}"
+)
+
+def delete_load(
+
+    load_id: int,
+
+    current_user: User = Depends(
+        get_current_user
+    ),
+
+    db: Session = Depends(get_db)
+):
+
+    load = db.query(
+        Load
+    ).filter(
+        Load.id == load_id
+    ).first()
+
+    if not load:
+
+        raise HTTPException(
+
+            status_code=404,
+
+            detail="Load not found"
+        )
+
+    if load.company_id != current_user.id:
+
+        raise HTTPException(
+
+            status_code=403,
+
+            detail="Unauthorized"
+        )
+
+    db.delete(load)
+
+    db.commit()
+
+    return {
+
+        "message":
+        "Load deleted"
+    }
