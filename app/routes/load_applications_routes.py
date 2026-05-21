@@ -1,9 +1,7 @@
 from fastapi import (
-
     APIRouter,
     Depends,
     HTTPException
-
 )
 
 from sqlalchemy.orm import Session
@@ -71,8 +69,7 @@ def apply_to_load(
 
     load_id: int,
 
-    application:
-    ApplicationCreate,
+    application: ApplicationCreate,
 
     current_user: User = Depends(
         get_current_user
@@ -112,18 +109,17 @@ def apply_to_load(
 
     # DUPLICATE CHECK
 
-    existing =
-        db.query(
-            LoadApplication
-        ).filter(
+    existing = db.query(
+        LoadApplication
+    ).filter(
 
-            LoadApplication.load_id
-            == load_id,
+        LoadApplication.load_id
+        == load_id,
 
-            LoadApplication.driver_id
-            == current_user.id
+        LoadApplication.driver_id
+        == current_user.id
 
-        ).first()
+    ).first()
 
     if existing:
 
@@ -137,21 +133,22 @@ def apply_to_load(
 
     # CREATE APPLICATION
 
-    new_application =
-        LoadApplication(
+    new_application = LoadApplication(
 
-            load_id=load_id,
+        load_id=load_id,
 
-            driver_id=
-            current_user.id,
+        driver_id=
+        current_user.id,
 
-            message=
-            application.message
-        )
+        message=
+        application.message
+    )
 
     db.add(new_application)
 
     db.commit()
+
+    db.refresh(new_application)
 
     return {
 
@@ -205,12 +202,11 @@ def get_load_applications(
             detail="Unauthorized"
         )
 
-    applications =
-        db.query(
-            LoadApplication
-        ).filter(
-            LoadApplication.load_id
-            == load_id
-        ).all()
+    applications = db.query(
+        LoadApplication
+    ).filter(
+        LoadApplication.load_id
+        == load_id
+    ).all()
 
     return applications
