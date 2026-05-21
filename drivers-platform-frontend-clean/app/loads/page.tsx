@@ -5,6 +5,8 @@ import {
   useState
 } from "react";
 
+import Link from "next/link";
+
 import {
 
   Country,
@@ -44,6 +46,9 @@ export default function LoadsPage() {
   const [loading, setLoading] =
     useState(true);
 
+  const [takingLoad, setTakingLoad] =
+    useState<number | null>(null);
+
   // =====================================================
   // FILTERS
   // =====================================================
@@ -79,68 +84,68 @@ export default function LoadsPage() {
   ] = useState("");
 
   // =====================================================
-  // COUNTRIES + CITIES
+  // EUROPE COUNTRIES
   // =====================================================
 
-const europeanCountryCodes = [
+  const europeanCountryCodes = [
 
-  "AL",
-  "AD",
-  "AT",
-  "BY",
-  "BE",
-  "BA",
-  "BG",
-  "HR",
-  "CY",
-  "CZ",
-  "DK",
-  "EE",
-  "FI",
-  "FR",
-  "DE",
-  "GR",
-  "HU",
-  "IS",
-  "IE",
-  "IT",
-  "LV",
-  "LI",
-  "LT",
-  "LU",
-  "MT",
-  "MD",
-  "MC",
-  "ME",
-  "NL",
-  "MK",
-  "NO",
-  "PL",
-  "PT",
-  "RO",
-  "SM",
-  "RS",
-  "SK",
-  "SI",
-  "ES",
-  "SE",
-  "CH",
-  "TR",
-  "UA",
-  "GB",
-  "VA"
+    "AL",
+    "AD",
+    "AT",
+    "BY",
+    "BE",
+    "BA",
+    "BG",
+    "HR",
+    "CY",
+    "CZ",
+    "DK",
+    "EE",
+    "FI",
+    "FR",
+    "DE",
+    "GR",
+    "HU",
+    "IS",
+    "IE",
+    "IT",
+    "LV",
+    "LI",
+    "LT",
+    "LU",
+    "MT",
+    "MD",
+    "MC",
+    "ME",
+    "NL",
+    "MK",
+    "NO",
+    "PL",
+    "PT",
+    "RO",
+    "SM",
+    "RS",
+    "SK",
+    "SI",
+    "ES",
+    "SE",
+    "CH",
+    "TR",
+    "UA",
+    "GB",
+    "VA"
 
-];
+  ];
 
-const europeanCountries =
-  Country.getAllCountries()
-    .filter(
-      (country) =>
+  const europeanCountries =
+    Country.getAllCountries()
+      .filter(
+        (country) =>
 
-        europeanCountryCodes.includes(
-          country.isoCode
-        )
-    );
+          europeanCountryCodes.includes(
+            country.isoCode
+          )
+      );
 
   const pickupCities =
     pickupCountry
@@ -162,7 +167,7 @@ const europeanCountries =
 
   useEffect(() => {
 
-    fetchLoads();
+    void fetchLoads();
 
   }, []);
 
@@ -205,6 +210,80 @@ const europeanCountries =
   }
 
   // =====================================================
+  // TAKE LOAD
+  // =====================================================
+
+  async function takeLoad(
+    loadId: number
+  ) {
+
+    try {
+
+      setTakingLoad(loadId);
+
+      const token =
+        localStorage.getItem(
+          "token"
+        );
+
+      const response =
+        await fetch(
+
+          `${process.env.NEXT_PUBLIC_API_URL}/load/${loadId}/apply`,
+
+          {
+            method: "POST",
+
+            headers: {
+
+              "Content-Type":
+                "application/json",
+
+              Authorization:
+                `Bearer ${token}`
+            },
+
+            body: JSON.stringify({
+
+              message:
+                "Driver interested in this load"
+
+            })
+          }
+        );
+
+      const data =
+        await response.json();
+
+      if (response.ok) {
+
+        alert(
+          "Application sent successfully"
+        );
+
+      } else {
+
+        alert(
+          data.detail ||
+          "Application failed"
+        );
+      }
+
+    } catch (error) {
+
+      console.log(error);
+
+      alert(
+        "Server error"
+      );
+
+    } finally {
+
+      setTakingLoad(null);
+    }
+  }
+
+  // =====================================================
   // FILTERS
   // =====================================================
 
@@ -218,7 +297,9 @@ const europeanCountries =
           pickupCountry === "" ||
 
           load.pickup_country ===
-          pickupCountry;
+          Country.getCountryByCode(
+            pickupCountry
+          )?.name;
 
         const pickupCityMatch =
 
@@ -232,7 +313,9 @@ const europeanCountries =
           deliveryCountry === "" ||
 
           load.delivery_country ===
-          deliveryCountry;
+          Country.getCountryByCode(
+            deliveryCountry
+          )?.name;
 
         const deliveryCityMatch =
 
@@ -325,32 +408,39 @@ const europeanCountries =
       py-12
     ">
 
+      {/* BACK */}
+
+      <div className="
+        max-w-7xl
+        mx-auto
+        mb-8
+      ">
+
+        <Link
+          href="/driver-dashboard"
+          className="
+            inline-flex
+            items-center
+            gap-2
+            bg-white/5
+            border
+            border-white/10
+            px-6
+            py-3
+            rounded-2xl
+            font-bold
+            hover:border-yellow-400/40
+            transition
+          "
+        >
+
+          ← Back To Dashboard
+
+        </Link>
+
+      </div>
+
       {/* HEADER */}
-      <div className="mb-8">
-
-  <a
-    href="/driver-dashboard"
-    className="
-      inline-flex
-      items-center
-      gap-2
-      bg-white/5
-      border
-      border-white/10
-      px-6
-      py-3
-      rounded-2xl
-      font-bold
-      hover:border-yellow-400/40
-      transition
-    "
-  >
-
-    ← Back To Dashboard
-
-  </a>
-
-</div>
 
       <div className="
         max-w-7xl
@@ -609,7 +699,7 @@ const europeanCountries =
 
           </Select>
 
-          {/* TRANSPORT TYPE */}
+          {/* TRANSPORT */}
 
           <Select
             value={transportType}
@@ -705,11 +795,9 @@ const europeanCountries =
 
         {filteredLoads.map((load) => (
 
-          <a
-            href={`/load/${load.id}`}
+          <div
             key={load.id}
             className="
-              block
               bg-white/5
               border
               border-white/10
@@ -717,7 +805,6 @@ const europeanCountries =
               p-8
               backdrop-blur-xl
               hover:border-yellow-400/40
-              hover:scale-[1.01]
               transition
               duration-300
             "
@@ -906,7 +993,14 @@ const europeanCountries =
 
               </div>
 
-              <div
+              <button
+                onClick={() =>
+                  takeLoad(load.id)
+                }
+                disabled={
+                  takingLoad ===
+                  load.id
+                }
                 className="
                   bg-yellow-400
                   text-black
@@ -914,16 +1008,22 @@ const europeanCountries =
                   py-4
                   rounded-2xl
                   font-black
+                  hover:scale-105
+                  transition
                 "
               >
 
-                View Details
+                {takingLoad === load.id
 
-              </div>
+                  ? "TAKING..."
+
+                  : "TAKE LOAD"}
+
+              </button>
 
             </div>
 
-          </a>
+          </div>
 
         ))}
 
