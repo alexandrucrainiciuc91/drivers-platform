@@ -206,14 +206,18 @@ export default function PostLoadPage() {
 
                 body: JSON.stringify({
 
-                  pickup_country:
-                  pickupCountry,
+                 pickup_country:
+  Country.getCountryByCode(
+    pickupCountry
+  )?.name || pickupCountry,
 
                   pickup_city:
                   pickupCity,
 
                   delivery_country:
-                  deliveryCountry,
+  Country.getCountryByCode(
+    deliveryCountry
+  )?.name || deliveryCountry,
 
                   delivery_city:
                   deliveryCity,
@@ -295,7 +299,7 @@ export default function PostLoadPage() {
               "/loads";
 
         }, 1200);
-        
+
 
       } else {
 

@@ -7,6 +7,8 @@ import {
   useState
 } from "react";
 
+import Link from "next/link";
+
 import Sidebar from "../components/Sidebar";
 
 import LanguageSwitcher
@@ -33,9 +35,9 @@ export default function DriverDashboard() {
   const [plan, setPlan] =
     useState("free");
 
-  // ============================================
+  // =====================================================
   // MOUNT FIX
-  // ============================================
+  // =====================================================
 
   useEffect(() => {
 
@@ -43,9 +45,9 @@ export default function DriverDashboard() {
 
   }, []);
 
-  // ============================================
+  // =====================================================
   // AUTH
-  // ============================================
+  // =====================================================
 
   useEffect(() => {
 
@@ -63,11 +65,6 @@ export default function DriverDashboard() {
       localStorage.getItem(
         "subscription_plan"
       );
-
-    console.log(
-      "DASHBOARD TOKEN:",
-      token
-    );
 
     if (subscription) {
 
@@ -90,78 +87,68 @@ export default function DriverDashboard() {
       return;
     }
 
-    fetchDashboard(token);
+    void fetchDashboard(token);
 
   }, [mounted]);
 
-  // ============================================
+  // =====================================================
   // FETCH DASHBOARD
-  // ============================================
+  // =====================================================
 
-async function fetchDashboard(
-  token: string
-) {
+  async function fetchDashboard(
+    token: string
+  ) {
 
-  try {
+    try {
 
-    const response =
-      await fetch(
-        "https://drivers-platform-production.up.railway.app/driver/dashboard",
-        {
-          method: "GET",
+      const response =
+        await fetch(
+          "https://drivers-platform-production.up.railway.app/driver/dashboard",
+          {
+            method: "GET",
 
-          headers: {
-            "Content-Type":
-              "application/json",
+            headers: {
+              "Content-Type":
+                "application/json",
 
-            Authorization:
-              `Bearer ${token}`
+              Authorization:
+                `Bearer ${token}`
+            }
           }
-        }
-      );
+        );
 
-    console.log(
-      "DASHBOARD STATUS:",
-      response.status
-    );
+      const data =
+        await response.json();
 
-    const data =
-      await response.json();
+      // ============================================
+      // NO DRIVER PROFILE
+      // ============================================
 
-    console.log(
-      "FULL DASHBOARD:",
-      data
-    );
+      if (
+        !data.driver_name
+      ) {
 
-    // ============================================
-    // NO DRIVER PROFILE
-    // ============================================
+        window.location.href =
+          "/create-driver-profile";
 
-    if (
-      !data.driver_name
-    ) {
+        return;
+      }
 
-      window.location.href =
-        "/create-driver-profile";
+      setDashboard(data);
 
-      return;
+    } catch (error) {
+
+      console.log(error);
+
+    } finally {
+
+      setLoading(false);
     }
-
-    setDashboard(data);
-
-  } catch (error) {
-
-    console.log(error);
-
-  } finally {
-
-    setLoading(false);
   }
-}
 
-  // ============================================
+  // =====================================================
   // STRIPE CHECKOUT
-  // ============================================
+  // =====================================================
 
   async function openCheckout() {
 
@@ -202,8 +189,6 @@ async function fetchDashboard(
       const data =
         await response.json();
 
-      console.log(data);
-
       if (data.checkout_url) {
 
         window.location.href =
@@ -220,9 +205,9 @@ async function fetchDashboard(
     }
   }
 
-  // ============================================
+  // =====================================================
   // LOGOUT
-  // ============================================
+  // =====================================================
 
   function logout() {
 
@@ -232,18 +217,18 @@ async function fetchDashboard(
       "/login";
   }
 
-  // ============================================
+  // =====================================================
   // HYDRATION FIX
-  // ============================================
+  // =====================================================
 
   if (!mounted) {
 
     return null;
   }
 
-  // ============================================
+  // =====================================================
   // LOADING
-  // ============================================
+  // =====================================================
 
   if (loading) {
 
@@ -272,13 +257,17 @@ async function fetchDashboard(
     );
   }
 
-  // ============================================
+  // =====================================================
   // UI
-  // ============================================
+  // =====================================================
 
   return (
 
-    <div className="flex bg-black text-white">
+    <div className="
+      flex
+      bg-black
+      text-white
+    ">
 
       <Sidebar />
 
@@ -289,7 +278,7 @@ async function fetchDashboard(
         relative
       ">
 
-        {/* BG */}
+        {/* BACKGROUND */}
 
         <div className="fixed inset-0">
 
@@ -317,7 +306,11 @@ async function fetchDashboard(
 
         {/* CONTENT */}
 
-        <div className="relative z-10 p-10">
+        <div className="
+          relative
+          z-10
+          p-10
+        ">
 
           {/* LANGUAGE */}
 
@@ -475,183 +468,186 @@ async function fetchDashboard(
                 >
 
                   Logout
-{/* MARKETPLACE ACTIONS */}
 
-<div className="
-  grid
-  md:grid-cols-3
-  gap-6
-  mt-14
-">
-
-  {/* LOADS */}
-
-  <a
-    href="/loads"
-    className="
-      bg-white/5
-      border
-      border-white/10
-      rounded-3xl
-      p-8
-      hover:border-yellow-400/40
-      transition
-      backdrop-blur-xl
-    "
-  >
-
-    <p className="
-      text-gray-500
-      uppercase
-      text-sm
-      mb-4
-    ">
-
-      Marketplace
-
-    </p>
-
-    <h2 className="
-      text-3xl
-      font-black
-      mb-3
-    ">
-
-      Loads Marketplace
-
-    </h2>
-
-    <p className="
-      text-gray-400
-      leading-relaxed
-    ">
-
-      Browse transport loads
-      across Europe.
-
-    </p>
-
-  </a>
-
-  {/* FREE LIMIT */}
-
-  <div
-    className="
-      bg-white/5
-      border
-      border-white/10
-      rounded-3xl
-      p-8
-      backdrop-blur-xl
-    "
-  >
-
-    <p className="
-      text-gray-500
-      uppercase
-      text-sm
-      mb-4
-    ">
-
-      Free Plan Limit
-
-    </p>
-
-    <h2 className="
-      text-5xl
-      font-black
-      text-yellow-400
-      mb-3
-    ">
-
-      {plan === "free"
-        ? "3"
-        : "∞"}
-
-    </h2>
-
-    <p className="
-      text-gray-400
-    ">
-
-      Visible loads
-
-    </p>
-
-  </div>
-
-  {/* PREMIUM */}
-
-  <div
-    className="
-      bg-gradient-to-br
-      from-yellow-500/10
-      to-orange-500/10
-      border
-      border-yellow-400/20
-      rounded-3xl
-      p-8
-    "
-  >
-
-    <p className="
-      text-yellow-400
-      uppercase
-      text-sm
-      mb-4
-      font-bold
-    ">
-
-      Premium Access
-
-    </p>
-
-    <h2 className="
-      text-3xl
-      font-black
-      mb-4
-    ">
-
-      Unlimited Loads
-
-    </h2>
-
-    <p className="
-      text-gray-300
-      mb-6
-    ">
-
-      Upgrade your account
-      to unlock all marketplace loads.
-
-    </p>
-
-    {plan === "free" && (
-
-      <button
-        onClick={openCheckout}
-        className="
-          bg-yellow-400
-          text-black
-          px-6
-          py-3
-          rounded-2xl
-          font-black
-        "
-      >
-
-        Upgrade Now
-
-      </button>
-
-    )}
-
-  </div>
-
-</div>
                 </button>
 
               </div>
+
+            </div>
+
+          </div>
+
+          {/* MARKETPLACE ACTIONS */}
+
+          <div className="
+            grid
+            md:grid-cols-3
+            gap-6
+            mt-14
+          ">
+
+            {/* LOADS */}
+
+            <Link
+              href="/loads"
+              className="
+                bg-white/5
+                border
+                border-white/10
+                rounded-3xl
+                p-8
+                hover:border-yellow-400/40
+                transition
+                backdrop-blur-xl
+                block
+              "
+            >
+
+              <p className="
+                text-gray-500
+                uppercase
+                text-sm
+                mb-4
+              ">
+
+                Marketplace
+
+              </p>
+
+              <h2 className="
+                text-3xl
+                font-black
+                mb-3
+              ">
+
+                Loads Marketplace
+
+              </h2>
+
+              <p className="
+                text-gray-400
+                leading-relaxed
+              ">
+
+                Browse transport loads
+                across Europe.
+
+              </p>
+
+            </Link>
+
+            {/* FREE LIMIT */}
+
+            <div
+              className="
+                bg-white/5
+                border
+                border-white/10
+                rounded-3xl
+                p-8
+                backdrop-blur-xl
+              "
+            >
+
+              <p className="
+                text-gray-500
+                uppercase
+                text-sm
+                mb-4
+              ">
+
+                Free Plan Limit
+
+              </p>
+
+              <h2 className="
+                text-5xl
+                font-black
+                text-yellow-400
+                mb-3
+              ">
+
+                {plan === "free"
+                  ? "3"
+                  : "∞"}
+
+              </h2>
+
+              <p className="
+                text-gray-400
+              ">
+
+                Visible loads
+
+              </p>
+
+            </div>
+
+            {/* PREMIUM */}
+
+            <div
+              className="
+                bg-gradient-to-br
+                from-yellow-500/10
+                to-orange-500/10
+                border
+                border-yellow-400/20
+                rounded-3xl
+                p-8
+              "
+            >
+
+              <p className="
+                text-yellow-400
+                uppercase
+                text-sm
+                mb-4
+                font-bold
+              ">
+
+                Premium Access
+
+              </p>
+
+              <h2 className="
+                text-3xl
+                font-black
+                mb-4
+              ">
+
+                Unlimited Loads
+
+              </h2>
+
+              <p className="
+                text-gray-300
+                mb-6
+              ">
+
+                Upgrade your account
+                to unlock all marketplace loads.
+
+              </p>
+
+              {plan === "free" && (
+
+                <button
+                  onClick={openCheckout}
+                  className="
+                    bg-yellow-400
+                    text-black
+                    px-6
+                    py-3
+                    rounded-2xl
+                    font-black
+                  "
+                >
+
+                  Upgrade Now
+
+                </button>
+
+              )}
 
             </div>
 
