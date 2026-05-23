@@ -1039,6 +1039,296 @@ if (!mounted) {
 
       </section>
 
-    </main>
-  );
+
+      {/* FOOTER */}
+
+<footer className="
+  border-t
+  border-white/10
+  bg-black
+  px-6
+  py-16
+">
+
+  <div className="
+    max-w-7xl
+    mx-auto
+  ">
+
+    {/* TOP */}
+
+    <div className="
+      grid
+      lg:grid-cols-4
+      gap-12
+      mb-14
+    ">
+
+      {/* BRAND */}
+
+      <div>
+
+        <h2 className="
+          text-4xl
+          font-black
+          mb-6
+        ">
+
+          <span className="text-white">
+
+            Drive
+
+          </span>
+
+          <span className="text-yellow-400">
+
+            LINK
+
+          </span>
+
+        </h2>
+
+        <p className="
+          text-gray-400
+          leading-relaxed
+          text-lg
+        ">
+
+          Premium logistics and transport
+          marketplace connecting companies
+          and professional drivers
+          across Europe.
+
+        </p>
+
+      </div>
+
+      {/* PLATFORM */}
+
+      <div>
+
+        <h3 className="
+          text-xl
+          font-black
+          mb-6
+        ">
+
+          Platform
+
+        </h3>
+
+        <div className="
+          flex
+          flex-col
+          gap-4
+          text-gray-400
+        ">
+
+          <Link
+            href="/register"
+            className="
+              hover:text-yellow-400
+              transition
+            "
+          >
+
+            Register
+
+          </Link>
+
+          <Link
+            href="/login"
+            className="
+              hover:text-yellow-400
+              transition
+            "
+          >
+
+            Login
+
+          </Link>
+
+          <Link
+            href="/loads"
+            className="
+              hover:text-yellow-400
+              transition
+            "
+          >
+
+            Marketplace
+
+          </Link>
+
+        </div>
+
+      </div>
+
+      {/* LEGAL */}
+
+      <div>
+
+        <h3 className="
+          text-xl
+          font-black
+          mb-6
+        ">
+
+          Legal
+
+        </h3>
+
+        <div className="
+          flex
+          flex-col
+          gap-4
+          text-gray-400
+        ">
+
+          <Link
+            href="/terms"
+            className="
+              hover:text-yellow-400
+              transition
+            "
+          >
+
+            Terms & Conditions
+
+          </Link>
+
+          <Link
+            href="/privacy"
+            className="
+              hover:text-yellow-400
+              transition
+            "
+          >
+
+            Privacy Policy
+
+          </Link>
+
+          <Link
+            href="/cookies"
+            className="
+              hover:text-yellow-400
+              transition
+            "
+          >
+
+            Cookie Policy
+
+          </Link>
+
+          <Link
+            href="/faq"
+            className="
+              hover:text-yellow-400
+              transition
+            "
+          >
+
+            FAQ
+
+          </Link>
+
+        </div>
+
+      </div>
+
+      {/* DISCLAIMER */}
+
+      <div>
+
+        <h3 className="
+          text-xl
+          font-black
+          mb-6
+          text-red-400
+        ">
+
+          Disclaimer
+
+        </h3>
+
+        <p className="
+          text-gray-400
+          leading-relaxed
+        ">
+
+          The platform acts exclusively
+          as a digital marketplace.
+
+          The platform owner is NOT
+          responsible for cargo damages,
+          transport disputes, delivery delays,
+          fraudulent users or agreements
+          established between drivers
+          and companies.
+
+        </p>
+
+      </div>
+
+    </div>
+
+    {/* BOTTOM */}
+
+    <div className="
+      border-t
+      border-white/10
+      pt-8
+      flex
+      flex-col
+      md:flex-row
+      items-center
+      justify-between
+      gap-6
+    ">
+
+      <p className="
+        text-gray-500
+      ">
+
+        © 2026 DriveLINK.
+        All rights reserved.
+
+      </p>
+
+      <div className="
+        flex
+        items-center
+        gap-6
+        text-sm
+        text-gray-500
+        flex-wrap
+      ">
+
+        <span>
+          Secure Platform
+        </span>
+
+        <span>
+          EU Marketplace
+        </span>
+
+        <span>
+          Real-Time Messaging
+        </span>
+
+        <span>
+          Premium Logistics Network
+        </span>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</footer>
+
+</main>
+);
 }
