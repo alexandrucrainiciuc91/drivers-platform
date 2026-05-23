@@ -210,7 +210,7 @@ if (!mounted) {
 
                       <span className="text-yellow-400">
 
-                        LINK
+                        LINKEED
 
                       </span>
 
@@ -1082,7 +1082,7 @@ if (!mounted) {
 
           <span className="text-yellow-400">
 
-            LINK
+            LINKEED
 
           </span>
 
