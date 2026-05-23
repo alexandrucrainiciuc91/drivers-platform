@@ -1291,7 +1291,7 @@ if (!mounted) {
         text-gray-500
       ">
 
-        © 2026 DriveLINK.
+        © 2026 DriveLINKEED.
         All rights reserved.
 
       </p>
