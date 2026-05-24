@@ -146,24 +146,24 @@
     "loading": "Loading Dashboard..."
   },
   "driver_jobs": {
-      "loading": "Loading jobs...",
-      "control_center": "Driver Control Center",
-      "title": "DRIVER JOBS",
-      "subtitle": "Explore premium transport opportunities across Europe.",
-      "no_jobs": "No jobs available",
-      "no_jobs_subtitle": "Come back later for new logistics opportunities.",
-      "active_opportunity": "Active Opportunity",
-      "salary": "Salary",
-      "country": "Country",
-      "transport_type": "Transport Type",
-      "availability": "Availability",
-      "open": "Open",
-      "apply": "Apply Now",
-      "save": "Save Job",
-      "application_sent": "Application sent!",
-      "job_saved": "Job saved!",
-      "server_error": "Server error"
-    },
+    "loading": "Loading jobs...",
+    "control_center": "Driver Control Center",
+    "title": "DRIVER JOBS",
+    "subtitle": "Explore premium transport opportunities across Europe.",
+    "no_jobs": "No jobs available",
+    "no_jobs_subtitle": "Come back later for new logistics opportunities.",
+    "active_opportunity": "Active Opportunity",
+    "salary": "Salary",
+    "country": "Country",
+    "transport_type": "Transport Type",
+    "availability": "Availability",
+    "open": "Open",
+    "apply": "Apply Now",
+    "save": "Save Job",
+    "application_sent": "Application sent!",
+    "job_saved": "Job saved!",
+    "server_error": "Server error"
+  },
   "driver_profile": {
     "setup": "Professional Driver Setup",
     "build": "BUILD YOUR",
@@ -205,11 +205,11 @@
     "support_count": "Support"
   },
   "jobs": {
-  "applied": "Already applied",
-  "already_applied": "Already applied",
-  "application_success": "Application sent successfully",
-  "server_error": "Server error"
-},
+    "applied": "Already applied",
+    "already_applied": "Already applied",
+    "application_success": "Application sent successfully",
+    "server_error": "Server error"
+  },
   "jobs": {
     "loading": "Loading jobs...",
     "marketplace": "Driver Marketplace",
@@ -281,80 +281,9 @@
     "terms_error": "You must accept Terms & Conditions.",
     "server_error": "Server error.",
     "terms": "I accept the Terms & Conditions and Privacy Policy.",
-"creating": "Creating account...",
-"create_account": "Create Account",
-"have_account": "Already have an account?",
-"login": "Login"
-  },
-  "register": {
-     "title": "Create Account",
-     "subtitle": "Join the premium logistics ecosystem connecting transport companies and professional truck drivers across Europe.",
-
-     "email": "Email",
-
-     "password": "Password",
-
-     "password_placeholder": "Minimum 6 characters",
-
-     "confirm_password": "Confirm Password",
-
-     "account_type": "Account Type",
-
-     "driver": "Driver",
-
-     "company": "Transport Company",
-
-     "subscription_plan": "Subscription Plan",
-
-     "free_description": "Basic platform access.",
-
-     "pro_driver": "PRO DRIVER",
-
-     "business": "BUSINESS",
-
-     "premium_description": "Premium logistics features.",
-
-     "accept_terms": "I accept the terms and conditions",
-
-     "creating_account": "Creating account...",
-
-     "create_account": "Create Account",
-
-     "already_account": "Already have an account?",
-
-     "login": "Login",
-
-     "password_min": "Password must contain at least 6 characters",
-
-     "passwords_not_match": "Passwords do not match",
-
-     "accept_terms_error": "Please accept terms and conditions",
-
-     "registration_failed": "Registration failed",
-
-     "server_error": "Server error"
-   },
-  "register": {
-  "title": "Create Account",
-  "subtitle": "Join the premium logistics ecosystem connecting transport companies and professional truck drivers across Europe.",
-  "email": "Email",
-  "password": "Password",
-  "confirm_password": "Confirm Password",
-  "confirm_placeholder": "Repeat your password",
-  "account_type": "Account Type",
-  "driver": "Driver",
-  "company": "Transport Company",
-  "terms": "I agree with Terms & Conditions",
-  "button": "Create Account",
-  "have_account": "Already have an account?",
-  "login": "Login"
+    "creating": "Creating account...",
+    "create_account": "Create Account",
+    "have_account": "Already have an account?",
+    "login": "Login"
+  }
 }
-}
-
-
-
-
-
-
-
-

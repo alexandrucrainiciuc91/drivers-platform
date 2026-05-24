@@ -75,3 +75,7 @@ class Load(Base):
         String,
         default="available"
     )
+    assigned_driver_id = Column(
+        Integer,
+        nullable=True
+    )

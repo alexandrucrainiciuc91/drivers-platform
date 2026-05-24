@@ -263,9 +263,14 @@ def accept_application(
 
     application.status = "accepted"
 
+
     # LOAD ASSIGNED
 
     load.status = "assigned"
+
+    load.assigned_driver_id = (
+        application.driver_id
+    )
 
     db.commit()
 

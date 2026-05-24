@@ -29,6 +29,148 @@ export default function CompanyDashboard() {
   const [plan, setPlan] =
     useState("free");
 
+  const [loads, setLoads] =
+    useState<any[]>([]);
+
+  const API_URL =
+    "https://drivers-platform-production.up.railway.app";
+
+  // ============================================
+  // FETCH LOADS
+  // ============================================
+
+  const fetchLoads = async () => {
+
+    try {
+
+      const token =
+        localStorage.getItem(
+          "token"
+        );
+
+      const response =
+        await fetch(
+
+          `${API_URL}/my-loads`,
+
+          {
+
+            headers: {
+
+              Authorization:
+                `Bearer ${token}`
+            }
+          }
+        );
+
+      const data =
+        await response.json();
+
+      setLoads(data);
+
+    } catch (error) {
+
+      console.log(error);
+    }
+  };
+
+  // ============================================
+  // DELETE LOAD
+  // ============================================
+
+  const deleteLoad = async (
+    loadId: number
+  ) => {
+
+    try {
+
+      const token =
+        localStorage.getItem(
+          "token"
+        );
+
+      await fetch(
+
+        `${API_URL}/delete-load/${loadId}`,
+
+        {
+
+          method: "DELETE",
+
+          headers: {
+
+            Authorization:
+              `Bearer ${token}`
+          }
+        }
+      );
+
+      fetchLoads();
+
+    } catch (error) {
+
+      console.log(error);
+    }
+  };
+
+  // ============================================
+  // FETCH DASHBOARD
+  // ============================================
+
+  async function fetchDashboard() {
+
+    try {
+
+      const token =
+        localStorage.getItem(
+          "token"
+        );
+
+      const response =
+        await fetch(
+
+          `${API_URL}/company/dashboard`,
+
+          {
+
+            headers: {
+
+              Authorization:
+                `Bearer ${token}`
+            }
+          }
+        );
+
+      const data =
+        await response.json();
+
+      console.log(
+        "FULL COMPANY DASHBOARD:",
+        data
+      );
+
+      if (
+        !data.company_name
+      ) {
+
+        window.location.href =
+          "/create-company-profile";
+
+        return;
+      }
+
+      setDashboard(data);
+
+    } catch (error) {
+
+      console.log(error);
+
+    } finally {
+
+      setLoading(false);
+    }
+  }
+
   // ============================================
   // AUTH
   // ============================================
@@ -73,65 +215,10 @@ export default function CompanyDashboard() {
 
     fetchDashboard();
 
+    fetchLoads();
+
   }, []);
 
-  // ============================================
-  // FETCH DASHBOARD
-  // ============================================
-
- async function fetchDashboard() {
-
-  try {
-
-    const token =
-      localStorage.getItem(
-        "token"
-      );
-
-    const response =
-      await fetch(
-        "https://drivers-platform-production.up.railway.app/company/dashboard",
-        {
-          headers: {
-            Authorization:
-              `Bearer ${token}`
-          }
-        }
-      );
-
-    const data =
-      await response.json();
-
-    console.log(
-      "FULL COMPANY DASHBOARD:",
-      data
-    );
-
-    // ============================================
-    // NO COMPANY PROFILE
-    // ============================================
-
-    if (
-      !data.company_name
-    ) {
-
-      window.location.href =
-        "/create-company-profile";
-
-      return;
-    }
-
-    setDashboard(data);
-
-  } catch (error) {
-
-    console.log(error);
-
-  } finally {
-
-    setLoading(false);
-  }
-}
   // ============================================
   // STRIPE CHECKOUT
   // ============================================
@@ -147,11 +234,15 @@ export default function CompanyDashboard() {
 
       const response =
         await fetch(
-          "https://drivers-platform-production.up.railway.app/subscribe",
+
+          `${API_URL}/subscribe`,
+
           {
+
             method: "POST",
 
             headers: {
+
               "Content-Type":
                 "application/json",
 
@@ -163,15 +254,12 @@ export default function CompanyDashboard() {
 
               price_id:
                 "price_1TWXnjEKIOywtjGZrBPeI3ek"
-
             })
           }
         );
 
       const data =
         await response.json();
-
-      console.log(data);
 
       if (data.checkout_url) {
 
@@ -201,7 +289,16 @@ export default function CompanyDashboard() {
 
         <Sidebar />
 
-        <div className="flex-1 min-h-screen bg-black text-white flex items-center justify-center text-3xl">
+        <div className="
+          flex-1
+          min-h-screen
+          bg-black
+          text-white
+          flex
+          items-center
+          justify-center
+          text-3xl
+        ">
 
           {
             t(
@@ -221,29 +318,62 @@ export default function CompanyDashboard() {
 
   return (
 
-    <div className="flex bg-black text-white">
+    <div className="
+      flex
+      bg-black
+      text-white
+    ">
 
       <Sidebar />
 
-      <div className="flex-1 min-h-screen overflow-hidden relative">
+      <div className="
+        flex-1
+        min-h-screen
+        overflow-hidden
+        relative
+      ">
 
         {/* BACKGROUND */}
 
         <div className="fixed inset-0">
 
-          <div className="absolute top-0 left-0 w-[700px] h-[700px] bg-yellow-500/10 blur-[180px]" />
+          <div className="
+            absolute
+            top-0
+            left-0
+            w-[700px]
+            h-[700px]
+            bg-yellow-500/10
+            blur-[180px]
+          " />
 
-          <div className="absolute bottom-0 right-0 w-[700px] h-[700px] bg-orange-500/10 blur-[180px]" />
+          <div className="
+            absolute
+            bottom-0
+            right-0
+            w-[700px]
+            h-[700px]
+            bg-orange-500/10
+            blur-[180px]
+          " />
 
         </div>
 
         {/* CONTENT */}
 
-        <div className="relative z-10 p-10">
+        <div className="
+          relative
+          z-10
+          p-10
+        ">
 
           {/* LANGUAGE */}
 
-          <div className="flex justify-end mb-6">
+          <div className="
+            flex
+            justify-end
+            mb-6
+          ">
 
             <LanguageSwitcher />
 
@@ -251,13 +381,32 @@ export default function CompanyDashboard() {
 
           {/* HERO */}
 
-          <div className="bg-white/5 border border-white/10 rounded-[50px] p-10 backdrop-blur-2xl mb-10">
+          <div className="
+            bg-white/5
+            border
+            border-white/10
+            rounded-[50px]
+            p-10
+            backdrop-blur-2xl
+            mb-10
+          ">
 
-            <div className="flex items-center justify-between gap-10 flex-wrap">
+            <div className="
+              flex
+              items-center
+              justify-between
+              gap-10
+              flex-wrap
+            ">
 
               <div>
 
-                <p className="uppercase tracking-[6px] text-yellow-400 mb-4">
+                <p className="
+                  uppercase
+                  tracking-[6px]
+                  text-yellow-400
+                  mb-4
+                ">
 
                   {
                     t(
@@ -267,7 +416,11 @@ export default function CompanyDashboard() {
 
                 </p>
 
-                <h1 className="text-7xl font-black leading-none">
+                <h1 className="
+                  text-7xl
+                  font-black
+                  leading-none
+                ">
 
                   {
                     dashboard?.company_name
@@ -275,7 +428,12 @@ export default function CompanyDashboard() {
 
                 </h1>
 
-                <p className="text-gray-400 text-2xl mt-6 max-w-3xl">
+                <p className="
+                  text-gray-400
+                  text-2xl
+                  mt-6
+                  max-w-3xl
+                ">
 
                   {
                     t(
@@ -287,7 +445,12 @@ export default function CompanyDashboard() {
 
                 {/* PLAN */}
 
-                <div className="flex gap-5 mt-8 flex-wrap">
+                <div className="
+                  flex
+                  gap-5
+                  mt-8
+                  flex-wrap
+                ">
 
                   <div className={`
                     px-6
@@ -314,7 +477,12 @@ export default function CompanyDashboard() {
 
                   </div>
 
-                  <div className="bg-white/10 px-6 py-3 rounded-2xl">
+                  <div className="
+                    bg-white/10
+                    px-6
+                    py-3
+                    rounded-2xl
+                  ">
 
                     {
                       dashboard?.transport_type
@@ -335,7 +503,6 @@ export default function CompanyDashboard() {
                         font-black
                         hover:scale-105
                         transition-all
-                        shadow-[0_0_60px_rgba(250,204,21,0.35)]
                       "
                     >
 
@@ -370,389 +537,320 @@ export default function CompanyDashboard() {
             </div>
 
           </div>
-{/* LOAD MARKETPLACE */}
 
-<div className="
-  grid
-  lg:grid-cols-3
-  gap-6
-  mb-10
-">
+          {/* LOAD MARKETPLACE */}
 
-  {/* POST LOAD */}
+          <div className="
+            grid
+            lg:grid-cols-3
+            gap-6
+            mb-10
+          ">
 
-  <a
-    href="/post-load"
-    className="
-      bg-white/5
-      border
-      border-white/10
-      rounded-3xl
-      p-8
-      hover:border-yellow-400/40
-      transition
-      backdrop-blur-xl
-    "
-  >
+            {/* POST LOAD */}
 
-    <p className="
-      text-gray-500
-      uppercase
-      text-sm
-      mb-4
-    ">
+            <a
+              href="/post-load"
+              className="
+                bg-white/5
+                border
+                border-white/10
+                rounded-3xl
+                p-8
+                hover:border-yellow-400/40
+                transition
+                backdrop-blur-xl
+              "
+            >
 
-      Marketplace
+              <p className="
+                text-gray-500
+                uppercase
+                text-sm
+                mb-4
+              ">
 
-    </p>
+                Marketplace
 
-    <h2 className="
-      text-3xl
-      font-black
-      mb-3
-    ">
+              </p>
 
-      Post Load
+              <h2 className="
+                text-3xl
+                font-black
+                mb-3
+              ">
 
-    </h2>
+                Post Load
 
-    <p className="
-      text-gray-400
-      leading-relaxed
-    ">
+              </h2>
 
-      Publish transport loads
-      for drivers and carriers.
+              <p className="
+                text-gray-400
+                leading-relaxed
+              ">
 
-    </p>
+                Publish transport loads
+                for drivers and carriers.
 
-  </a>
+              </p>
 
-  {/* VIEW LOADS */}
+            </a>
 
-  <a
-    href="/loads"
-    className="
-      bg-white/5
-      border
-      border-white/10
-      rounded-3xl
-      p-8
-      hover:border-yellow-400/40
-      transition
-      backdrop-blur-xl
-    "
-  >
+            {/* VIEW LOADS */}
 
-    <p className="
-      text-gray-500
-      uppercase
-      text-sm
-      mb-4
-    ">
+            <a
+              href="/loads"
+              className="
+                bg-white/5
+                border
+                border-white/10
+                rounded-3xl
+                p-8
+                hover:border-yellow-400/40
+                transition
+                backdrop-blur-xl
+              "
+            >
 
-      Marketplace
+              <p className="
+                text-gray-500
+                uppercase
+                text-sm
+                mb-4
+              ">
 
-    </p>
+                Marketplace
 
-    <h2 className="
-      text-3xl
-      font-black
-      mb-3
-    ">
+              </p>
 
-      Browse Loads
+              <h2 className="
+                text-3xl
+                font-black
+                mb-3
+              ">
 
-    </h2>
+                Browse Loads
 
-    <p className="
-      text-gray-400
-      leading-relaxed
-    ">
+              </h2>
 
-      Explore all active
-      transport requests.
+              <p className="
+                text-gray-400
+                leading-relaxed
+              ">
 
-    </p>
+                Explore all active
+                transport requests.
 
-  </a>
+              </p>
 
-  {/* LIMIT */}
+            </a>
 
-  <div
-    className="
-      bg-gradient-to-br
-      from-yellow-500/10
-      to-orange-500/10
-      border
-      border-yellow-400/20
-      rounded-3xl
-      p-8
-    "
-  >
-
-    <p className="
-      text-yellow-400
-      uppercase
-      text-sm
-      mb-4
-      font-bold
-    ">
-
-      Current Plan
-
-    </p>
-
-    <h2 className="
-      text-5xl
-      font-black
-      mb-3
-    ">
-
-      {plan === "free"
-        ? "5"
-        : "∞"}
-
-    </h2>
-
-    <p className="
-      text-gray-300
-      mb-6
-    ">
-
-      Posted loads limit
-
-    </p>
-
-    {plan === "free" && (
-
-      <button
-        onClick={openCheckout}
-        className="
-          bg-yellow-400
-          text-black
-          px-6
-          py-3
-          rounded-2xl
-          font-black
-        "
-      >
-
-        Upgrade Business
-
-      </button>
-
-    )}
-
-  </div>
-
-</div>
-          {/* PREMIUM CARD */}
-
-          {plan === "free" && (
+            {/* PLAN */}
 
             <div className="
-              relative
-              overflow-hidden
-              mb-10
-              rounded-[45px]
-              border
-              border-yellow-400/20
               bg-gradient-to-br
               from-yellow-500/10
-              via-black/70
               to-orange-500/10
-              backdrop-blur-3xl
-              p-10
+              border
+              border-yellow-400/20
+              rounded-3xl
+              p-8
             ">
 
-              <div className="
-                absolute
-                inset-0
-                bg-yellow-400/5
-                blur-[140px]
-              " />
+              <p className="
+                text-yellow-400
+                uppercase
+                text-sm
+                mb-4
+                font-bold
+              ">
 
-              <div className="relative z-10">
+                Current Plan
 
-                <div className="
-                  flex
-                  flex-wrap
-                  items-center
-                  justify-between
-                  gap-10
-                ">
+              </p>
 
-                  {/* LEFT */}
+              <h2 className="
+                text-5xl
+                font-black
+                mb-3
+              ">
 
-                  <div className="max-w-4xl">
+                {plan === "free"
+                  ? "5"
+                  : "∞"}
 
-                    <div className="
-                      inline-flex
-                      items-center
-                      gap-3
-                      bg-yellow-400
-                      text-black
-                      px-5
-                      py-2
-                      rounded-full
-                      font-black
-                      text-sm
-                      mb-6
-                    ">
+              </h2>
 
-                      MOST POPULAR
+              <p className="
+                text-gray-300
+                mb-6
+              ">
 
-                    </div>
+                Posted loads limit
 
-                    <h2 className="
-                      text-5xl
-                      xl:text-6xl
-                      font-black
-                      leading-tight
-                      mb-6
-                    ">
+              </p>
 
-                      Upgrade To
-                      <span className="text-yellow-400">
-
-                        {" "}BUSINESS
-
-                      </span>
-
-                    </h2>
-
-                    <p className="
-                      text-gray-300
-                      text-xl
-                      leading-relaxed
-                      max-w-3xl
-                    ">
-
-                      Unlock unlimited drivers,
-                      unlimited jobs,
-                      premium visibility,
-                      priority support
-                      and advanced recruitment tools.
-
-                    </p>
-
-                  </div>
-
-                  {/* PRICE */}
-
-                  <div className="
-                    bg-black/50
-                    border
-                    border-yellow-400/20
-                    rounded-[35px]
-                    p-10
-                    text-center
-                    min-w-[260px]
-                  ">
-
-                    <p className="
-                      text-gray-400
-                      uppercase
-                      tracking-[4px]
-                      mb-4
-                    ">
-
-                      BUSINESS PLAN
-
-                    </p>
-
-                    <h2 className="
-                      text-7xl
-                      font-black
-                      text-yellow-400
-                      leading-none
-                    ">
-
-                      €45
-
-                    </h2>
-
-                    <p className="
-                      text-gray-400
-                      mt-4
-                      text-lg
-                    ">
-
-                      per month
-
-                    </p>
-
-                  </div>
-
-                </div>
-
-                {/* FEATURES */}
-
-                <div className="
-                  grid
-                  md:grid-cols-4
-                  gap-5
-                  mt-14
-                ">
-
-                  {[
-                    "Unlimited Jobs",
-                    "Unlimited Drivers",
-                    "Priority Visibility",
-                    "Premium Badge"
-                  ].map((item, index) => (
-
-                    <div
-                      key={index}
-                      className="
-                        bg-black/30
-                        border
-                        border-white/10
-                        rounded-2xl
-                        px-5
-                        py-5
-                        text-center
-                        font-semibold
-                      "
-                    >
-
-                      {item}
-
-                    </div>
-
-                  ))}
-
-                </div>
-
-                {/* BUTTON */}
+              {plan === "free" && (
 
                 <button
                   onClick={openCheckout}
                   className="
-                    mt-14
                     bg-yellow-400
                     text-black
-                    px-10
-                    py-5
+                    px-6
+                    py-3
                     rounded-2xl
                     font-black
-                    text-xl
-                    hover:scale-105
-                    transition-all
-                    shadow-[0_0_80px_rgba(250,204,21,0.45)]
                   "
                 >
 
-                  Upgrade To BUSINESS
+                  Upgrade Business
 
                 </button>
 
-              </div>
+              )}
 
             </div>
 
-          )}
+          </div>
+
+          {/* MY LOADS */}
+
+          <div className="mb-10">
+
+            <h2 className="
+              text-4xl
+              font-black
+              mb-6
+            ">
+
+              My Loads
+
+            </h2>
+
+            <div className="
+              grid
+              gap-5
+            ">
+
+              {loads.map((load: any) => (
+
+                <div
+                  key={load.id}
+                  className="
+                    bg-white/5
+                    border
+                    border-white/10
+                    rounded-3xl
+                    p-6
+                    backdrop-blur-xl
+                  "
+                >
+
+                  <div className="
+                    flex
+                    items-center
+                    justify-between
+                    gap-5
+                    flex-wrap
+                  ">
+
+                    <div>
+
+                      <h3 className="
+                        text-2xl
+                        font-black
+                      ">
+
+                        {load.pickup_city}
+                        {" → "}
+                        {load.delivery_city}
+
+                      </h3>
+
+                      <p className="
+                        text-gray-400
+                        mt-2
+                      ">
+
+                        €{load.price}
+                        {" • "}
+                        {load.transport_type}
+
+                      </p>
+
+                      <div className="
+                        mt-3
+                        inline-flex
+                        px-4
+                        py-2
+                        rounded-xl
+                        bg-yellow-400/10
+                        text-yellow-400
+                        text-sm
+                        font-bold
+                      ">
+
+                        {load.status}
+
+                      </div>
+
+                    </div>
+
+                    <div className="
+                      flex
+                      gap-3
+                      flex-wrap
+                    ">
+
+                      <button
+                        onClick={() =>
+                          window.location.href =
+                            `/company-applications/${load.id}`
+                        }
+                        className="
+                          bg-yellow-400
+                          text-black
+                          px-5
+                          py-3
+                          rounded-2xl
+                          font-black
+                        "
+                      >
+
+                        Applicants
+
+                      </button>
+
+                      <button
+                        onClick={() =>
+                          deleteLoad(load.id)
+                        }
+                        className="
+                          bg-red-500
+                          text-white
+                          px-5
+                          py-3
+                          rounded-2xl
+                          font-black
+                        "
+                      >
+
+                        Delete
+
+                      </button>
+
+                    </div>
+
+                  </div>
+
+                </div>
+
+              ))}
+
+            </div>
+
+          </div>
 
         </div>
 
