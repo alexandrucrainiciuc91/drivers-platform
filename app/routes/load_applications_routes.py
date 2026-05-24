@@ -271,6 +271,7 @@ def accept_application(
     load.assigned_driver_id = (
         application.driver_id
     )
+    db.delete(load)
 
     db.commit()
 

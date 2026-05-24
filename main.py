@@ -59,6 +59,9 @@ from app.routes.notification_routes import (
 from fastapi.middleware.cors import CORSMiddleware
 from app.models.load_application import LoadApplication
 from app.routes.load_applications_routes import router as load_applications_router
+from app.routes.load_routes import (
+    router as load_router
+)
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
@@ -101,6 +104,9 @@ app.include_router(auth_router)
 app.include_router(load_router)
 app.include_router(
     load_applications_router
+)
+app.include_router(
+    load_router
 )
 
 @app.get("/company/stats")
