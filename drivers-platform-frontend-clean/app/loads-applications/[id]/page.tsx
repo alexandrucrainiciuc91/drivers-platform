@@ -1,6 +1,6 @@
 "use client";
 
-import "../../../i18n";
+import "../../i18n";
 
 import {
   useEffect,
@@ -11,7 +11,7 @@ import {
   useParams
 } from "next/navigation";
 
-import Sidebar from "./../../components/Sidebar";
+import Sidebar from "../../components/Sidebar";
 
 export default function LoadApplicationsPage() {
 
