@@ -91,7 +91,7 @@ export default function CompanyDashboard() {
 
       await fetch(
 
-        `${API_URL}/delete-load/${loadId}`,
+        `${API_URL}/load/${loadId}`,
 
         {
 
@@ -805,8 +805,8 @@ export default function CompanyDashboard() {
 
                       <button
                         onClick={() =>
-                          window.location.href =
-                            `/company-applications/${load.id}`
+                         window.location.href =
+  `/load-applications/${load.id}`
                         }
                         className="
                           bg-yellow-400
