@@ -27,7 +27,9 @@ from app.models.user import (
 from app.auth.dependencies import (
     get_current_user
 )
-
+from app.models.driver_profile import (
+    DriverProfile
+)
 router = APIRouter()
 
 
@@ -209,7 +211,65 @@ def get_load_applications(
         == load_id
     ).all()
 
-    return applications
+    result = []
+
+    for application in applications:
+        driver = db.query(
+            User
+        ).filter(
+            User.id ==
+            application.driver_id
+        ).first()
+
+        driver_profile = db.query(
+            DriverProfile
+        ).filter(
+            DriverProfile.user_id ==
+            application.driver_id
+        ).first()
+
+        result.append({
+
+            "id":
+                application.id,
+
+            "message":
+                application.message,
+
+            "status":
+                application.status,
+
+            "driver": {
+
+                "id":
+                    driver.id,
+
+                "email":
+                    driver.email,
+
+                "full_name":
+                    driver_profile.full_name
+                    if driver_profile else None,
+
+                "experience":
+                    driver_profile.experience
+                    if driver_profile else None,
+
+                "truck_type":
+                    driver_profile.truck_type
+                    if driver_profile else None,
+
+                "phone":
+                    driver_profile.phone
+                    if driver_profile else None,
+
+                "country":
+                    driver_profile.country
+                    if driver_profile else None
+            }
+        })
+
+    return result
 @router.post(
     "/application/{application_id}/accept"
 )

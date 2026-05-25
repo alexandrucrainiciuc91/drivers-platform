@@ -218,9 +218,48 @@ export default function LoadApplicationsPage() {
                       mb-3
                     ">
 
-                      Driver ID:
-                      {" "}
-                      {application.driver_id}
+                      {application.driver.full_name}
+                        <div className="
+  mt-4
+  grid
+  md:grid-cols-2
+  gap-3
+  text-gray-400
+">
+
+  <p>
+    Experience:
+    {" "}
+    {
+      application.driver.experience
+    }
+  </p>
+
+  <p>
+    Truck:
+    {" "}
+    {
+      application.driver.truck_type
+    }
+  </p>
+
+  <p>
+    Phone:
+    {" "}
+    {
+      application.driver.phone
+    }
+  </p>
+
+  <p>
+    Country:
+    {" "}
+    {
+      application.driver.country
+    }
+  </p>
+
+</div>
 
                     </h2>
 
