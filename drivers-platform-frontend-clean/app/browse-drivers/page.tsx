@@ -28,6 +28,9 @@ export default function BrowseDriversPage() {
   const [loading, setLoading] =
     useState(true);
 
+  const [subscriptionPlan, setSubscriptionPlan] =
+    useState("");
+
   // ============================================
   // AUTH
   // ============================================
@@ -39,6 +42,16 @@ export default function BrowseDriversPage() {
 
     const userType =
       localStorage.getItem("user_type");
+
+    const plan =
+      localStorage.getItem(
+        "subscription_plan"
+      );
+
+    if (plan) {
+
+      setSubscriptionPlan(plan);
+    }
 
     if (!token) {
 
@@ -106,6 +119,7 @@ export default function BrowseDriversPage() {
       setLoading(false);
     }
   }
+
   // ============================================
   // CONTACT DRIVER
   // ============================================
@@ -140,6 +154,62 @@ export default function BrowseDriversPage() {
 
     window.location.href =
       `/driver-profile/${driverId}`;
+  }
+
+  // ============================================
+  // STRIPE CHECKOUT
+  // ============================================
+
+  async function openCheckout() {
+
+    try {
+
+      const token =
+        localStorage.getItem(
+          "token"
+        );
+
+      const response =
+        await fetch(
+
+          "https://drivers-platform-production.up.railway.app/subscribe",
+
+          {
+
+            method: "POST",
+
+            headers: {
+
+              "Content-Type":
+                "application/json",
+
+              Authorization:
+                `Bearer ${token}`
+            },
+
+            body: JSON.stringify({
+
+              price_id:
+                "price_1TWXnjEKIOywtjGZrBPeI3ek"
+            })
+          }
+        );
+
+      const data =
+        await response.json();
+
+      console.log(data);
+
+      if (data.checkout_url) {
+
+        window.location.href =
+          data.checkout_url;
+      }
+
+    } catch (error) {
+
+      console.log(error);
+    }
   }
 
   // ============================================
@@ -522,78 +592,74 @@ export default function BrowseDriversPage() {
                   </button>
 
                 </div>
-{/* UPGRADE WALL */}
 
-{
-  drivers.length >= 3 &&
-
-  localStorage.getItem(
-    "subscription_plan"
-  ) === "free" && (
-
-    <div className="
-      mt-12
-      bg-yellow-400/10
-      border
-      border-yellow-400/20
-      rounded-[40px]
-      p-10
-      text-center
-      backdrop-blur-2xl
-    ">
-
-      <h2 className="
-        text-5xl
-        font-black
-        mb-6
-      ">
-
-        Unlock All Drivers
-
-      </h2>
-
-      <p className="
-        text-gray-400
-        text-2xl
-        mb-8
-      ">
-
-        Upgrade to Business
-        and access unlimited
-        professional drivers.
-
-      </p>
-
-      <button
-        onClick={() =>
-          window.location.href =
-            "/subscription"
-        }
-        className="
-          bg-yellow-400
-          text-black
-          px-10
-          py-5
-          rounded-2xl
-          font-black
-          text-2xl
-          hover:scale-105
-          transition-all
-        "
-      >
-
-        Upgrade Business
-
-      </button>
-
-    </div>
-  )
-}
               </div>
 
             ))}
 
           </div>
+
+          {/* UPGRADE WALL */}
+
+          {
+            drivers.length >= 3 &&
+            subscriptionPlan === "free" && (
+
+              <div className="
+                mt-12
+                bg-yellow-400/10
+                border
+                border-yellow-400/20
+                rounded-[40px]
+                p-10
+                text-center
+                backdrop-blur-2xl
+              ">
+
+                <h2 className="
+                  text-5xl
+                  font-black
+                  mb-6
+                ">
+
+                  Unlock All Drivers
+
+                </h2>
+
+                <p className="
+                  text-gray-400
+                  text-2xl
+                  mb-8
+                ">
+
+                  Upgrade to Business
+                  and access unlimited
+                  professional drivers.
+
+                </p>
+
+                <button
+                  onClick={openCheckout}
+                  className="
+                    bg-yellow-400
+                    text-black
+                    px-10
+                    py-5
+                    rounded-2xl
+                    font-black
+                    text-2xl
+                    hover:scale-105
+                    transition-all
+                  "
+                >
+
+                  Upgrade Business
+
+                </button>
+
+              </div>
+            )
+          }
 
         </div>
 
