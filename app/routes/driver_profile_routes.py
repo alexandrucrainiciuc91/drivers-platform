@@ -263,7 +263,7 @@ def get_drivers(
 
     if current_user.subscription_plan == "free":
 
-        drivers = drivers[:5]
+        drivers = drivers[:3]
 
     db.close()
 
