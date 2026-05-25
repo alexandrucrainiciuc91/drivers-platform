@@ -106,7 +106,6 @@ export default function BrowseDriversPage() {
       setLoading(false);
     }
   }
-
   // ============================================
   // CONTACT DRIVER
   // ============================================
@@ -523,7 +522,73 @@ export default function BrowseDriversPage() {
                   </button>
 
                 </div>
+{/* UPGRADE WALL */}
 
+{
+  drivers.length >= 3 &&
+
+  localStorage.getItem(
+    "subscription_plan"
+  ) === "free" && (
+
+    <div className="
+      mt-12
+      bg-yellow-400/10
+      border
+      border-yellow-400/20
+      rounded-[40px]
+      p-10
+      text-center
+      backdrop-blur-2xl
+    ">
+
+      <h2 className="
+        text-5xl
+        font-black
+        mb-6
+      ">
+
+        Unlock All Drivers
+
+      </h2>
+
+      <p className="
+        text-gray-400
+        text-2xl
+        mb-8
+      ">
+
+        Upgrade to Business
+        and access unlimited
+        professional drivers.
+
+      </p>
+
+      <button
+        onClick={() =>
+          window.location.href =
+            "/subscription"
+        }
+        className="
+          bg-yellow-400
+          text-black
+          px-10
+          py-5
+          rounded-2xl
+          font-black
+          text-2xl
+          hover:scale-105
+          transition-all
+        "
+      >
+
+        Upgrade Business
+
+      </button>
+
+    </div>
+  )
+}
               </div>
 
             ))}
