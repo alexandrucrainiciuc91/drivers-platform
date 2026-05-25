@@ -18,9 +18,10 @@ export default function LoadApplicationsPage() {
   const params =
     useParams();
 
+
   const loadId =
     params.id;
-
+console.log(loadId);
   const [applications, setApplications] =
     useState<any[]>([]);
 
@@ -61,6 +62,7 @@ export default function LoadApplicationsPage() {
 
         const data =
           await response.json();
+        console.log(data);
 
         setApplications(data);
 

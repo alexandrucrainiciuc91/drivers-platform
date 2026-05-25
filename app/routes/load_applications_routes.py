@@ -268,7 +268,8 @@ def get_load_applications(
                     if driver_profile else None
             }
         })
-
+    print("LOAD ID:", load_id)
+    print("APPLICATIONS:", applications)
     return result
 @router.post(
     "/application/{application_id}/accept"
