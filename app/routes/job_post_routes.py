@@ -289,7 +289,8 @@ def delete_job_post(
 
     for application in applications:
         # DELETE CONVERSATIONS FIRST
-
+        print("DELETE APPLICATION:", application.id)
+        print("DELETE CONVERSATIONS")
         conversations = db.query(
             Conversation
         ).filter(
