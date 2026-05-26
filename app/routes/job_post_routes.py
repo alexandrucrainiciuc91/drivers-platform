@@ -300,6 +300,7 @@ def delete_job_post(
 
         for conversation in conversations:
             db.delete(conversation)
+            db.flush()
         db.delete(application)
     db.delete(job)
 
