@@ -27,7 +27,9 @@ from app.schemas.job_post_schema import (
 from app.auth.dependencies import (
     require_company
 )
-
+from app.models.application import (
+    Application
+)
 router = APIRouter()
 
 
@@ -225,6 +227,7 @@ def get_company_jobs(
     db.close()
 
     return jobs
+
 @router.delete("/job-post/{job_id}")
 def delete_job_post(
 
@@ -272,7 +275,17 @@ def delete_job_post(
             "error":
                 "Job not found"
         }
+    # DELETE APPLICATIONS FIRST
 
+    applications = db.query(
+        Application
+    ).filter(
+        Application.job_post_id ==
+        job.id
+    ).all()
+
+    for application in applications:
+        db.delete(application)
     db.delete(job)
 
     db.commit()
