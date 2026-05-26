@@ -557,24 +557,6 @@ export default function CompanyJobsPage() {
 
                   <div className="flex gap-4 mt-8">
 
-                    <button
-                      onClick={() =>
-                        window.location.href =
-                          `/job/${job.id}`
-                      }
-                      className="
-                        bg-yellow-400
-                        text-black
-                        px-6
-                        py-3
-                        rounded-xl
-                        font-black
-                      "
-                    >
-
-                      View
-
-                    </button>
 
                     <button
                       onClick={() =>
