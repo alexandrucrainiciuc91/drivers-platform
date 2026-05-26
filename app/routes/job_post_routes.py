@@ -30,6 +30,9 @@ from app.auth.dependencies import (
 from app.models.application import (
     Application
 )
+from app.models.conversation import (
+    Conversation
+)
 router = APIRouter()
 
 
@@ -285,6 +288,17 @@ def delete_job_post(
     ).all()
 
     for application in applications:
+        # DELETE CONVERSATIONS FIRST
+
+        conversations = db.query(
+            Conversation
+        ).filter(
+            Conversation.application_id ==
+            application.id
+        ).all()
+
+        for conversation in conversations:
+            db.delete(conversation)
         db.delete(application)
     db.delete(job)
 
