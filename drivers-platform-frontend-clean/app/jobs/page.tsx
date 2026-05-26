@@ -45,9 +45,6 @@ export default function JobsPage() {
   const [appliedJobs, setAppliedJobs] =
     useState<number[]>([]);
 
-  const [savedJobs, setSavedJobs] =
-    useState<number[]>([]);
-
   const [loading, setLoading] =
     useState(true);
 
@@ -107,8 +104,6 @@ export default function JobsPage() {
       fetchJobs(),
 
       fetchApplications(),
-
-      fetchSavedJobs()
 
     ]);
 
@@ -208,54 +203,6 @@ export default function JobsPage() {
   }
 
   // ============================================
-  // FETCH SAVED JOBS
-  // ============================================
-
-  async function fetchSavedJobs() {
-
-    try {
-
-      const token =
-        localStorage.getItem("token");
-
-      const response =
-        await fetch(
-          "https://drivers-platform-production.up.railway.app/saved-jobs",
-          {
-            headers: {
-              Authorization:
-                `Bearer ${token}`
-            }
-          }
-        );
-
-      const data =
-        await response.json();
-
-      if (Array.isArray(data)) {
-
-        const ids =
-          data.map(
-            (job: any) =>
-              Number(job.job_id)
-          );
-
-        setSavedJobs(ids);
-
-      } else {
-
-        setSavedJobs([]);
-      }
-
-    } catch (error) {
-
-      console.log(error);
-
-      setSavedJobs([]);
-    }
-  }
-
-  // ============================================
   // SEARCH JOBS
   // ============================================
 
@@ -308,56 +255,6 @@ export default function JobsPage() {
     } finally {
 
       setLoading(false);
-    }
-  }
-
-  // ============================================
-  // SAVE JOB
-  // ============================================
-
-  async function saveJob(
-    jobId: number
-  ) {
-
-    try {
-
-      const token =
-        localStorage.getItem("token");
-
-      const response =
-        await fetch(
-          `https://drivers-platform-production.up.railway.app/save-job/${jobId}`,
-          {
-            method: "POST",
-
-            headers: {
-              Authorization:
-                `Bearer ${token}`
-            }
-          }
-        );
-
-      const data =
-        await response.json();
-
-      if (
-        data.error ===
-        "JOB_ALREADY_SAVED"
-      ) {
-
-        return;
-      }
-
-      setSavedJobs(prev => [
-
-        ...prev,
-        Number(jobId)
-
-      ]);
-
-    } catch (error) {
-
-      console.log(error);
     }
   }
 
@@ -823,50 +720,7 @@ export default function JobsPage() {
                     }
 
                   </button>
-
-                  {/* SAVE */}
-
-                  <button
-                    disabled={
-                      savedJobs.includes(
-                        Number(job.id)
-                      )
-                    }
-                    onClick={() =>
-                      saveJob(job.id)
-                    }
-                    className={`
-
-                      px-8
-                      py-4
-                      rounded-2xl
-                      font-black
-                      text-xl
-                      transition-all
-
-                      ${
-                        savedJobs.includes(
-                          Number(job.id)
-                        )
-
-                          ? "bg-blue-500 text-white cursor-not-allowed"
-
-                          : "bg-white/10 text-white hover:bg-white/20"
-                      }
-                    `}
-                  >
-
-                    {
-                      savedJobs.includes(
-                        Number(job.id)
-                      )
-
-                        ? "Saved"
-
-                        : "Save Job"
-                    }
-
-                  </button>
+                  
 
                 </div>
 
