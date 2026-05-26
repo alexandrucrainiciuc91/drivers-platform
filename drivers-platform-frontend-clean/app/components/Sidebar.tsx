@@ -119,9 +119,6 @@ export default function Sidebar() {
     }
   }
 
-  // ============================================
-  // MESSAGES
-  // ============================================
 
   // ============================================
 // MESSAGES
@@ -456,23 +453,6 @@ async function fetchMessagesCount() {
               >
 
                 Find Jobs
-
-              </Link>
-
-              <Link
-                href="/saved-jobs"
-                className="
-                  block bg-white/5
-                  hover:bg-yellow-400
-                  hover:text-black
-                  transition-all
-                  border border-white/10
-                  rounded-[28px]
-                  p-8 text-3xl font-bold
-                "
-              >
-
-                Saved Jobs
 
               </Link>
 
