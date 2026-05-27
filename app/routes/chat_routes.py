@@ -4,19 +4,24 @@ from fastapi import (
     WebSocketDisconnect,
 Depends
 )
+from sqlalchemy.sql.functions import current_user
+
 from app.auth.dependencies import (
     get_current_user
 )
 from sqlalchemy.orm import Session
-
+from app.models.user import User
 from app.database.database import (
     SessionLocal
 )
-
+from app.auth.dependencies import (
+    get_current_user
+)
 from app.models.message import (
     Message
 )
-
+from app.models.driver_profile import DriverProfile
+from app.models.company_profile import CompanyProfile
 from app.models.conversation import (
     Conversation
 )
@@ -104,6 +109,77 @@ def get_conversations(user_id: int):
                 "unread_count":
                     unread_count
             })
+            result = []
+
+            for conversation in conversations:
+
+                other_user_id = (
+
+                    conversation.receiver_id
+
+                    if conversation.sender_id ==
+                       current_user.id
+
+                    else conversation.sender_id
+                )
+
+                other_user = db.query(User).filter(
+
+                    User.id == other_user_id
+
+                ).first()
+
+                other_user_name = "User"
+
+                # DRIVER
+
+                if other_user.user_type == "driver":
+
+                    driver_profile = db.query(
+                        DriverProfile
+                    ).filter(
+
+                        DriverProfile.user_id ==
+                        other_user.id
+
+                    ).first()
+
+                    if driver_profile:
+                        other_user_name = (
+                            driver_profile.full_name
+                        )
+
+                # COMPANY
+
+                elif other_user.user_type == "company":
+
+                    company_profile = db.query(
+                        CompanyProfile
+                    ).filter(
+
+                        CompanyProfile.user_id ==
+                        other_user.id
+
+                    ).first()
+
+                    if company_profile:
+                        other_user_name = (
+                            company_profile.company_name
+                        )
+
+                result.append({
+
+                    "id":
+                        conversation.id,
+
+                    "other_user_name":
+                        other_user_name,
+
+                    "other_user_id":
+                        other_user.id
+                })
+
+            return result
 
         return results
 
