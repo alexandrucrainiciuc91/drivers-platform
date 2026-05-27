@@ -9,24 +9,37 @@ import {
 
 import Sidebar from "../components/Sidebar";
 
-import LanguageSwitcher from "../components/LanguageSwitcher";
+import LanguageSwitcher
+from "../components/LanguageSwitcher";
+
+interface Load {
+  id: number;
+  pickup_city: string;
+  delivery_city: string;
+  price: number;
+  status: string;
+}
 
 export default function CompanyDashboard() {
 
-  const [dashboard, setDashboard] =
-    useState<any>(null);
+  const API_URL =
+    "https://drivers-platform-production.up.railway.app";
 
   const [loading, setLoading] =
     useState(true);
 
+  const [dashboard, setDashboard] =
+    useState<any>(null);
+
+  const [loads, setLoads] =
+    useState<Load[]>([]);
+
   const [plan, setPlan] =
     useState("free");
 
-  const [loads, setLoads] =
-    useState<any[]>([]);
-
-  const API_URL =
-    "https://drivers-platform-production.up.railway.app";
+  // =====================================================
+  // AUTH
+  // =====================================================
 
   useEffect(() => {
 
@@ -72,6 +85,53 @@ export default function CompanyDashboard() {
 
   }, []);
 
+  // =====================================================
+  // DASHBOARD
+  // =====================================================
+
+  async function fetchDashboard() {
+
+    try {
+
+      const token =
+        localStorage.getItem(
+          "token"
+        );
+
+      const response =
+        await fetch(
+
+          `${API_URL}/company/dashboard`,
+
+          {
+
+            headers: {
+
+              Authorization:
+                `Bearer ${token}`
+            }
+          }
+        );
+
+      const data =
+        await response.json();
+
+      setDashboard(data);
+
+    } catch (error) {
+
+      console.log(error);
+
+    } finally {
+
+      setLoading(false);
+    }
+  }
+
+  // =====================================================
+  // LOADS
+  // =====================================================
+
   async function fetchLoads() {
 
     try {
@@ -106,6 +166,10 @@ export default function CompanyDashboard() {
       console.log(error);
     }
   }
+
+  // =====================================================
+  // DELETE LOAD
+  // =====================================================
 
   async function deleteLoad(
     loadId: number
@@ -142,54 +206,9 @@ export default function CompanyDashboard() {
     }
   }
 
-  async function fetchDashboard() {
-
-    try {
-
-      const token =
-        localStorage.getItem(
-          "token"
-        );
-
-      const response =
-        await fetch(
-
-          `${API_URL}/company/dashboard`,
-
-          {
-
-            headers: {
-
-              Authorization:
-                `Bearer ${token}`
-            }
-          }
-        );
-
-      const data =
-        await response.json();
-
-      if (
-        !data.company_name
-      ) {
-
-        window.location.href =
-          "/create-company-profile";
-
-        return;
-      }
-
-      setDashboard(data);
-
-    } catch (error) {
-
-      console.log(error);
-
-    } finally {
-
-      setLoading(false);
-    }
-  }
+  // =====================================================
+  // STRIPE
+  // =====================================================
 
   async function openCheckout() {
 
@@ -250,27 +269,21 @@ export default function CompanyDashboard() {
           "token"
         );
 
-      const response =
-        await fetch(
+      await fetch(
 
-          `${API_URL}/cancel-subscription`,
+        `${API_URL}/cancel-subscription`,
 
-          {
+        {
 
-            method: "POST",
+          method: "POST",
 
-            headers: {
+          headers: {
 
-              Authorization:
-                `Bearer ${token}`
-            }
+            Authorization:
+              `Bearer ${token}`
           }
-        );
-
-      const data =
-        await response.json();
-
-      alert(data.message);
+        }
+      );
 
       localStorage.setItem(
         "subscription_plan",
@@ -284,6 +297,10 @@ export default function CompanyDashboard() {
       console.log(error);
     }
   }
+
+  // =====================================================
+  // LOADING
+  // =====================================================
 
   if (loading) {
 
@@ -311,16 +328,18 @@ export default function CompanyDashboard() {
       flex
       bg-black
       text-white
+      min-h-screen
     ">
 
       <Sidebar />
 
       <div className="
         flex-1
-        min-h-screen
-        overflow-hidden
         relative
+        overflow-hidden
       ">
+
+        {/* BACKGROUND */}
 
         <div className="fixed inset-0">
 
@@ -331,6 +350,16 @@ export default function CompanyDashboard() {
             w-[700px]
             h-[700px]
             bg-yellow-500/10
+            blur-[200px]
+          " />
+
+          <div className="
+            absolute
+            bottom-0
+            right-0
+            w-[600px]
+            h-[600px]
+            bg-orange-500/10
             blur-[180px]
           " />
 
@@ -342,6 +371,8 @@ export default function CompanyDashboard() {
           p-10
         ">
 
+          {/* TOP BAR */}
+
           <div className="
             flex
             justify-end
@@ -352,107 +383,308 @@ export default function CompanyDashboard() {
 
           </div>
 
+          {/* HERO */}
+
           <div className="
             bg-white/5
             border
-            border-white/10
-            rounded-[50px]
+            border-yellow-500/20
+            rounded-[45px]
             p-10
             backdrop-blur-2xl
             mb-10
+            flex
+            flex-col
+            xl:flex-row
+            items-center
+            justify-between
+            gap-10
           ">
 
-            <h1 className="
-              text-7xl
-              font-black
-            ">
+            <div>
 
-              {
-                dashboard?.company_name
-              }
+              <p className="
+                text-yellow-400
+                uppercase
+                tracking-[5px]
+                font-semibold
+                mb-5
+              ">
 
-            </h1>
+                COMPANY CONTROL CENTER
 
-            <div className="
-              flex
-              gap-4
-              mt-8
-              flex-wrap
-            ">
+              </p>
 
-              <div className={`
-                px-6
-                py-3
-                rounded-2xl
+              <h1 className="
+                text-7xl
                 font-black
-                ${
-                  plan === "business"
+                leading-none
+                mb-6
+              ">
+
+                {
+                  dashboard?.company_name
+                }
+
+              </h1>
+
+              <p className="
+                text-gray-400
+                text-2xl
+                max-w-2xl
+              ">
+
+                Manage transport operations,
+                drivers and logistics across Europe.
+
+              </p>
+
+              <div className="
+                flex
+                gap-4
+                mt-8
+                flex-wrap
+              ">
+
+                <div className={`
+                  px-6
+                  py-3
+                  rounded-2xl
+                  font-black
+                  uppercase
+                  ${
+                    plan === "business"
 
                     ? "bg-yellow-400 text-black"
 
                     : "bg-green-500/20 text-green-400"
-                }
-              `}>
+                  }
+                `}>
 
-                {
-                  plan === "business"
+                  {
+                    plan === "business"
 
                     ? "BUSINESS PLAN"
 
                     : "FREE PLAN"
-                }
+                  }
+
+                </div>
+
+                {plan === "free" && (
+
+                  <button
+                    onClick={openCheckout}
+                    className="
+                      bg-yellow-400
+                      text-black
+                      px-7
+                      py-3
+                      rounded-2xl
+                      font-black
+                    "
+                  >
+
+                    Upgrade Business
+
+                  </button>
+
+                )}
+
+                {plan === "business" && (
+
+                  <button
+                    onClick={cancelSubscription}
+                    className="
+                      bg-red-500/20
+                      text-red-400
+                      px-7
+                      py-3
+                      rounded-2xl
+                      font-black
+                    "
+                  >
+
+                    Cancel Subscription
+
+                  </button>
+
+                )}
 
               </div>
 
-              {plan === "free" && (
+            </div>
 
-                <button
-                  onClick={openCheckout}
-                  className="
-                    bg-yellow-400
-                    text-black
-                    px-6
-                    py-3
-                    rounded-2xl
-                    font-black
-                  "
-                >
+            <img
+              src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?q=80&w=1200"
+              className="
+                w-full
+                xl:w-[450px]
+                h-[260px]
+                object-cover
+                rounded-[35px]
+              "
+            />
 
-                  Upgrade Business
+          </div>
 
-                </button>
+          {/* STATS */}
 
-              )}
+          <div className="
+            grid
+            lg:grid-cols-4
+            gap-6
+            mb-10
+          ">
 
-              {plan === "business" && (
+            <div className="
+              bg-white/5
+              border
+              border-white/10
+              rounded-3xl
+              p-8
+            ">
 
-                <button
-                  onClick={cancelSubscription}
-                  className="
-                    bg-red-500/20
-                    text-red-400
-                    px-6
-                    py-3
-                    rounded-2xl
-                    font-black
-                  "
-                >
+              <p className="
+                text-gray-500
+                uppercase
+                text-sm
+              ">
 
-                  Cancel Subscription
+                Active Loads
 
-                </button>
+              </p>
 
-              )}
+              <h2 className="
+                text-5xl
+                font-black
+                mt-3
+              ">
+
+                {loads.length}
+
+              </h2>
+
+            </div>
+
+            <div className="
+              bg-white/5
+              border
+              border-white/10
+              rounded-3xl
+              p-8
+            ">
+
+              <p className="
+                text-gray-500
+                uppercase
+                text-sm
+              ">
+
+                Drivers Visible
+
+              </p>
+
+              <h2 className="
+                text-5xl
+                font-black
+                mt-3
+              ">
+
+                {
+                  plan === "business"
+
+                  ? "∞"
+
+                  : "3"
+                }
+
+              </h2>
+
+            </div>
+
+            <div className="
+              bg-white/5
+              border
+              border-white/10
+              rounded-3xl
+              p-8
+            ">
+
+              <p className="
+                text-gray-500
+                uppercase
+                text-sm
+              ">
+
+                Active Jobs
+
+              </p>
+
+              <h2 className="
+                text-5xl
+                font-black
+                mt-3
+              ">
+
+                {
+                  plan === "business"
+
+                  ? "∞"
+
+                  : "1"
+                }
+
+              </h2>
+
+            </div>
+
+            <div className="
+              bg-yellow-500/10
+              border
+              border-yellow-500/30
+              rounded-3xl
+              p-8
+            ">
+
+              <p className="
+                text-yellow-400
+                uppercase
+                text-sm
+              ">
+
+                Current Plan
+
+              </p>
+
+              <h2 className="
+                text-4xl
+                font-black
+                mt-3
+              ">
+
+                {
+                  plan === "business"
+
+                  ? "BUSINESS"
+
+                  : "FREE"
+                }
+
+              </h2>
 
             </div>
 
           </div>
 
+          {/* ACTIONS */}
+
           <div className="
             grid
-            lg:grid-cols-3
+            md:grid-cols-2
+            xl:grid-cols-4
             gap-6
-            mb-10
+            mb-14
           ">
 
             <a
@@ -463,8 +695,21 @@ export default function CompanyDashboard() {
                 border-white/10
                 rounded-3xl
                 p-8
+                hover:border-yellow-400/30
+                transition
               "
             >
+
+              <p className="
+                text-gray-500
+                uppercase
+                text-sm
+                mb-4
+              ">
+
+                Marketplace
+
+              </p>
 
               <h2 className="
                 text-3xl
@@ -485,8 +730,21 @@ export default function CompanyDashboard() {
                 border-white/10
                 rounded-3xl
                 p-8
+                hover:border-yellow-400/30
+                transition
               "
             >
+
+              <p className="
+                text-gray-500
+                uppercase
+                text-sm
+                mb-4
+              ">
+
+                Drivers
+
+              </p>
 
               <h2 className="
                 text-3xl
@@ -499,11 +757,93 @@ export default function CompanyDashboard() {
 
             </a>
 
+            <a
+              href="/company-jobs"
+              className="
+                bg-white/5
+                border
+                border-white/10
+                rounded-3xl
+                p-8
+                hover:border-yellow-400/30
+                transition
+              "
+            >
+
+              <p className="
+                text-gray-500
+                uppercase
+                text-sm
+                mb-4
+              ">
+
+                Recruitment
+
+              </p>
+
+              <h2 className="
+                text-3xl
+                font-black
+              ">
+
+                Company Jobs
+
+              </h2>
+
+            </a>
+
+            <a
+              href="/messages"
+              className="
+                bg-white/5
+                border
+                border-white/10
+                rounded-3xl
+                p-8
+                hover:border-yellow-400/30
+                transition
+              "
+            >
+
+              <p className="
+                text-gray-500
+                uppercase
+                text-sm
+                mb-4
+              ">
+
+                Communication
+
+              </p>
+
+              <h2 className="
+                text-3xl
+                font-black
+              ">
+
+                Messages
+
+              </h2>
+
+            </a>
+
           </div>
+
+          {/* LOADS */}
+
+          <h2 className="
+            text-5xl
+            font-black
+            mb-8
+          ">
+
+            Active Loads
+
+          </h2>
 
           <div className="space-y-5">
 
-            {loads.map((load: any) => (
+            {loads.map((load) => (
 
               <div
                 key={load.id}
@@ -512,36 +852,54 @@ export default function CompanyDashboard() {
                   border
                   border-white/10
                   rounded-3xl
-                  p-6
+                  p-8
                 "
               >
 
                 <div className="
                   flex
-                  items-center
+                  flex-col
+                  xl:flex-row
                   justify-between
-                  flex-wrap
-                  gap-5
+                  items-start
+                  xl:items-center
+                  gap-6
                 ">
 
                   <div>
 
                     <h3 className="
-                      text-2xl
+                      text-3xl
                       font-black
+                      mb-3
                     ">
 
-                      {load.pickup_city}
+                      {
+                        load.pickup_city
+                      }
+
                       {" → "}
-                      {load.delivery_city}
+
+                      {
+                        load.delivery_city
+                      }
 
                     </h3>
+
+                    <p className="
+                      text-gray-400
+                    ">
+
+                      €{load.price}
+
+                    </p>
 
                   </div>
 
                   <div className="
                     flex
                     gap-3
+                    flex-wrap
                   ">
 
                     <button

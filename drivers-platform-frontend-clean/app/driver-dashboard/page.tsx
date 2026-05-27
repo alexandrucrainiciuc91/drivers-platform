@@ -7,8 +7,6 @@ import {
   useState
 } from "react";
 
-import Link from "next/link";
-
 import Sidebar from "../components/Sidebar";
 
 import LanguageSwitcher
@@ -16,30 +14,17 @@ from "../components/LanguageSwitcher";
 
 export default function DriverDashboard() {
 
-  const [mounted, setMounted] =
-    useState(false);
-
-  const [dashboard, setDashboard] =
-    useState<any>(null);
+  const API_URL =
+    "https://drivers-platform-production.up.railway.app";
 
   const [loading, setLoading] =
     useState(true);
 
+  const [dashboard, setDashboard] =
+    useState<any>(null);
+
   const [plan, setPlan] =
     useState("free");
-
-  const API_URL =
-    "https://drivers-platform-production.up.railway.app";
-
-  // =====================================================
-  // MOUNT FIX
-  // =====================================================
-
-  useEffect(() => {
-
-    setMounted(true);
-
-  }, []);
 
   // =====================================================
   // AUTH
@@ -47,15 +32,15 @@ export default function DriverDashboard() {
 
   useEffect(() => {
 
-    if (!mounted) {
-      return;
-    }
-
     const token =
-      localStorage.getItem("token");
+      localStorage.getItem(
+        "token"
+      );
 
     const userType =
-      localStorage.getItem("user_type");
+      localStorage.getItem(
+        "user_type"
+      );
 
     const subscription =
       localStorage.getItem(
@@ -83,29 +68,31 @@ export default function DriverDashboard() {
       return;
     }
 
-    void fetchDashboard(token);
+    fetchDashboard();
 
-  }, [mounted]);
+  }, []);
 
   // =====================================================
   // FETCH DASHBOARD
   // =====================================================
 
-  async function fetchDashboard(
-    token: string
-  ) {
+  async function fetchDashboard() {
 
     try {
 
+      const token =
+        localStorage.getItem(
+          "token"
+        );
+
       const response =
         await fetch(
+
           `${API_URL}/driver/dashboard`,
+
           {
-            method: "GET",
 
             headers: {
-              "Content-Type":
-                "application/json",
 
               Authorization:
                 `Bearer ${token}`
@@ -115,16 +102,6 @@ export default function DriverDashboard() {
 
       const data =
         await response.json();
-
-      if (
-        !data.driver_name
-      ) {
-
-        window.location.href =
-          "/create-driver-profile";
-
-        return;
-      }
 
       setDashboard(data);
 
@@ -151,17 +128,17 @@ export default function DriverDashboard() {
           "token"
         );
 
-      if (!token) {
-        return;
-      }
-
       const response =
         await fetch(
+
           `${API_URL}/subscribe`,
+
           {
+
             method: "POST",
 
             headers: {
+
               "Content-Type":
                 "application/json",
 
@@ -173,7 +150,6 @@ export default function DriverDashboard() {
 
               price_id:
                 "price_1TVGXaEKIOywtjGZSQvQxhOF"
-
             })
           }
         );
@@ -190,10 +166,6 @@ export default function DriverDashboard() {
     } catch (error) {
 
       console.log(error);
-
-      alert(
-        "Stripe checkout failed"
-      );
     }
   }
 
@@ -210,27 +182,21 @@ export default function DriverDashboard() {
           "token"
         );
 
-      const response =
-        await fetch(
+      await fetch(
 
-          `${API_URL}/cancel-subscription`,
+        `${API_URL}/cancel-subscription`,
 
-          {
+        {
 
-            method: "POST",
+          method: "POST",
 
-            headers: {
+          headers: {
 
-              Authorization:
-                `Bearer ${token}`
-            }
+            Authorization:
+              `Bearer ${token}`
           }
-        );
-
-      const data =
-        await response.json();
-
-      alert(data.message);
+        }
+      );
 
       localStorage.setItem(
         "subscription_plan",
@@ -246,27 +212,6 @@ export default function DriverDashboard() {
   }
 
   // =====================================================
-  // LOGOUT
-  // =====================================================
-
-  function logout() {
-
-    localStorage.clear();
-
-    window.location.href =
-      "/login";
-  }
-
-  // =====================================================
-  // HYDRATION FIX
-  // =====================================================
-
-  if (!mounted) {
-
-    return null;
-  }
-
-  // =====================================================
   // LOADING
   // =====================================================
 
@@ -274,32 +219,21 @@ export default function DriverDashboard() {
 
     return (
 
-      <div className="flex">
+      <div className="
+        min-h-screen
+        bg-black
+        text-white
+        flex
+        items-center
+        justify-center
+        text-3xl
+      ">
 
-        <Sidebar />
-
-        <div className="
-          flex-1
-          min-h-screen
-          bg-black
-          text-white
-          flex
-          items-center
-          justify-center
-          text-3xl
-        ">
-
-          Loading Dashboard...
-
-        </div>
+        Loading...
 
       </div>
     );
   }
-
-  // =====================================================
-  // UI
-  // =====================================================
 
   return (
 
@@ -307,16 +241,18 @@ export default function DriverDashboard() {
       flex
       bg-black
       text-white
+      min-h-screen
     ">
 
       <Sidebar />
 
       <div className="
         flex-1
-        min-h-screen
-        overflow-hidden
         relative
+        overflow-hidden
       ">
+
+        {/* BACKGROUND */}
 
         <div className="fixed inset-0">
 
@@ -324,19 +260,19 @@ export default function DriverDashboard() {
             absolute
             top-0
             left-0
-            w-[500px]
-            h-[500px]
-            bg-yellow-500/20
-            blur-[180px]
+            w-[700px]
+            h-[700px]
+            bg-yellow-500/10
+            blur-[200px]
           " />
 
           <div className="
             absolute
             bottom-0
             right-0
-            w-[500px]
-            h-[500px]
-            bg-orange-500/20
+            w-[600px]
+            h-[600px]
+            bg-orange-500/10
             blur-[180px]
           " />
 
@@ -348,6 +284,8 @@ export default function DriverDashboard() {
           p-10
         ">
 
+          {/* TOP BAR */}
+
           <div className="
             flex
             justify-end
@@ -358,51 +296,47 @@ export default function DriverDashboard() {
 
           </div>
 
+          {/* HERO */}
+
           <div className="
+            bg-white/5
+            border
+            border-yellow-500/20
+            rounded-[45px]
+            p-10
+            backdrop-blur-2xl
+            mb-10
             flex
             flex-col
             xl:flex-row
-            items-start
+            items-center
             justify-between
             gap-10
-            mb-14
           ">
 
             <div>
 
-              <div className="
-                flex
-                items-center
-                gap-4
-                mb-6
+              <p className="
+                text-yellow-400
+                uppercase
+                tracking-[5px]
+                font-semibold
+                mb-5
               ">
 
-                <p className="
-                  text-yellow-400
-                  font-semibold
-                  uppercase
-                  tracking-[5px]
-                ">
+                DRIVER CONTROL CENTER
 
-                  DRIVER CONTROL CENTER
-
-                </p>
-
-              </div>
+              </p>
 
               <h1 className="
                 text-7xl
                 font-black
                 leading-none
+                mb-6
               ">
 
-                Welcome
-
-                <br />
-
                 {
-                  dashboard?.driver_name ||
-                  "Driver"
+                  dashboard?.driver_name
                 }
 
               </h1>
@@ -410,19 +344,19 @@ export default function DriverDashboard() {
               <p className="
                 text-gray-400
                 text-2xl
-                mt-6
                 max-w-2xl
               ">
 
-                Manage your transport career,
-                applications and premium opportunities.
+                Access premium transport
+                opportunities and manage
+                your logistics career.
 
               </p>
 
               <div className="
-                mt-8
                 flex
                 gap-4
+                mt-8
                 flex-wrap
               ">
 
@@ -435,18 +369,18 @@ export default function DriverDashboard() {
                   ${
                     plan === "pro"
 
-                      ? "bg-yellow-400 text-black"
+                    ? "bg-yellow-400 text-black"
 
-                      : "bg-green-500/20 text-green-400"
+                    : "bg-green-500/20 text-green-400"
                   }
                 `}>
 
                   {
                     plan === "pro"
 
-                      ? "PRO DRIVER"
+                    ? "PRO DRIVER"
 
-                      : "FREE PLAN"
+                    : "FREE PLAN"
                   }
 
                 </div>
@@ -458,14 +392,14 @@ export default function DriverDashboard() {
                     className="
                       bg-yellow-400
                       text-black
-                      px-6
+                      px-7
                       py-3
                       rounded-2xl
                       font-black
                     "
                   >
 
-                    Upgrade Plan
+                    Upgrade To Pro
 
                   </button>
 
@@ -478,7 +412,7 @@ export default function DriverDashboard() {
                     className="
                       bg-red-500/20
                       text-red-400
-                      px-6
+                      px-7
                       py-3
                       rounded-2xl
                       font-black
@@ -491,36 +425,183 @@ export default function DriverDashboard() {
 
                 )}
 
-                <button
-                  onClick={logout}
-                  className="
-                    bg-red-500
-                    text-white
-                    px-6
-                    py-3
-                    rounded-2xl
-                    font-bold
-                  "
-                >
-
-                  Logout
-
-                </button>
-
               </div>
+
+            </div>
+
+            <img
+              src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1200"
+              className="
+                w-full
+                xl:w-[450px]
+                h-[260px]
+                object-cover
+                rounded-[35px]
+              "
+            />
+
+          </div>
+
+          {/* STATS */}
+
+          <div className="
+            grid
+            lg:grid-cols-4
+            gap-6
+            mb-10
+          ">
+
+            <div className="
+              bg-white/5
+              border
+              border-white/10
+              rounded-3xl
+              p-8
+            ">
+
+              <p className="
+                text-gray-500
+                uppercase
+                text-sm
+              ">
+
+                Applications
+
+              </p>
+
+              <h2 className="
+                text-5xl
+                font-black
+                mt-3
+              ">
+
+                {
+                  plan === "pro"
+
+                  ? "∞"
+
+                  : "3"
+                }
+
+              </h2>
+
+            </div>
+
+            <div className="
+              bg-white/5
+              border
+              border-white/10
+              rounded-3xl
+              p-8
+            ">
+
+              <p className="
+                text-gray-500
+                uppercase
+                text-sm
+              ">
+
+                Premium Loads
+
+              </p>
+
+              <h2 className="
+                text-5xl
+                font-black
+                mt-3
+              ">
+
+                {
+                  plan === "pro"
+
+                  ? "Unlimited"
+
+                  : "Limited"
+                }
+
+              </h2>
+
+            </div>
+
+            <div className="
+              bg-white/5
+              border
+              border-white/10
+              rounded-3xl
+              p-8
+            ">
+
+              <p className="
+                text-gray-500
+                uppercase
+                text-sm
+              ">
+
+                Messages
+
+              </p>
+
+              <h2 className="
+                text-5xl
+                font-black
+                mt-3
+              ">
+
+                24
+
+              </h2>
+
+            </div>
+
+            <div className="
+              bg-yellow-500/10
+              border
+              border-yellow-500/30
+              rounded-3xl
+              p-8
+            ">
+
+              <p className="
+                text-yellow-400
+                uppercase
+                text-sm
+              ">
+
+                Current Plan
+
+              </p>
+
+              <h2 className="
+                text-4xl
+                font-black
+                mt-3
+              ">
+
+                {
+                  plan === "pro"
+
+                  ? "PRO"
+
+                  : "FREE"
+                }
+
+              </h2>
 
             </div>
 
           </div>
 
+          {/* ACTIONS */}
+
           <div className="
             grid
-            md:grid-cols-3
+            md:grid-cols-2
+            xl:grid-cols-4
             gap-6
-            mt-14
+            mb-14
           ">
 
-            <Link
+            <a
               href="/loads"
               className="
                 bg-white/5
@@ -528,10 +609,8 @@ export default function DriverDashboard() {
                 border-white/10
                 rounded-3xl
                 p-8
-                hover:border-yellow-400/40
+                hover:border-yellow-400/30
                 transition
-                backdrop-blur-xl
-                block
               "
             >
 
@@ -549,16 +628,15 @@ export default function DriverDashboard() {
               <h2 className="
                 text-3xl
                 font-black
-                mb-3
               ">
 
-                Loads Marketplace
+                Browse Loads
 
               </h2>
 
-            </Link>
+            </a>
 
-            <Link
+            <a
               href="/jobs"
               className="
                 bg-white/5
@@ -566,10 +644,8 @@ export default function DriverDashboard() {
                 border-white/10
                 rounded-3xl
                 p-8
-                hover:border-yellow-400/40
+                hover:border-yellow-400/30
                 transition
-                backdrop-blur-xl
-                block
               "
             >
 
@@ -580,21 +656,156 @@ export default function DriverDashboard() {
                 mb-4
               ">
 
-                Jobs
+                Recruitment
 
               </p>
 
               <h2 className="
                 text-3xl
                 font-black
-                mb-3
               ">
 
                 Browse Jobs
 
               </h2>
 
-            </Link>
+            </a>
+
+            <a
+              href="/applications"
+              className="
+                bg-white/5
+                border
+                border-white/10
+                rounded-3xl
+                p-8
+                hover:border-yellow-400/30
+                transition
+              "
+            >
+
+              <p className="
+                text-gray-500
+                uppercase
+                text-sm
+                mb-4
+              ">
+
+                Career
+
+              </p>
+
+              <h2 className="
+                text-3xl
+                font-black
+              ">
+
+                Applications
+
+              </h2>
+
+            </a>
+
+            <a
+              href="/messages"
+              className="
+                bg-white/5
+                border
+                border-white/10
+                rounded-3xl
+                p-8
+                hover:border-yellow-400/30
+                transition
+              "
+            >
+
+              <p className="
+                text-gray-500
+                uppercase
+                text-sm
+                mb-4
+              ">
+
+                Communication
+
+              </p>
+
+              <h2 className="
+                text-3xl
+                font-black
+              ">
+
+                Messages
+
+              </h2>
+
+            </a>
+
+          </div>
+
+          {/* PREMIUM CARD */}
+
+          <div className="
+            bg-gradient-to-r
+            from-yellow-500/10
+            to-orange-500/10
+            border
+            border-yellow-500/20
+            rounded-[40px]
+            p-10
+          ">
+
+            <h2 className="
+              text-5xl
+              font-black
+              mb-6
+            ">
+
+              {
+                plan === "pro"
+
+                ? "PRO DRIVER ACTIVE"
+
+                : "Unlock Pro Driver"
+              }
+
+            </h2>
+
+            <p className="
+              text-gray-300
+              text-2xl
+              max-w-3xl
+              mb-8
+            ">
+
+              Access unlimited job
+              applications, premium
+              transport loads and
+              priority visibility for
+              transport companies.
+
+            </p>
+
+            {plan === "free" && (
+
+              <button
+                onClick={openCheckout}
+                className="
+                  bg-yellow-400
+                  text-black
+                  px-8
+                  py-4
+                  rounded-2xl
+                  font-black
+                  text-lg
+                "
+              >
+
+                Upgrade To Pro
+
+              </button>
+
+            )}
 
           </div>
 
