@@ -102,6 +102,13 @@ export default function DriverDashboard() {
 
       const data =
         await response.json();
+      if (!data.driver_name) {
+
+  window.location.href =
+    "/create-driver-profile";
+
+  return;
+}
 
       setDashboard(data);
 

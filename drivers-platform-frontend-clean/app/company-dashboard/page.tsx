@@ -115,6 +115,13 @@ export default function CompanyDashboard() {
 
       const data =
         await response.json();
+      if (!data.company_name) {
+
+  window.location.href =
+    "/create-company-profile";
+
+  return;
+}
 
       setDashboard(data);
 
