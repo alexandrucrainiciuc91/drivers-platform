@@ -11,14 +11,7 @@ import Sidebar from "../components/Sidebar";
 
 import LanguageSwitcher from "../components/LanguageSwitcher";
 
-import {
-  useTranslation
-} from "react-i18next";
-
 export default function CompanyDashboard() {
-
-  const { t } =
-    useTranslation();
 
   const [dashboard, setDashboard] =
     useState<any>(null);
@@ -34,146 +27,6 @@ export default function CompanyDashboard() {
 
   const API_URL =
     "https://drivers-platform-production.up.railway.app";
-
-  // ============================================
-  // FETCH LOADS
-  // ============================================
-
-  const fetchLoads = async () => {
-
-    try {
-
-      const token =
-        localStorage.getItem(
-          "token"
-        );
-
-      const response =
-        await fetch(
-
-          `${API_URL}/my-loads`,
-
-          {
-
-            headers: {
-
-              Authorization:
-                `Bearer ${token}`
-            }
-          }
-        );
-
-      const data =
-        await response.json();
-
-      setLoads(data);
-
-    } catch (error) {
-
-      console.log(error);
-    }
-  };
-
-  // ============================================
-  // DELETE LOAD
-  // ============================================
-
-  const deleteLoad = async (
-    loadId: number
-  ) => {
-
-    try {
-
-      const token =
-        localStorage.getItem(
-          "token"
-        );
-
-      await fetch(
-
-        `${API_URL}/load/${loadId}`,
-
-        {
-
-          method: "DELETE",
-
-          headers: {
-
-            Authorization:
-              `Bearer ${token}`
-          }
-        }
-      );
-
-      fetchLoads();
-
-    } catch (error) {
-
-      console.log(error);
-    }
-  };
-
-  // ============================================
-  // FETCH DASHBOARD
-  // ============================================
-
-  async function fetchDashboard() {
-
-    try {
-
-      const token =
-        localStorage.getItem(
-          "token"
-        );
-
-      const response =
-        await fetch(
-
-          `${API_URL}/company/dashboard`,
-
-          {
-
-            headers: {
-
-              Authorization:
-                `Bearer ${token}`
-            }
-          }
-        );
-
-      const data =
-        await response.json();
-
-      console.log(
-        "FULL COMPANY DASHBOARD:",
-        data
-      );
-
-      if (
-        !data.company_name
-      ) {
-
-        window.location.href =
-          "/create-company-profile";
-
-        return;
-      }
-
-      setDashboard(data);
-
-    } catch (error) {
-
-      console.log(error);
-
-    } finally {
-
-      setLoading(false);
-    }
-  }
-
-  // ============================================
-  // AUTH
-  // ============================================
 
   useEffect(() => {
 
@@ -219,9 +72,124 @@ export default function CompanyDashboard() {
 
   }, []);
 
-  // ============================================
-  // STRIPE CHECKOUT
-  // ============================================
+  async function fetchLoads() {
+
+    try {
+
+      const token =
+        localStorage.getItem(
+          "token"
+        );
+
+      const response =
+        await fetch(
+
+          `${API_URL}/my-loads`,
+
+          {
+
+            headers: {
+
+              Authorization:
+                `Bearer ${token}`
+            }
+          }
+        );
+
+      const data =
+        await response.json();
+
+      setLoads(data);
+
+    } catch (error) {
+
+      console.log(error);
+    }
+  }
+
+  async function deleteLoad(
+    loadId: number
+  ) {
+
+    try {
+
+      const token =
+        localStorage.getItem(
+          "token"
+        );
+
+      await fetch(
+
+        `${API_URL}/load/${loadId}`,
+
+        {
+
+          method: "DELETE",
+
+          headers: {
+
+            Authorization:
+              `Bearer ${token}`
+          }
+        }
+      );
+
+      fetchLoads();
+
+    } catch (error) {
+
+      console.log(error);
+    }
+  }
+
+  async function fetchDashboard() {
+
+    try {
+
+      const token =
+        localStorage.getItem(
+          "token"
+        );
+
+      const response =
+        await fetch(
+
+          `${API_URL}/company/dashboard`,
+
+          {
+
+            headers: {
+
+              Authorization:
+                `Bearer ${token}`
+            }
+          }
+        );
+
+      const data =
+        await response.json();
+
+      if (
+        !data.company_name
+      ) {
+
+        window.location.href =
+          "/create-company-profile";
+
+        return;
+      }
+
+      setDashboard(data);
+
+    } catch (error) {
+
+      console.log(error);
+
+    } finally {
+
+      setLoading(false);
+    }
+  }
 
   async function openCheckout() {
 
@@ -270,51 +238,72 @@ export default function CompanyDashboard() {
     } catch (error) {
 
       console.log(error);
-
-      alert(
-        "Stripe checkout failed"
-      );
     }
   }
 
-  // ============================================
-  // LOADING
-  // ============================================
+  async function cancelSubscription() {
+
+    try {
+
+      const token =
+        localStorage.getItem(
+          "token"
+        );
+
+      const response =
+        await fetch(
+
+          `${API_URL}/cancel-subscription`,
+
+          {
+
+            method: "POST",
+
+            headers: {
+
+              Authorization:
+                `Bearer ${token}`
+            }
+          }
+        );
+
+      const data =
+        await response.json();
+
+      alert(data.message);
+
+      localStorage.setItem(
+        "subscription_plan",
+        "free"
+      );
+
+      window.location.reload();
+
+    } catch (error) {
+
+      console.log(error);
+    }
+  }
 
   if (loading) {
 
     return (
 
-      <div className="flex">
+      <div className="
+        min-h-screen
+        bg-black
+        text-white
+        flex
+        items-center
+        justify-center
+        text-3xl
+      ">
 
-        <Sidebar />
-
-        <div className="
-          flex-1
-          min-h-screen
-          bg-black
-          text-white
-          flex
-          items-center
-          justify-center
-          text-3xl
-        ">
-
-          {
-            t(
-              "company_dashboard.loading"
-            )
-          }
-
-        </div>
+        Loading...
 
       </div>
     );
   }
-
-  // ============================================
-  // UI
-  // ============================================
 
   return (
 
@@ -333,8 +322,6 @@ export default function CompanyDashboard() {
         relative
       ">
 
-        {/* BACKGROUND */}
-
         <div className="fixed inset-0">
 
           <div className="
@@ -347,27 +334,13 @@ export default function CompanyDashboard() {
             blur-[180px]
           " />
 
-          <div className="
-            absolute
-            bottom-0
-            right-0
-            w-[700px]
-            h-[700px]
-            bg-orange-500/10
-            blur-[180px]
-          " />
-
         </div>
-
-        {/* CONTENT */}
 
         <div className="
           relative
           z-10
           p-10
         ">
-
-          {/* LANGUAGE */}
 
           <div className="
             flex
@@ -379,8 +352,6 @@ export default function CompanyDashboard() {
 
           </div>
 
-          {/* HERO */}
-
           <div className="
             bg-white/5
             border
@@ -391,304 +362,47 @@ export default function CompanyDashboard() {
             mb-10
           ">
 
+            <h1 className="
+              text-7xl
+              font-black
+            ">
+
+              {
+                dashboard?.company_name
+              }
+
+            </h1>
+
             <div className="
               flex
-              items-center
-              justify-between
-              gap-10
+              gap-4
+              mt-8
               flex-wrap
             ">
 
-              <div>
+              <div className={`
+                px-6
+                py-3
+                rounded-2xl
+                font-black
+                ${
+                  plan === "business"
 
-                <p className="
-                  uppercase
-                  tracking-[6px]
-                  text-yellow-400
-                  mb-4
-                ">
+                    ? "bg-yellow-400 text-black"
 
-                  {
-                    t(
-                      "company_dashboard.dashboard"
-                    )
-                  }
+                    : "bg-green-500/20 text-green-400"
+                }
+              `}>
 
-                </p>
+                {
+                  plan === "business"
 
-                <h1 className="
-                  text-7xl
-                  font-black
-                  leading-none
-                ">
+                    ? "BUSINESS PLAN"
 
-                  {
-                    dashboard?.company_name
-                  }
-
-                </h1>
-
-                <p className="
-                  text-gray-400
-                  text-2xl
-                  mt-6
-                  max-w-3xl
-                ">
-
-                  {
-                    t(
-                      "company_dashboard.subtitle"
-                    )
-                  }
-
-                </p>
-
-                {/* PLAN */}
-
-                <div className="
-                  flex
-                  gap-5
-                  mt-8
-                  flex-wrap
-                ">
-
-                  <div className={`
-                    px-6
-                    py-3
-                    rounded-2xl
-                    font-black
-                    uppercase
-                    ${
-                      plan === "business"
-
-                        ? "bg-yellow-400 text-black"
-
-                        : "bg-green-500/20 text-green-400"
-                    }
-                  `}>
-
-                    {
-                      plan === "business"
-
-                        ? "BUSINESS PLAN"
-
-                        : "FREE PLAN"
-                    }
-
-                  </div>
-
-                  <div className="
-                    bg-white/10
-                    px-6
-                    py-3
-                    rounded-2xl
-                  ">
-
-                    {
-                      dashboard?.transport_type
-                    }
-
-                  </div>
-
-                  {plan === "free" && (
-
-                    <button
-                      onClick={openCheckout}
-                      className="
-                        bg-yellow-400
-                        text-black
-                        px-6
-                        py-3
-                        rounded-2xl
-                        font-black
-                        hover:scale-105
-                        transition-all
-                      "
-                    >
-
-                      {
-                        t(
-                          "company_dashboard.upgrade_plan"
-                        )
-                      }
-
-                    </button>
-
-                  )}
-
-                </div>
+                    : "FREE PLAN"
+                }
 
               </div>
-
-              {/* IMAGE */}
-
-              <img
-                src="https://images.unsplash.com/photo-1494412651409-8963ce7935a7?q=80&w=1400&auto=format&fit=crop"
-                className="
-                  w-[500px]
-                  h-[320px]
-                  rounded-[40px]
-                  object-cover
-                  border
-                  border-white/10
-                "
-              />
-
-            </div>
-
-          </div>
-
-          {/* LOAD MARKETPLACE */}
-
-          <div className="
-            grid
-            lg:grid-cols-3
-            gap-6
-            mb-10
-          ">
-
-            {/* POST LOAD */}
-
-            <a
-              href="/post-load"
-              className="
-                bg-white/5
-                border
-                border-white/10
-                rounded-3xl
-                p-8
-                hover:border-yellow-400/40
-                transition
-                backdrop-blur-xl
-              "
-            >
-
-              <p className="
-                text-gray-500
-                uppercase
-                text-sm
-                mb-4
-              ">
-
-                Marketplace
-
-              </p>
-
-              <h2 className="
-                text-3xl
-                font-black
-                mb-3
-              ">
-
-                Post Load
-
-              </h2>
-
-              <p className="
-                text-gray-400
-                leading-relaxed
-              ">
-
-                Publish transport loads
-                for drivers and carriers.
-
-              </p>
-
-            </a>
-
-            {/* VIEW LOADS */}
-
-            <a
-              href="/loads"
-              className="
-                bg-white/5
-                border
-                border-white/10
-                rounded-3xl
-                p-8
-                hover:border-yellow-400/40
-                transition
-                backdrop-blur-xl
-              "
-            >
-
-              <p className="
-                text-gray-500
-                uppercase
-                text-sm
-                mb-4
-              ">
-
-                Marketplace
-
-              </p>
-
-              <h2 className="
-                text-3xl
-                font-black
-                mb-3
-              ">
-
-                Browse Loads
-
-              </h2>
-
-              <p className="
-                text-gray-400
-                leading-relaxed
-              ">
-
-                Explore all active
-                transport requests.
-
-              </p>
-
-            </a>
-
-            {/* PLAN */}
-
-            <div className="
-              bg-gradient-to-br
-              from-yellow-500/10
-              to-orange-500/10
-              border
-              border-yellow-400/20
-              rounded-3xl
-              p-8
-            ">
-
-              <p className="
-                text-yellow-400
-                uppercase
-                text-sm
-                mb-4
-                font-bold
-              ">
-
-                Current Plan
-
-              </p>
-
-              <h2 className="
-                text-5xl
-                font-black
-                mb-3
-              ">
-
-                {plan === "free"
-                  ? "5"
-                  : "∞"}
-
-              </h2>
-
-              <p className="
-                text-gray-300
-                mb-6
-              ">
-
-                Posted loads limit
-
-              </p>
 
               {plan === "free" && (
 
@@ -710,145 +424,170 @@ export default function CompanyDashboard() {
 
               )}
 
+              {plan === "business" && (
+
+                <button
+                  onClick={cancelSubscription}
+                  className="
+                    bg-red-500/20
+                    text-red-400
+                    px-6
+                    py-3
+                    rounded-2xl
+                    font-black
+                  "
+                >
+
+                  Cancel Subscription
+
+                </button>
+
+              )}
+
             </div>
 
           </div>
 
-          {/* MY LOADS */}
+          <div className="
+            grid
+            lg:grid-cols-3
+            gap-6
+            mb-10
+          ">
 
-          <div className="mb-10">
+            <a
+              href="/post-load"
+              className="
+                bg-white/5
+                border
+                border-white/10
+                rounded-3xl
+                p-8
+              "
+            >
 
-            <h2 className="
-              text-4xl
-              font-black
-              mb-6
-            ">
+              <h2 className="
+                text-3xl
+                font-black
+              ">
 
-              My Loads
+                Post Load
 
-            </h2>
+              </h2>
 
-            <div className="
-              grid
-              gap-5
-            ">
+            </a>
 
-              {loads.map((load: any) => (
+            <a
+              href="/browse-drivers"
+              className="
+                bg-white/5
+                border
+                border-white/10
+                rounded-3xl
+                p-8
+              "
+            >
 
-                <div
-                  key={load.id}
-                  className="
-                    bg-white/5
-                    border
-                    border-white/10
-                    rounded-3xl
-                    p-6
-                    backdrop-blur-xl
-                  "
-                >
+              <h2 className="
+                text-3xl
+                font-black
+              ">
+
+                Browse Drivers
+
+              </h2>
+
+            </a>
+
+          </div>
+
+          <div className="space-y-5">
+
+            {loads.map((load: any) => (
+
+              <div
+                key={load.id}
+                className="
+                  bg-white/5
+                  border
+                  border-white/10
+                  rounded-3xl
+                  p-6
+                "
+              >
+
+                <div className="
+                  flex
+                  items-center
+                  justify-between
+                  flex-wrap
+                  gap-5
+                ">
+
+                  <div>
+
+                    <h3 className="
+                      text-2xl
+                      font-black
+                    ">
+
+                      {load.pickup_city}
+                      {" → "}
+                      {load.delivery_city}
+
+                    </h3>
+
+                  </div>
 
                   <div className="
                     flex
-                    items-center
-                    justify-between
-                    gap-5
-                    flex-wrap
+                    gap-3
                   ">
 
-                    <div>
-
-                      <h3 className="
-                        text-2xl
+                    <button
+                      onClick={() =>
+                        window.location.href =
+                        `/load-applications/${load.id}`
+                      }
+                      className="
+                        bg-yellow-400
+                        text-black
+                        px-5
+                        py-3
+                        rounded-2xl
                         font-black
-                      ">
+                      "
+                    >
 
-                        {load.pickup_city}
-                        {" → "}
-                        {load.delivery_city}
+                      Applicants
 
-                      </h3>
+                    </button>
 
-                      <p className="
-                        text-gray-400
-                        mt-2
-                      ">
+                    <button
+                      onClick={() =>
+                        deleteLoad(load.id)
+                      }
+                      className="
+                        bg-red-500
+                        text-white
+                        px-5
+                        py-3
+                        rounded-2xl
+                        font-black
+                      "
+                    >
 
-                        €{load.price}
-                        {" • "}
-                        {load.transport_type}
+                      Delete
 
-                      </p>
-
-                      <div className="
-                        mt-3
-                        inline-flex
-                        px-4
-                        py-2
-                        rounded-xl
-                        bg-yellow-400/10
-                        text-yellow-400
-                        text-sm
-                        font-bold
-                      ">
-
-                        {load.status}
-
-                      </div>
-
-                    </div>
-
-                    <div className="
-                      flex
-                      gap-3
-                      flex-wrap
-                    ">
-
-                      <button
-                        onClick={() =>
-                         window.location.href =
-  `/load-applications/${load.id}`
-                        }
-                        className="
-                          bg-yellow-400
-                          text-black
-                          px-5
-                          py-3
-                          rounded-2xl
-                          font-black
-                        "
-                      >
-
-                        Applicants
-
-                      </button>
-
-                      <button
-                        onClick={() =>
-                          deleteLoad(load.id)
-                        }
-                        className="
-                          bg-red-500
-                          text-white
-                          px-5
-                          py-3
-                          rounded-2xl
-                          font-black
-                        "
-                      >
-
-                        Delete
-
-                      </button>
-
-                    </div>
+                    </button>
 
                   </div>
 
                 </div>
 
-              ))}
+              </div>
 
-            </div>
+            ))}
 
           </div>
 

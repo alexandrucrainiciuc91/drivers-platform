@@ -49,6 +49,9 @@ def create_checkout_session(
 
         mode="subscription",
 
+
+        allow_promotion_codes=True,
+
         success_url=
             f"{FRONTEND_URL}/success",
 

@@ -42,3 +42,7 @@ class User(Base):
         Boolean,
         default=False
     )
+    stripe_subscription_id = Column(
+        String,
+        nullable=True
+    )

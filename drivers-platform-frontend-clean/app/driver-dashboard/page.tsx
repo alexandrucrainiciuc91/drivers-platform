@@ -14,14 +14,7 @@ import Sidebar from "../components/Sidebar";
 import LanguageSwitcher
 from "../components/LanguageSwitcher";
 
-import {
-  useTranslation
-} from "react-i18next";
-
 export default function DriverDashboard() {
-
-  const { t } =
-    useTranslation();
 
   const [mounted, setMounted] =
     useState(false);
@@ -34,6 +27,9 @@ export default function DriverDashboard() {
 
   const [plan, setPlan] =
     useState("free");
+
+  const API_URL =
+    "https://drivers-platform-production.up.railway.app";
 
   // =====================================================
   // MOUNT FIX
@@ -103,7 +99,7 @@ export default function DriverDashboard() {
 
       const response =
         await fetch(
-          "https://drivers-platform-production.up.railway.app/driver/dashboard",
+          `${API_URL}/driver/dashboard`,
           {
             method: "GET",
 
@@ -119,10 +115,6 @@ export default function DriverDashboard() {
 
       const data =
         await response.json();
-
-      // ============================================
-      // NO DRIVER PROFILE
-      // ============================================
 
       if (
         !data.driver_name
@@ -165,7 +157,7 @@ export default function DriverDashboard() {
 
       const response =
         await fetch(
-          "https://drivers-platform-production.up.railway.app/subscribe",
+          `${API_URL}/subscribe`,
           {
             method: "POST",
 
@@ -202,6 +194,54 @@ export default function DriverDashboard() {
       alert(
         "Stripe checkout failed"
       );
+    }
+  }
+
+  // =====================================================
+  // CANCEL SUBSCRIPTION
+  // =====================================================
+
+  async function cancelSubscription() {
+
+    try {
+
+      const token =
+        localStorage.getItem(
+          "token"
+        );
+
+      const response =
+        await fetch(
+
+          `${API_URL}/cancel-subscription`,
+
+          {
+
+            method: "POST",
+
+            headers: {
+
+              Authorization:
+                `Bearer ${token}`
+            }
+          }
+        );
+
+      const data =
+        await response.json();
+
+      alert(data.message);
+
+      localStorage.setItem(
+        "subscription_plan",
+        "free"
+      );
+
+      window.location.reload();
+
+    } catch (error) {
+
+      console.log(error);
     }
   }
 
@@ -278,8 +318,6 @@ export default function DriverDashboard() {
         relative
       ">
 
-        {/* BACKGROUND */}
-
         <div className="fixed inset-0">
 
           <div className="
@@ -304,15 +342,11 @@ export default function DriverDashboard() {
 
         </div>
 
-        {/* CONTENT */}
-
         <div className="
           relative
           z-10
           p-10
         ">
-
-          {/* LANGUAGE */}
 
           <div className="
             flex
@@ -323,8 +357,6 @@ export default function DriverDashboard() {
             <LanguageSwitcher />
 
           </div>
-
-          {/* HERO */}
 
           <div className="
             flex
@@ -356,20 +388,6 @@ export default function DriverDashboard() {
 
                 </p>
 
-                <div className="
-                  bg-green-500/20
-                  text-green-400
-                  px-4
-                  py-2
-                  rounded-2xl
-                  text-sm
-                  font-bold
-                ">
-
-                  ONLINE
-
-                </div>
-
               </div>
 
               <h1 className="
@@ -400,8 +418,6 @@ export default function DriverDashboard() {
                 applications and premium opportunities.
 
               </p>
-
-              {/* PLAN */}
 
               <div className="
                 mt-8
@@ -455,11 +471,31 @@ export default function DriverDashboard() {
 
                 )}
 
+                {plan === "pro" && (
+
+                  <button
+                    onClick={cancelSubscription}
+                    className="
+                      bg-red-500/20
+                      text-red-400
+                      px-6
+                      py-3
+                      rounded-2xl
+                      font-black
+                    "
+                  >
+
+                    Cancel Subscription
+
+                  </button>
+
+                )}
+
                 <button
                   onClick={logout}
                   className="
-                    bg-red-500/20
-                    text-red-400
+                    bg-red-500
+                    text-white
                     px-6
                     py-3
                     rounded-2xl
@@ -477,16 +513,12 @@ export default function DriverDashboard() {
 
           </div>
 
-          {/* MARKETPLACE ACTIONS */}
-
           <div className="
             grid
             md:grid-cols-3
             gap-6
             mt-14
           ">
-
-            {/* LOADS */}
 
             <Link
               href="/loads"
@@ -524,28 +556,20 @@ export default function DriverDashboard() {
 
               </h2>
 
-              <p className="
-                text-gray-400
-                leading-relaxed
-              ">
-
-                Browse transport loads
-                across Europe.
-
-              </p>
-
             </Link>
 
-            {/* FREE LIMIT */}
-
-            <div
+            <Link
+              href="/jobs"
               className="
                 bg-white/5
                 border
                 border-white/10
                 rounded-3xl
                 p-8
+                hover:border-yellow-400/40
+                transition
                 backdrop-blur-xl
+                block
               "
             >
 
@@ -556,100 +580,21 @@ export default function DriverDashboard() {
                 mb-4
               ">
 
-                Free Plan Limit
-
-              </p>
-
-              <h2 className="
-                text-5xl
-                font-black
-                text-yellow-400
-                mb-3
-              ">
-
-                {plan === "free"
-                  ? "3"
-                  : "∞"}
-
-              </h2>
-
-              <p className="
-                text-gray-400
-              ">
-
-                Visible loads
-
-              </p>
-
-            </div>
-
-            {/* PREMIUM */}
-
-            <div
-              className="
-                bg-gradient-to-br
-                from-yellow-500/10
-                to-orange-500/10
-                border
-                border-yellow-400/20
-                rounded-3xl
-                p-8
-              "
-            >
-
-              <p className="
-                text-yellow-400
-                uppercase
-                text-sm
-                mb-4
-                font-bold
-              ">
-
-                Premium Access
+                Jobs
 
               </p>
 
               <h2 className="
                 text-3xl
                 font-black
-                mb-4
+                mb-3
               ">
 
-                Unlimited Loads
+                Browse Jobs
 
               </h2>
 
-              <p className="
-                text-gray-300
-                mb-6
-              ">
-
-                Upgrade your account
-                to unlock all marketplace loads.
-
-              </p>
-
-              {plan === "free" && (
-
-                <button
-                  onClick={openCheckout}
-                  className="
-                    bg-yellow-400
-                    text-black
-                    px-6
-                    py-3
-                    rounded-2xl
-                    font-black
-                  "
-                >
-
-                  Upgrade Now
-
-                </button>
-
-              )}
-
-            </div>
+            </Link>
 
           </div>
 

@@ -1,7 +1,8 @@
 from fastapi import (
     APIRouter,
     Depends,
-    Request
+    Request,
+    HTTPException
 )
 
 from pydantic import BaseModel
@@ -9,6 +10,7 @@ from pydantic import BaseModel
 from sqlalchemy.orm import Session
 
 import stripe
+import os
 
 from app.database.database import (
     SessionLocal
@@ -28,33 +30,52 @@ from app.services.stripe_service import (
 
 router = APIRouter()
 
+# =====================================================
+# DATABASE
+# =====================================================
 
-# ============================================
-# STRIPE SECRET
-# ============================================
-import os
-stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
-endpoint_secret = os.getenv("STRIPE_WEBHOOK_SECRET")
+def get_db():
 
-# ============================================
+    db = SessionLocal()
+
+    try:
+
+        yield db
+
+    finally:
+
+        db.close()
+
+# =====================================================
+# STRIPE
+# =====================================================
+
+stripe.api_key = os.getenv(
+    "STRIPE_SECRET_KEY"
+)
+
+endpoint_secret = os.getenv(
+    "STRIPE_WEBHOOK_SECRET"
+)
+
+# =====================================================
 # REQUEST MODEL
-# ============================================
+# =====================================================
 
 class SubscribeRequest(BaseModel):
 
     price_id: str
 
-
-# ============================================
+# =====================================================
 # SUBSCRIBE
-# ============================================
+# =====================================================
 
 @router.post("/subscribe")
 def subscribe(
 
     request: SubscribeRequest,
 
-    current_user = Depends(
+    current_user: User = Depends(
         get_current_user
     )
 ):
@@ -72,10 +93,60 @@ def subscribe(
             checkout_url
     }
 
+# =====================================================
+# CANCEL SUBSCRIPTION
+# =====================================================
 
-# ============================================
+@router.post(
+    "/cancel-subscription"
+)
+
+def cancel_subscription(
+
+    current_user: User = Depends(
+        get_current_user
+    ),
+
+    db: Session = Depends(
+        get_db
+    )
+):
+
+    if not current_user.stripe_subscription_id:
+
+        raise HTTPException(
+
+            status_code=400,
+
+            detail=
+            "No active subscription"
+        )
+
+    stripe.Subscription.delete(
+
+        current_user
+        .stripe_subscription_id
+    )
+
+    current_user.subscription_plan = (
+        "free"
+    )
+
+    current_user.stripe_subscription_id = (
+        None
+    )
+
+    db.commit()
+
+    return {
+
+        "message":
+            "Subscription canceled"
+    }
+
+# =====================================================
 # STRIPE WEBHOOK
-# ============================================
+# =====================================================
 
 @router.post("/webhook")
 async def stripe_webhook(
@@ -105,9 +176,9 @@ async def stripe_webhook(
             "error": str(e)
         }
 
-    # ============================================
-    # PAYMENT SUCCESS
-    # ============================================
+    # =================================================
+    # CHECKOUT SUCCESS
+    # =================================================
 
     if event["type"] == "checkout.session.completed":
 
@@ -119,6 +190,10 @@ async def stripe_webhook(
             session["metadata"]["price_id"]
         )
 
+        subscription_id = (
+            session["subscription"]
+        )
+
         db: Session = SessionLocal()
 
         user = db.query(User).filter(
@@ -127,17 +202,60 @@ async def stripe_webhook(
 
         if user:
 
-            # DRIVER
+            # SAVE SUBSCRIPTION ID
+
+            user.stripe_subscription_id = (
+                subscription_id
+            )
+
+            # DRIVER PLAN
 
             if price_id == "price_1TVGXaEKIOywtjGZSQvQxhOF":
 
-                user.subscription_plan = "pro"
+                user.subscription_plan = (
+                    "pro"
+                )
 
-            # COMPANY
+            # COMPANY PLAN
 
             elif price_id == "price_1TWXnjEKIOywtjGZrBPeI3ek":
 
-                user.subscription_plan = "business"
+                user.subscription_plan = (
+                    "business"
+                )
+
+            db.commit()
+
+        db.close()
+
+    # =================================================
+    # SUBSCRIPTION CANCELED
+    # =================================================
+
+    if event["type"] == "customer.subscription.deleted":
+
+        subscription = event["data"]["object"]
+
+        subscription_id = subscription["id"]
+
+        db: Session = SessionLocal()
+
+        user = db.query(User).filter(
+
+            User.stripe_subscription_id ==
+            subscription_id
+
+        ).first()
+
+        if user:
+
+            user.subscription_plan = (
+                "free"
+            )
+
+            user.stripe_subscription_id = (
+                None
+            )
 
             db.commit()
 
