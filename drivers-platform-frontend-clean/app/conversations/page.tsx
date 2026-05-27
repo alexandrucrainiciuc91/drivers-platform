@@ -166,7 +166,7 @@ export default function ConversationsPage() {
         mb-3
       ">
 
-        Conversation #{conversation.id}
+        {conversation.other_user_name}
 
       </h2>
 
