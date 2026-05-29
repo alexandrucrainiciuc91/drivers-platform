@@ -329,7 +329,7 @@ export default function RegisterPage() {
           </div>
 
           <h1 className="
-            text-6xl
+            text-3xl md:text-5xl xl:text-6xl
             font-black
             leading-none
             mb-5

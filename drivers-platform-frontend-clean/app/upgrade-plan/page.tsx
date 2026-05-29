@@ -137,7 +137,7 @@ window.location.href = data.checkout_url;
 
             </div>
 
-            <h1 className="text-7xl font-black mb-8">
+            <h1 className="text-4xl md:text-6xl xl:text-7xl font-black mb-8">
 
               UPGRADE
               {" "}
@@ -160,7 +160,7 @@ window.location.href = data.checkout_url;
 
           {/* CARDS */}
 
-          <div className="max-w-6xl mx-auto grid xl:grid-cols-2 gap-10">
+          <div className="max-w-6xl mx-auto grid xl:grid-cols-1 md:grid-cols-2 gap-10">
 
             {/* DRIVER */}
 
@@ -200,7 +200,7 @@ window.location.href = data.checkout_url;
 
                 <div className="mb-10">
 
-                  <h2 className="text-5xl font-black mb-4">
+                  <h2 className="text-2xl md:text-4xl xl:text-5xl font-black mb-4">
 
                     PRO DRIVER
 
@@ -208,7 +208,7 @@ window.location.href = data.checkout_url;
 
                   <div className="flex items-end gap-2">
 
-                    <span className="text-7xl font-black text-yellow-400">
+                    <span className="text-4xl md:text-6xl xl:text-7xl font-black text-yellow-400">
 
                       €5
 
@@ -323,7 +323,7 @@ window.location.href = data.checkout_url;
 
                 <div className="mb-10">
 
-                  <h2 className="text-5xl font-black mb-4">
+                  <h2 className="text-2xl md:text-4xl xl:text-5xl font-black mb-4">
 
                     BUSINESS COMPANY
 
@@ -331,7 +331,7 @@ window.location.href = data.checkout_url;
 
                   <div className="flex items-end gap-2">
 
-                    <span className="text-7xl font-black text-yellow-400">
+                    <span className="text-4xl md:text-6xl xl:text-7xl font-black text-yellow-400">
 
                       €45
 

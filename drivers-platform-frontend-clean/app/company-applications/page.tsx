@@ -271,7 +271,7 @@ export default function CompanyApplicationsPage() {
 
             <div className="bg-white/5 border border-white/10 rounded-[40px] p-20 text-center backdrop-blur-2xl">
 
-              <h2 className="text-5xl font-black mb-6">
+              <h2 className="text-2xl md:text-4xl xl:text-5xl font-black mb-6">
 
                 {
                   t(
@@ -337,7 +337,7 @@ export default function CompanyApplicationsPage() {
 
                     </div>
 
-                    <h2 className="text-5xl font-black mb-5">
+                    <h2 className="text-2xl md:text-4xl xl:text-5xl font-black mb-5">
 
                       {application.driver_name}
 

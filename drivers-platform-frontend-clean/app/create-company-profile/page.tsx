@@ -259,7 +259,7 @@ export default function CreateCompanyProfilePage() {
 
               </div>
 
-              <h1 className="text-7xl font-black leading-[0.95] mb-8">
+              <h1 className="text-4xl md:text-6xl xl:text-7xl font-black leading-[0.95] mb-8">
 
                 {
                   t(
@@ -293,7 +293,7 @@ export default function CreateCompanyProfilePage() {
 
               {/* STATS */}
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+              <div className="grid grid-cols-1 md:grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
 
                 <div className="bg-white/5 border border-white/10 rounded-3xl p-6">
 

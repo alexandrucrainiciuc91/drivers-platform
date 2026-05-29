@@ -213,7 +213,7 @@ export default function ChatPage() {
 
             {/* TITLE */}
 
-            <h1 className="text-5xl font-black mb-10">
+            <h1 className="text-2xl md:text-4xl xl:text-5xl font-black mb-10">
 
                 Chat #{conversationId}
 

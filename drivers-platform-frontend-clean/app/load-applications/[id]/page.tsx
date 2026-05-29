@@ -176,7 +176,7 @@ console.log(loadId);
       ">
 
         <h1 className="
-          text-6xl
+          text-3xl md:text-5xl xl:text-6xl
           font-black
           mb-10
         ">
@@ -224,7 +224,7 @@ console.log(loadId);
                         <div className="
   mt-4
   grid
-  md:grid-cols-2
+  md:grid-cols-1 md:grid-cols-2
   gap-3
   text-gray-400
 ">

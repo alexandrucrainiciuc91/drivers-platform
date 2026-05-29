@@ -449,7 +449,7 @@ export default function LoadsPage() {
       ">
 
         <h1 className="
-          text-7xl
+          text-4xl md:text-6xl xl:text-7xl
           font-black
           mb-4
         ">
@@ -474,7 +474,7 @@ export default function LoadsPage() {
 
         <div className="
           grid
-          md:grid-cols-3
+          md:grid-cols-1 md:grid-cols-2 xl:grid-cols-3
           lg:grid-cols-6
           gap-4
         ">
@@ -789,7 +789,7 @@ export default function LoadsPage() {
         max-w-7xl
         mx-auto
         grid
-        lg:grid-cols-2
+        lg:grid-cols-1 md:grid-cols-2
         gap-8
       ">
 
@@ -853,7 +853,7 @@ export default function LoadsPage() {
 
               <div className="
                 text-yellow-400
-                text-5xl
+                text-2xl md:text-4xl xl:text-5xl
               ">
 
                 →
@@ -900,7 +900,7 @@ export default function LoadsPage() {
 
             <div className="
               grid
-              grid-cols-2
+              grid-cols-1 md:grid-cols-2
               gap-6
               mb-8
             ">

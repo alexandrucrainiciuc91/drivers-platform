@@ -29,14 +29,14 @@ export default function VerifyEmailPage() {
       ">
 
         <div className="
-          text-7xl
+          text-4xl md:text-6xl xl:text-7xl
           mb-8
         ">
           📩
         </div>
 
         <h1 className="
-          text-5xl
+          text-2xl md:text-4xl xl:text-5xl
           font-black
           mb-6
         ">

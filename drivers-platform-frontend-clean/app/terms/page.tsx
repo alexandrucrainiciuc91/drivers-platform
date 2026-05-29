@@ -34,7 +34,7 @@ export default function TermsPage() {
           </p>
 
           <h1 className="
-            text-7xl
+            text-4xl md:text-6xl xl:text-7xl
             font-black
             leading-none
             mb-6

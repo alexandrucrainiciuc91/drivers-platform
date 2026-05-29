@@ -9,7 +9,7 @@ export default function CancelPage() {
       flex
       items-center
       justify-center
-      text-5xl
+      text-2xl md:text-4xl xl:text-5xl
       font-black
     ">
 

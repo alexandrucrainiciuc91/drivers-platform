@@ -273,7 +273,7 @@ localStorage.setItem(
 
           </div>
 
-          <h1 className="text-5xl font-black mb-4">
+          <h1 className="text-2xl md:text-4xl xl:text-5xl font-black mb-4">
 
             {
               t(

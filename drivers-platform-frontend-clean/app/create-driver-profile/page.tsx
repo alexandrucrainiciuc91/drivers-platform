@@ -277,7 +277,7 @@ export default function CreateDriverProfilePage() {
 
               </div>
 
-              <h1 className="text-7xl font-black leading-[0.95] mb-8">
+              <h1 className="text-4xl md:text-6xl xl:text-7xl font-black leading-[0.95] mb-8">
 
                 {
                   t(

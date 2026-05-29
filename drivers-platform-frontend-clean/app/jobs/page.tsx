@@ -471,7 +471,7 @@ export default function JobsPage() {
             </p>
 
             <h1 className="
-              text-7xl
+              text-4xl md:text-6xl xl:text-7xl
               font-black
               leading-none
             ">
@@ -501,8 +501,8 @@ export default function JobsPage() {
             <div className="
               grid
               grid-cols-1
-              md:grid-cols-2
-              xl:grid-cols-4
+              md:grid-cols-1 md:grid-cols-2
+              xl:grid-cols-1 md:grid-cols-2 xl:grid-cols-4
               gap-5
             ">
 
@@ -626,7 +626,7 @@ export default function JobsPage() {
                   <div>
 
                     <h2 className="
-                      text-5xl
+                      text-2xl md:text-4xl xl:text-5xl
                       font-black
                     ">
 

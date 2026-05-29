@@ -345,7 +345,7 @@ export default function PostLoadPage() {
         {/* HEADER */}
 
         <h1 className="
-          text-7xl
+          text-4xl md:text-6xl xl:text-7xl
           font-black
           mb-4
         ">
@@ -372,7 +372,7 @@ export default function PostLoadPage() {
           onSubmit={handleSubmit}
           className="
             grid
-            lg:grid-cols-2
+            lg:grid-cols-1 md:grid-cols-2
             gap-6
           "
         >

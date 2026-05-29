@@ -282,7 +282,7 @@ export default function DriverJobsPage() {
 
               </p>
 
-              <h1 className="text-7xl font-black leading-none">
+              <h1 className="text-4xl md:text-6xl xl:text-7xl font-black leading-none">
 
                 {
                   t(
@@ -383,7 +383,7 @@ export default function DriverJobsPage() {
 
                     </div>
 
-                    <h2 className="text-5xl font-black">
+                    <h2 className="text-2xl md:text-4xl xl:text-5xl font-black">
 
                       {job.title}
 
@@ -421,7 +421,7 @@ export default function DriverJobsPage() {
 
                 {/* INFO */}
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mt-10">
+                <div className="grid grid-cols-1 md:grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 mt-10">
 
                   <div className="bg-black/30 rounded-2xl p-5">
 

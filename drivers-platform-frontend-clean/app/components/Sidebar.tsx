@@ -258,7 +258,7 @@ async function fetchMessagesCount() {
         <h1
           className="
             text-3xl
-            md:text-5xl
+            md:text-2xl md:text-4xl xl:text-5xl
             font-black
             text-yellow-400
             mb-10

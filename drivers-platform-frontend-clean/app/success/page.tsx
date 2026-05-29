@@ -158,7 +158,7 @@ export default function SuccessPage() {
           flex
           items-center
           justify-center
-          text-5xl
+          text-2xl md:text-4xl xl:text-5xl
           font-black
           mx-auto
           mb-8
@@ -170,7 +170,7 @@ export default function SuccessPage() {
         </div>
 
         <h1 className="
-          text-6xl
+          text-3xl md:text-5xl xl:text-6xl
           font-black
           mb-6
         ">

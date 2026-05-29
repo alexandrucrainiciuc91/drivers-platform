@@ -539,7 +539,7 @@ export default function CompanyDashboard() {
 
           <div className="
             grid
-            lg:grid-cols-4
+            lg:grid-cols-1 md:grid-cols-2 xl:grid-cols-4
             gap-6
             mb-10
           ">
@@ -563,7 +563,7 @@ export default function CompanyDashboard() {
               </p>
 
               <h2 className="
-                text-5xl
+                text-2xl md:text-4xl xl:text-5xl
                 font-black
                 mt-3
               ">
@@ -593,7 +593,7 @@ export default function CompanyDashboard() {
               </p>
 
               <h2 className="
-                text-5xl
+                text-2xl md:text-4xl xl:text-5xl
                 font-black
                 mt-3
               ">
@@ -629,7 +629,7 @@ export default function CompanyDashboard() {
               </p>
 
               <h2 className="
-                text-5xl
+                text-2xl md:text-4xl xl:text-5xl
                 font-black
                 mt-3
               ">
@@ -688,8 +688,8 @@ export default function CompanyDashboard() {
 
           <div className="
             grid
-            md:grid-cols-2
-            xl:grid-cols-4
+            md:grid-cols-1 md:grid-cols-2
+            xl:grid-cols-1 md:grid-cols-2 xl:grid-cols-4
             gap-6
             mb-14
           ">
@@ -839,7 +839,7 @@ export default function CompanyDashboard() {
           {/* LOADS */}
 
           <h2 className="
-            text-5xl
+            text-2xl md:text-4xl xl:text-5xl
             font-black
             mb-8
           ">

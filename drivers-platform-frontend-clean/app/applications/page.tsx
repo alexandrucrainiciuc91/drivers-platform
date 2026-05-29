@@ -139,7 +139,7 @@ export default function ApplicationsPage() {
 
       <div className="flex-1 p-10">
 
-        <h1 className="text-6xl font-black mb-10">
+        <h1 className="text-3xl md:text-5xl xl:text-6xl font-black mb-10">
 
           Applications
 

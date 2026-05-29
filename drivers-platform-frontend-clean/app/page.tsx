@@ -111,7 +111,7 @@ if (!mounted) {
 
           {/* GRID */}
 
-          <div className="grid xl:grid-cols-2 gap-20 items-center min-h-[85vh]">
+          <div className="grid xl:grid-cols-1 md:grid-cols-2 gap-20 items-center min-h-[85vh]">
 
             {/* LEFT */}
 
@@ -195,8 +195,8 @@ if (!mounted) {
                   <div className="text-center">
 
                     <h1 className="
-                      text-6xl
-                      xl:text-7xl
+                      text-3xl md:text-5xl xl:text-6xl
+                      xl:text-4xl md:text-6xl xl:text-7xl
                       font-black
                       leading-none
                       tracking-tight
@@ -293,8 +293,8 @@ if (!mounted) {
               {/* TITLE */}
 
               <h1 className="
-                text-6xl
-                md:text-7xl
+                text-3xl md:text-5xl xl:text-6xl
+                md:text-4xl md:text-6xl xl:text-7xl
                 xl:text-8xl
                 font-black
                 leading-[0.9]
@@ -405,8 +405,8 @@ if (!mounted) {
 
               <div className="
                 grid
-                grid-cols-2
-                xl:grid-cols-4
+                grid-cols-1 md:grid-cols-2
+                xl:grid-cols-1 md:grid-cols-2 xl:grid-cols-4
                 gap-5
               ">
 
@@ -507,7 +507,7 @@ if (!mounted) {
 
       <section className="py-32 px-6 bg-gradient-to-b from-black to-zinc-950">
 
-        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-10">
+        <div className="max-w-7xl mx-auto grid lg:grid-cols-1 md:grid-cols-2 gap-10">
 
           {/* DRIVERS */}
 
@@ -558,7 +558,7 @@ if (!mounted) {
               </div>
 
               <h2 className="
-                text-5xl
+                text-2xl md:text-4xl xl:text-5xl
                 font-black
                 mb-6
                 leading-tight
@@ -689,7 +689,7 @@ if (!mounted) {
               </div>
 
               <h2 className="
-                text-5xl
+                text-2xl md:text-4xl xl:text-5xl
                 font-black
                 mb-6
                 leading-tight
@@ -787,7 +787,7 @@ if (!mounted) {
           <div className="text-center mb-20">
 
             <h2 className="
-              text-6xl
+              text-3xl md:text-5xl xl:text-6xl
               font-black
               mb-6
             ">
@@ -814,7 +814,7 @@ if (!mounted) {
 
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
 
             {jobs.map((job, index) => (
 
@@ -941,7 +941,7 @@ if (!mounted) {
           <div className="text-center mb-20">
 
             <h2 className="
-              text-6xl
+              text-3xl md:text-5xl xl:text-6xl
               font-black
               mb-6
             ">
@@ -959,7 +959,7 @@ if (!mounted) {
 
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8">
 
             {[
               {
@@ -1059,7 +1059,7 @@ if (!mounted) {
 
     <div className="
       grid
-      lg:grid-cols-4
+      lg:grid-cols-1 md:grid-cols-2 xl:grid-cols-4
       gap-12
       mb-14
     ">

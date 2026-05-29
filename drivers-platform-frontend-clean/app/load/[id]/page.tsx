@@ -162,7 +162,7 @@ export default function LoadDetailsPage({
             </p>
 
             <h1 className="
-              text-6xl
+              text-3xl md:text-5xl xl:text-6xl
               font-black
               leading-tight
             ">
@@ -211,7 +211,7 @@ export default function LoadDetailsPage({
 
         <div className="
           grid
-          lg:grid-cols-3
+          lg:grid-cols-1 md:grid-cols-2 xl:grid-cols-3
           gap-6
           mb-10
         ">
@@ -331,7 +331,7 @@ export default function LoadDetailsPage({
 
           <div className="
             grid
-            md:grid-cols-2
+            md:grid-cols-1 md:grid-cols-2
             gap-8
           ">
 

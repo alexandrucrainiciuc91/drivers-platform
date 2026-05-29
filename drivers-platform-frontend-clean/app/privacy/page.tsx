@@ -34,7 +34,7 @@ export default function PrivacyPage() {
           </p>
 
           <h1 className="
-            text-7xl
+            text-4xl md:text-6xl xl:text-7xl
             font-black
             mb-6
           ">
