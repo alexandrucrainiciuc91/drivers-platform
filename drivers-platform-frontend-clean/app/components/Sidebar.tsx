@@ -19,8 +19,8 @@ from "./LanguageSwitcher";
 export default function Sidebar() {
 
   const {
-    t
   } = useTranslation();
+const [open, setOpen] = useState(false);
 
   const [userType, setUserType] =
     useState("");
@@ -199,20 +199,48 @@ async function fetchMessagesCount() {
 
   return (
 
-    <div className="
-      w-[320px]
-      min-h-screen
-      bg-black
-      border-r
-      border-white/10
-      p-8
-      flex
-      flex-col
-      justify-between
-      relative
-      z-50
-    ">
+    <div
+  className={`
+    fixed
+    md:relative
+    top-0
+    left-0
+    min-h-screen
+    bg-black
+    border-r
+    border-white/10
+    p-8
+    flex
+    flex-col
+    justify-between
+    z-50
+    transition-all
+    duration-300
 
+    w-[280px]
+
+    ${
+      open
+        ? "translate-x-0"
+        : "-translate-x-full md:translate-x-0"
+    }
+  `}
+>
+<button
+  onClick={() => setOpen(!open)}
+  className="
+    md:hidden
+    fixed
+    top-4
+    left-4
+    z-50
+    bg-yellow-500
+    p-3
+    rounded-xl
+  "
+>
+  ☰
+</button>
       <div>
 
         <h1 className="
@@ -603,6 +631,7 @@ async function fetchMessagesCount() {
         Logout
 
       </button>
+
 
     </div>
   );
