@@ -124,7 +124,7 @@ def get_conversations(user_id: int):
             # DRIVER
             # ====================================
 
-            if other_user.user_type == "driver":
+            if other_user.role == "driver":
 
                 driver_profile = db.query(
                     DriverProfile
@@ -144,8 +144,7 @@ def get_conversations(user_id: int):
             # ====================================
             # COMPANY
             # ====================================
-
-            elif other_user.user_type == "company":
+            elif other_user.role == "company":
 
                 company_profile = db.query(
                     CompanyProfile
