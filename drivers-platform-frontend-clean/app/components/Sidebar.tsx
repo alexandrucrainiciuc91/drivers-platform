@@ -198,258 +198,257 @@ async function fetchMessagesCount() {
   // ============================================
 
   return (
+  <>
+    {/* MOBILE HAMBURGER */}
+
+    <button
+      onClick={() => setOpen(!open)}
+      className="
+        md:hidden
+        fixed
+        top-4
+        left-4
+        z-[9999]
+        bg-yellow-500
+        text-black
+        text-3xl
+        font-black
+        p-3
+        rounded-xl
+        shadow-lg
+      "
+    >
+      ☰
+    </button>
+
+    {/* SIDEBAR */}
 
     <div
-  className={`
-    fixed
-    md:relative
-    top-0
-    left-0
-    min-h-screen
-    bg-black
-    border-r
-    border-white/10
-    p-8
-    flex
-    flex-col
-    justify-between
-    z-50
-    transition-all
-    duration-300
+      className={`
+        fixed
+        md:relative
+        top-0
+        left-0
+        min-h-screen
+        bg-black
+        border-r
+        border-white/10
+        flex
+        flex-col
+        justify-between
+        z-50
+        transition-all
+        duration-300
 
-    w-[280px]
+        w-[280px]
+        md:w-[320px]
 
-    ${
-      open
-        ? "translate-x-0"
-        : "-translate-x-full md:translate-x-0"
-    }
-  `}
->
-<button
-  onClick={() => setOpen(!open)}
-  className="
-    md:hidden
-    fixed
-    top-4
-    left-4
-    z-50
-    bg-yellow-500
-    p-3
-    rounded-xl
-  "
->
-  ☰
-</button>
+        p-4
+        md:p-8
+
+        ${
+          open
+            ? "translate-x-0"
+            : "-translate-x-full md:translate-x-0"
+        }
+      `}
+    >
       <div>
 
-        <h1 className="
-          text-5xl
-          font-black
-          text-yellow-400
-          mb-14
-        ">
-
-          {
-            userType === "company"
-
-              ? "COMPANY HUB"
-
-              : "DRIVER HUB"
-          }
-
+        <h1
+          className="
+            text-3xl
+            md:text-5xl
+            font-black
+            text-yellow-400
+            mb-10
+          "
+        >
+          {userType === "company"
+            ? "COMPANY HUB"
+            : "DRIVER HUB"}
         </h1>
 
         <LanguageSwitcher />
 
-        <div className="flex flex-col gap-6 mt-8">
-
-          {/* COMPANY */}
+        <div className="flex flex-col gap-4 mt-8">
 
           {userType === "company" && (
-
             <>
-
               <Link
                 href="/company-dashboard"
                 className="
-                  block bg-white/5
+                  block
+                  bg-white/5
                   hover:bg-yellow-400
                   hover:text-black
                   transition-all
-                  border border-white/10
-                  rounded-[28px]
-                  p-8 text-3xl font-bold
+                  border
+                  border-white/10
+                  rounded-[20px]
+                  p-5
+                  md:p-8
+                  text-xl
+                  md:text-3xl
+                  font-bold
                 "
               >
-
                 Dashboard
-
               </Link>
 
               <Link
                 href="/company-jobs"
                 className="
-                  block bg-white/5
+                  block
+                  bg-white/5
                   hover:bg-yellow-400
                   hover:text-black
                   transition-all
-                  border border-white/10
-                  rounded-[28px]
-                  p-8 text-3xl font-bold
+                  border
+                  border-white/10
+                  rounded-[20px]
+                  p-5
+                  md:p-8
+                  text-xl
+                  md:text-3xl
+                  font-bold
                 "
               >
-
                 Jobs
-
               </Link>
 
               <Link
                 href="/company-applications"
                 className="
-                  block bg-white/5
+                  block
+                  bg-white/5
                   hover:bg-yellow-400
                   hover:text-black
                   transition-all
-                  border border-white/10
-                  rounded-[28px]
-                  p-8 text-3xl font-bold
+                  border
+                  border-white/10
+                  rounded-[20px]
+                  p-5
+                  md:p-8
+                  text-xl
+                  md:text-3xl
+                  font-bold
                 "
               >
-
                 Applications
-
               </Link>
 
               <Link
                 href="/browse-drivers"
                 className="
-                  block bg-white/5
+                  block
+                  bg-white/5
                   hover:bg-yellow-400
                   hover:text-black
                   transition-all
-                  border border-white/10
-                  rounded-[28px]
-                  p-8 text-3xl font-bold
+                  border
+                  border-white/10
+                  rounded-[20px]
+                  p-5
+                  md:p-8
+                  text-xl
+                  md:text-3xl
+                  font-bold
                 "
               >
-
                 Drivers
-
               </Link>
-
-              {/* MESSAGES */}
 
               <Link
                 href="/conversations"
                 className="
-                  block bg-white/5
+                  block
+                  bg-white/5
                   hover:bg-yellow-400
                   hover:text-black
                   transition-all
-                  border border-white/10
-                  rounded-[28px]
-                  p-8 text-3xl font-bold
+                  border
+                  border-white/10
+                  rounded-[20px]
+                  p-5
+                  md:p-8
+                  text-xl
+                  md:text-3xl
+                  font-bold
                 "
               >
-
-                <div className="
-                  flex
-                  items-center
-                  justify-between
-                ">
-
-                  <span>
-                    Messages
-                  </span>
+                <div className="flex items-center justify-between">
+                  <span>Messages</span>
 
                   {messagesCount > 0 && (
-
-                    <div className="
-                      bg-red-500
-                      text-white
-                      min-w-[28px]
-                      h-7
-                      px-2
-                      rounded-full
-                      flex
-                      items-center
-                      justify-center
-                      text-sm
-                      font-black
-                    ">
-
+                    <div
+                      className="
+                        bg-red-500
+                        text-white
+                        min-w-[28px]
+                        h-7
+                        px-2
+                        rounded-full
+                        flex
+                        items-center
+                        justify-center
+                        text-sm
+                        font-black
+                      "
+                    >
                       {messagesCount}
-
                     </div>
-
                   )}
-
                 </div>
-
               </Link>
-
-              {/* NOTIFICATIONS */}
 
               <Link
                 href="/notifications"
                 className="
-                  block bg-white/5
+                  block
+                  bg-white/5
                   hover:bg-yellow-400
                   hover:text-black
                   transition-all
-                  border border-white/10
-                  rounded-[28px]
-                  p-8 text-3xl font-bold
+                  border
+                  border-white/10
+                  rounded-[20px]
+                  p-5
+                  md:p-8
+                  text-xl
+                  md:text-3xl
+                  font-bold
                 "
               >
-
-                <div className="
-                  flex
-                  items-center
-                  justify-between
-                ">
-
-                  <span>
-                    Notifications
-                  </span>
+                <div className="flex items-center justify-between">
+                  <span>Notifications</span>
 
                   {notificationsCount > 0 && (
-
-                    <div className="
-                      bg-red-500
-                      text-white
-                      min-w-[32px]
-                      h-8
-                      px-2
-                      rounded-full
-                      flex
-                      items-center
-                      justify-center
-                      text-sm
-                      font-black
-                    ">
-
+                    <div
+                      className="
+                        bg-red-500
+                        text-white
+                        min-w-[32px]
+                        h-8
+                        px-2
+                        rounded-full
+                        flex
+                        items-center
+                        justify-center
+                        text-sm
+                        font-black
+                      "
+                    >
                       {notificationsCount}
-
                     </div>
-
                   )}
-
                 </div>
-
               </Link>
-
             </>
-
           )}
 
-          {/* DRIVER */}
-
           {userType === "driver" && (
-
             <>
-
               <Link
                 href="/driver-dashboard"
                 className="
@@ -458,13 +457,13 @@ async function fetchMessagesCount() {
                   hover:text-black
                   transition-all
                   border border-white/10
-                  rounded-[28px]
-                  p-8 text-3xl font-bold
+                  rounded-[20px]
+                  p-5 md:p-8
+                  text-xl md:text-3xl
+                  font-bold
                 "
               >
-
                 Dashboard
-
               </Link>
 
               <Link
@@ -475,13 +474,13 @@ async function fetchMessagesCount() {
                   hover:text-black
                   transition-all
                   border border-white/10
-                  rounded-[28px]
-                  p-8 text-3xl font-bold
+                  rounded-[20px]
+                  p-5 md:p-8
+                  text-xl md:text-3xl
+                  font-bold
                 "
               >
-
                 Find Jobs
-
               </Link>
 
               <Link
@@ -492,16 +491,14 @@ async function fetchMessagesCount() {
                   hover:text-black
                   transition-all
                   border border-white/10
-                  rounded-[28px]
-                  p-8 text-3xl font-bold
+                  rounded-[20px]
+                  p-5 md:p-8
+                  text-xl md:text-3xl
+                  font-bold
                 "
               >
-
                 Applications
-
               </Link>
-
-              {/* MESSAGES */}
 
               <Link
                 href="/conversations"
@@ -511,48 +508,14 @@ async function fetchMessagesCount() {
                   hover:text-black
                   transition-all
                   border border-white/10
-                  rounded-[28px]
-                  p-8 text-3xl font-bold
+                  rounded-[20px]
+                  p-5 md:p-8
+                  text-xl md:text-3xl
+                  font-bold
                 "
               >
-
-                <div className="
-                  flex
-                  items-center
-                  justify-between
-                ">
-
-                  <span>
-                    Messages
-                  </span>
-
-                  {messagesCount > 0 && (
-
-                    <div className="
-                      bg-red-500
-                      text-white
-                      min-w-[28px]
-                      h-7
-                      px-2
-                      rounded-full
-                      flex
-                      items-center
-                      justify-center
-                      text-sm
-                      font-black
-                    ">
-
-                      {messagesCount}
-
-                    </div>
-
-                  )}
-
-                </div>
-
+                Messages
               </Link>
-
-              {/* NOTIFICATIONS */}
 
               <Link
                 href="/notifications"
@@ -562,56 +525,18 @@ async function fetchMessagesCount() {
                   hover:text-black
                   transition-all
                   border border-white/10
-                  rounded-[28px]
-                  p-8 text-3xl font-bold
+                  rounded-[20px]
+                  p-5 md:p-8
+                  text-xl md:text-3xl
+                  font-bold
                 "
               >
-
-                <div className="
-                  flex
-                  items-center
-                  justify-between
-                ">
-
-                  <span>
-                    Notifications
-                  </span>
-
-                  {notificationsCount > 0 && (
-
-                    <div className="
-                      bg-red-500
-                      text-white
-                      min-w-[32px]
-                      h-8
-                      px-2
-                      rounded-full
-                      flex
-                      items-center
-                      justify-center
-                      text-sm
-                      font-black
-                    ">
-
-                      {notificationsCount}
-
-                    </div>
-
-                  )}
-
-                </div>
-
+                Notifications
               </Link>
-
             </>
-
           )}
-
         </div>
-
       </div>
-
-      {/* LOGOUT */}
 
       <button
         onClick={logout}
@@ -620,19 +545,18 @@ async function fetchMessagesCount() {
           hover:bg-red-600
           transition-all
           text-white
-          text-3xl
+          text-xl
+          md:text-3xl
           font-black
-          rounded-[28px]
-          p-8
+          rounded-[20px]
+          p-5
+          md:p-8
           mt-10
         "
       >
-
         Logout
-
       </button>
-
-
     </div>
-  );
+  </>
+);
 }
