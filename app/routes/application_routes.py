@@ -180,28 +180,7 @@ def apply_to_job(
             db.add(notification)
 
             db.commit()
-        company_user_id = db.query(
-            CompanyProfile
-        ).filter(
-            CompanyProfile.id ==
-            job.company_profile_id
-        ).first().user_id
 
-        notification = Notification(
-
-            user_id=
-            company_user_id,
-
-            title=
-            "New Application",
-
-            message=
-            f"{driver_profile.full_name} applied to {job.title}"
-        )
-
-        db.add(notification)
-
-        db.commit()
         return {
 
             "success":
