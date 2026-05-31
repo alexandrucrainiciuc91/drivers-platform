@@ -68,9 +68,9 @@ app.add_middleware(
     CORSMiddleware,
 
     allow_origins=[
-
         "https://drivelink-rho.vercel.app",
-
+        "https://drivelinkeed.com",
+        "https://www.drivelinkeed.com",
     ],
 
     allow_credentials=True,
