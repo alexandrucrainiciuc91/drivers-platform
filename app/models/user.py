@@ -46,3 +46,22 @@ class User(Base):
         String,
         nullable=True
     )
+    profile_photo = Column(
+        String,
+        nullable=True
+    )
+
+    driver_license_photo = Column(
+        String,
+        nullable=True
+    )
+
+    adr_certificate_photo = Column(
+        String,
+        nullable=True
+    )
+
+    driver_verified = Column(
+        Boolean,
+        default=False
+    )

@@ -3,7 +3,7 @@ from fastapi import (
     Depends,
     HTTPException
 )
-
+from fastapi import HTTPException
 from fastapi.responses import (
     RedirectResponse
 )
@@ -441,4 +441,48 @@ def upgrade_plan(
 
         "new_plan":
             user.subscription_plan
+    }
+@router.put(
+    "/verify-driver/{driver_id}"
+)
+def verify_driver(
+
+    driver_id: int,
+
+    current_user: User = Depends(
+        get_current_user
+    ),
+
+    db: Session = Depends(get_db)
+):
+
+    if current_user.role != "admin":
+
+        raise HTTPException(
+
+            status_code=403,
+
+            detail="Not authorized"
+        )
+
+    driver = db.query(User).filter(
+        User.id == driver_id
+    ).first()
+
+    if not driver:
+
+        raise HTTPException(
+
+            status_code=404,
+
+            detail="Driver not found"
+        )
+
+    driver.driver_verified = True
+
+    db.commit()
+
+    return {
+        "message":
+        "Driver verified"
     }

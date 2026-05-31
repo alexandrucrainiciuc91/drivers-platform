@@ -65,6 +65,7 @@ export default function CreateDriverProfilePage() {
   const [message, setMessage] =
     useState("");
 
+
   // ============================================
   // AUTH
   // ============================================
@@ -168,6 +169,7 @@ export default function CreateDriverProfilePage() {
 
             about:
               about
+            
           })
         }
       );
