@@ -16,7 +16,7 @@ from app.services.cloudinary_service import (
 from fastapi.security import (
     OAuth2PasswordRequestForm
 )
-
+from app.models.driver_profile import DriverProfile
 from sqlalchemy.orm import Session
 
 from jose import jwt
@@ -505,15 +505,22 @@ def upload_profile_photo(
 
     image_url = upload_file(file)
 
-    user = db.query(User).filter(
-        User.id == current_user.id
+    profile = db.query(
+        DriverProfile
+    ).filter(
+        DriverProfile.user_id ==
+        current_user.id
     ).first()
 
-    user.profile_photo = image_url
+    if not profile:
+        raise HTTPException(
+            status_code=404,
+            detail="Driver profile not found"
+        )
+
+    profile.profile_photo = image_url
 
     db.commit()
-
-    db.refresh(user)
 
     return {
         "image_url": image_url
@@ -532,15 +539,16 @@ def upload_license(
 
     image_url = upload_file(file)
 
-    user = db.query(User).filter(
-        User.id == current_user.id
+    profile = db.query(
+        DriverProfile
+    ).filter(
+        DriverProfile.user_id ==
+        current_user.id
     ).first()
 
-    user.driver_license_photo = image_url
+    profile.driver_license_photo = image_url
 
     db.commit()
-
-    db.refresh(user)
 
     return {
         "image_url": image_url
@@ -559,15 +567,16 @@ def upload_adr(
 
     image_url = upload_file(file)
 
-    user = db.query(User).filter(
-        User.id == current_user.id
+    profile = db.query(
+        DriverProfile
+    ).filter(
+        DriverProfile.user_id ==
+        current_user.id
     ).first()
 
-    user.adr_certificate_photo = image_url
+    profile.adr_certificate_photo = image_url
 
     db.commit()
-
-    db.refresh(user)
 
     return {
         "image_url": image_url
