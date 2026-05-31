@@ -59,6 +59,15 @@ export default function CreateDriverProfilePage() {
   const [about, setAbout] =
     useState("");
 
+  const [profilePhoto, setProfilePhoto] =
+  useState("")
+
+const [licensePhoto, setLicensePhoto] =
+  useState("")
+
+const [adrPhoto, setAdrPhoto] =
+  useState("")
+
   const [loading, setLoading] =
     useState(false);
 
@@ -95,7 +104,48 @@ export default function CreateDriverProfilePage() {
     }
 
   }, []);
+async function uploadDocument(
 
+  file: File,
+
+  endpoint: string
+
+) {
+
+  const token =
+    localStorage.getItem("token")
+
+  const formData =
+    new FormData()
+
+  formData.append(
+    "file",
+    file
+  )
+
+  const response =
+    await fetch(
+
+      `https://drivers-platform-production.up.railway.app/${endpoint}`,
+
+      {
+        method: "POST",
+
+        headers: {
+
+          Authorization:
+            `Bearer ${token}`
+        },
+
+        body: formData
+      }
+    )
+
+  const data =
+    await response.json()
+
+  return data.image_url
+}
   // ============================================
   // CREATE PROFILE
   // ============================================
@@ -168,8 +218,16 @@ export default function CreateDriverProfilePage() {
               phone,
 
             about:
-              about
-            
+              about,
+            profile_photo:
+  profilePhoto,
+
+driver_license_photo:
+  licensePhoto,
+
+adr_certificate_photo:
+  adrPhoto
+
           })
         }
       );
@@ -604,7 +662,105 @@ export default function CreateDriverProfilePage() {
                   }
                   className="w-full bg-black/40 border border-white/10 rounded-2xl px-5 py-5 text-lg h-40 resize-none focus:outline-none focus:border-yellow-400"
                 />
+<div className="space-y-4">
 
+  <div>
+
+    <label className="block mb-2 text-yellow-400">
+
+      Profile Photo
+    </label>
+
+    <input
+      type="file"
+      accept="image/*"
+
+      onChange={async (e) => {
+
+        if (!e.target.files?.[0])
+          return
+
+        const url =
+          await uploadDocument(
+
+            e.target.files[0],
+
+            "upload-profile-photo"
+          )
+
+        setProfilePhoto(url)
+      }}
+
+      className="w-full bg-black/40 border border-white/10 rounded-2xl px-5 py-5"
+    />
+
+  </div>
+
+  <div>
+
+    <label className="block mb-2 text-yellow-400">
+
+      Driver License
+    </label>
+
+    <input
+      type="file"
+      accept="image/*"
+
+      onChange={async (e) => {
+
+        if (!e.target.files?.[0])
+          return
+
+        const url =
+          await uploadDocument(
+
+            e.target.files[0],
+
+            "upload-license"
+          )
+
+        setLicensePhoto(url)
+      }}
+
+      className="w-full bg-black/40 border border-white/10 rounded-2xl px-5 py-5"
+    />
+
+  </div>
+
+  <div>
+
+    <label className="block mb-2 text-yellow-400">
+
+      ADR Certificate
+    </label>
+
+    <input
+      type="file"
+      accept="image/*"
+
+      onChange={async (e) => {
+
+        if (!e.target.files?.[0])
+          return
+
+        const url =
+          await uploadDocument(
+
+            e.target.files[0],
+
+            "upload-adr"
+          )
+
+        setAdrPhoto(url)
+      }}
+
+      className="w-full bg-black/40 border border-white/10 rounded-2xl px-5 py-5"
+    />
+
+  </div>
+
+</div>
                 {/* BUTTON */}
 
                 <button
