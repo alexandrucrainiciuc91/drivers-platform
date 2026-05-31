@@ -7,7 +7,12 @@ from fastapi import HTTPException
 from fastapi.responses import (
     RedirectResponse
 )
+from fastapi import UploadFile
+from fastapi import File
 
+from app.services.cloudinary_service import (
+    upload_file
+)
 from fastapi.security import (
     OAuth2PasswordRequestForm
 )
@@ -485,4 +490,85 @@ def verify_driver(
     return {
         "message":
         "Driver verified"
+    }
+@router.post(
+    "/upload-profile-photo"
+)
+def upload_profile_photo(
+
+    file: UploadFile = File(...),
+
+    current_user: User = Depends(
+        get_current_user
+    ),
+
+    db: Session = Depends(get_db)
+):
+
+    image_url = upload_file(file)
+
+    current_user.profile_photo = (
+        image_url
+    )
+
+    db.commit()
+
+    return {
+
+        "image_url":
+            image_url
+    }
+@router.post(
+    "/upload-license"
+)
+def upload_license(
+
+    file: UploadFile = File(...),
+
+    current_user: User = Depends(
+        get_current_user
+    ),
+
+    db: Session = Depends(get_db)
+):
+
+    image_url = upload_file(file)
+
+    current_user.driver_license_photo = (
+        image_url
+    )
+
+    db.commit()
+
+    return {
+
+        "image_url":
+            image_url
+    }
+@router.post(
+    "/upload-adr"
+)
+def upload_adr(
+
+    file: UploadFile = File(...),
+
+    current_user: User = Depends(
+        get_current_user
+    ),
+
+    db: Session = Depends(get_db)
+):
+
+    image_url = upload_file(file)
+
+    current_user.adr_certificate_photo = (
+        image_url
+    )
+
+    db.commit()
+
+    return {
+
+        "image_url":
+            image_url
     }
