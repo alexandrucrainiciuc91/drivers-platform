@@ -223,7 +223,7 @@ export default function LoadDetailsPage({
             border
             border-white/10
             rounded-3xl
-            p-8
+            p-4 md:p-8
           ">
 
             <p className="
@@ -253,7 +253,7 @@ export default function LoadDetailsPage({
             border
             border-white/10
             rounded-3xl
-            p-8
+            p-4 md:p-8
           ">
 
             <p className="
@@ -283,7 +283,7 @@ export default function LoadDetailsPage({
             border
             border-white/10
             rounded-3xl
-            p-8
+            p-4 md:p-8
           ">
 
             <p className="
@@ -315,7 +315,7 @@ export default function LoadDetailsPage({
           border
           border-white/10
           rounded-3xl
-          p-10
+          p-5 md:p-8 xl:p-10
           mb-10
         ">
 
@@ -435,7 +435,7 @@ export default function LoadDetailsPage({
           border
           border-white/10
           rounded-3xl
-          p-10
+          p-5 md:p-8 xl:p-10
           mb-10
         ">
 

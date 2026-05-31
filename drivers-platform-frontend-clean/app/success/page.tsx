@@ -113,7 +113,7 @@ export default function SuccessPage() {
           absolute
           top-0
           left-0
-          w-[500px]
+          w-full xl:w-[500px]
           h-[500px]
           bg-yellow-500/20
           blur-[160px]
@@ -123,7 +123,7 @@ export default function SuccessPage() {
           absolute
           bottom-0
           right-0
-          w-[500px]
+          w-full xl:w-[500px]
           h-[500px]
           bg-orange-500/20
           blur-[160px]

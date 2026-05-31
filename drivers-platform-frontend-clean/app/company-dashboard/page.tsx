@@ -375,7 +375,7 @@ export default function CompanyDashboard() {
         <div className="
           relative
           z-10
-          p-10
+          p-5 md:p-8 xl:p-5 md:p-8 xl:p-10
         ">
 
           {/* TOP BAR */}
@@ -397,7 +397,7 @@ export default function CompanyDashboard() {
             border
             border-yellow-500/20
             rounded-[45px]
-            p-10
+            p-5 md:p-8 xl:p-10
             backdrop-blur-2xl
             mb-10
             flex
@@ -526,7 +526,7 @@ export default function CompanyDashboard() {
               src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?q=80&w=1200"
               className="
                 w-full
-                xl:w-[450px]
+                xl:w-full xl:w-[450px]
                 h-[260px]
                 object-cover
                 rounded-[35px]
@@ -549,7 +549,7 @@ export default function CompanyDashboard() {
               border
               border-white/10
               rounded-3xl
-              p-8
+              p-4 md:p-8
             ">
 
               <p className="
@@ -579,7 +579,7 @@ export default function CompanyDashboard() {
               border
               border-white/10
               rounded-3xl
-              p-8
+              p-4 md:p-8
             ">
 
               <p className="
@@ -615,7 +615,7 @@ export default function CompanyDashboard() {
               border
               border-white/10
               rounded-3xl
-              p-8
+              p-4 md:p-8
             ">
 
               <p className="
@@ -651,7 +651,7 @@ export default function CompanyDashboard() {
               border
               border-yellow-500/30
               rounded-3xl
-              p-8
+              p-4 md:p-8
             ">
 
               <p className="
@@ -701,7 +701,7 @@ export default function CompanyDashboard() {
                 border
                 border-white/10
                 rounded-3xl
-                p-8
+                p-4 md:p-8
                 hover:border-yellow-400/30
                 transition
               "
@@ -736,7 +736,7 @@ export default function CompanyDashboard() {
                 border
                 border-white/10
                 rounded-3xl
-                p-8
+                p-4 md:p-8
                 hover:border-yellow-400/30
                 transition
               "
@@ -771,7 +771,7 @@ export default function CompanyDashboard() {
                 border
                 border-white/10
                 rounded-3xl
-                p-8
+                p-4 md:p-8
                 hover:border-yellow-400/30
                 transition
               "
@@ -806,7 +806,7 @@ export default function CompanyDashboard() {
                 border
                 border-white/10
                 rounded-3xl
-                p-8
+                p-4 md:p-8
                 hover:border-yellow-400/30
                 transition
               "
@@ -859,7 +859,7 @@ export default function CompanyDashboard() {
                   border
                   border-white/10
                   rounded-3xl
-                  p-8
+                  p-4 md:p-8
                 "
               >
 

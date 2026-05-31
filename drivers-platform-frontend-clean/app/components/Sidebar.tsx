@@ -244,7 +244,7 @@ async function fetchMessagesCount() {
         md:w-[320px]
 
         p-4
-        md:p-8
+        md:p-4 md:p-8
 
         ${
           open
@@ -287,7 +287,7 @@ async function fetchMessagesCount() {
                   border-white/10
                   rounded-[20px]
                   p-5
-                  md:p-8
+                  md:p-4 md:p-8
                   text-xl
                   md:text-3xl
                   font-bold
@@ -308,7 +308,7 @@ async function fetchMessagesCount() {
                   border-white/10
                   rounded-[20px]
                   p-5
-                  md:p-8
+                  md:p-4 md:p-8
                   text-xl
                   md:text-3xl
                   font-bold
@@ -329,7 +329,7 @@ async function fetchMessagesCount() {
                   border-white/10
                   rounded-[20px]
                   p-5
-                  md:p-8
+                  md:p-4 md:p-8
                   text-xl
                   md:text-3xl
                   font-bold
@@ -350,7 +350,7 @@ async function fetchMessagesCount() {
                   border-white/10
                   rounded-[20px]
                   p-5
-                  md:p-8
+                  md:p-4 md:p-8
                   text-xl
                   md:text-3xl
                   font-bold
@@ -371,7 +371,7 @@ async function fetchMessagesCount() {
                   border-white/10
                   rounded-[20px]
                   p-5
-                  md:p-8
+                  md:p-4 md:p-8
                   text-xl
                   md:text-3xl
                   font-bold
@@ -414,7 +414,7 @@ async function fetchMessagesCount() {
                   border-white/10
                   rounded-[20px]
                   p-5
-                  md:p-8
+                  md:p-4 md:p-8
                   text-xl
                   md:text-3xl
                   font-bold
@@ -458,7 +458,7 @@ async function fetchMessagesCount() {
                   transition-all
                   border border-white/10
                   rounded-[20px]
-                  p-5 md:p-8
+                  p-5 md:p-4 md:p-8
                   text-xl md:text-3xl
                   font-bold
                 "
@@ -475,7 +475,7 @@ async function fetchMessagesCount() {
                   transition-all
                   border border-white/10
                   rounded-[20px]
-                  p-5 md:p-8
+                  p-5 md:p-4 md:p-8
                   text-xl md:text-3xl
                   font-bold
                 "

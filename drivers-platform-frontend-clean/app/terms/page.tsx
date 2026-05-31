@@ -72,7 +72,7 @@ export default function TermsPage() {
             border
             border-white/10
             rounded-3xl
-            p-10
+            p-5 md:p-8 xl:p-10
           ">
 
             <h2 className="
@@ -110,7 +110,7 @@ export default function TermsPage() {
             border
             border-red-500/20
             rounded-3xl
-            p-10
+            p-5 md:p-8 xl:p-10
           ">
 
             <h2 className="
@@ -208,7 +208,7 @@ export default function TermsPage() {
             border
             border-white/10
             rounded-3xl
-            p-10
+            p-5 md:p-8 xl:p-10
           ">
 
             <h2 className="
@@ -247,7 +247,7 @@ export default function TermsPage() {
             border
             border-white/10
             rounded-3xl
-            p-10
+            p-5 md:p-8 xl:p-10
           ">
 
             <h2 className="
@@ -287,7 +287,7 @@ export default function TermsPage() {
             border
             border-white/10
             rounded-3xl
-            p-10
+            p-5 md:p-8 xl:p-10
           ">
 
             <h2 className="
@@ -325,7 +325,7 @@ export default function TermsPage() {
             border
             border-white/10
             rounded-3xl
-            p-10
+            p-5 md:p-8 xl:p-10
           ">
 
             <h2 className="
@@ -360,7 +360,7 @@ export default function TermsPage() {
             border
             border-white/10
             rounded-3xl
-            p-10
+            p-5 md:p-8 xl:p-10
           ">
 
             <h2 className="

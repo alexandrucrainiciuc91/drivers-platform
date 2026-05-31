@@ -217,7 +217,7 @@ export default function CompanyApplicationsPage() {
 
         {/* CONTENT */}
 
-        <div className="relative z-10 p-10">
+        <div className="relative z-10 p-5 md:p-4 md:p-8 xl:p-10">
 
           {/* TOP BAR */}
 
@@ -308,7 +308,7 @@ export default function CompanyApplicationsPage() {
                   border
                   border-white/10
                   rounded-[40px]
-                  p-8
+                  p-4 md:p-8
                   backdrop-blur-2xl
                   hover:border-yellow-400/20
                   transition-all

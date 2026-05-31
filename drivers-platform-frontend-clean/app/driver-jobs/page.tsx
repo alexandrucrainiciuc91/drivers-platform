@@ -306,7 +306,7 @@ export default function DriverJobsPage() {
 
             <img
               src="https://images.unsplash.com/photo-1519003722824-194d4455a60c?q=80&w=1200&auto=format&fit=crop"
-              className="w-full xl:w-[500px] h-[300px] rounded-[40px] object-cover border border-white/10"
+              className="w-full xl:w-full xl:w-[500px] h-[300px] rounded-[40px] object-cover border border-white/10"
             />
 
           </div>
@@ -354,7 +354,7 @@ export default function DriverJobsPage() {
                   border
                   border-white/10
                   rounded-[40px]
-                  p-8
+                  p-4 md:p-8
                   backdrop-blur-2xl
                   hover:border-yellow-400/30
                   transition-all

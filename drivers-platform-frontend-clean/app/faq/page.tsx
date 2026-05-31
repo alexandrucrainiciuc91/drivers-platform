@@ -124,7 +124,7 @@ export default function FAQPage() {
                 border
                 border-white/10
                 rounded-3xl
-                p-8
+                p-4 md:p-8
               "
             >
 

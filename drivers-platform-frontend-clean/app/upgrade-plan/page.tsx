@@ -100,7 +100,7 @@ window.location.href = data.checkout_url;
 
         </div>
 
-        <div className="relative z-10 p-10">
+        <div className="relative z-10 p-5 md:p-8 xl:p-10">
 
           <div className="flex justify-end mb-8">
 
@@ -174,7 +174,7 @@ window.location.href = data.checkout_url;
                 border-yellow-400/30
                 bg-white/5
                 backdrop-blur-3xl
-                p-10
+                p-5 md:p-8 xl:p-10
                 shadow-[0_0_80px_rgba(250,204,21,0.15)]
                 hover:scale-[1.02]
                 transition-all
@@ -299,7 +299,7 @@ window.location.href = data.checkout_url;
                 border-yellow-400/30
                 bg-white/5
                 backdrop-blur-3xl
-                p-10
+                p-5 md:p-8 xl:p-10
                 shadow-[0_0_80px_rgba(250,204,21,0.15)]
                 hover:scale-[1.02]
                 transition-all

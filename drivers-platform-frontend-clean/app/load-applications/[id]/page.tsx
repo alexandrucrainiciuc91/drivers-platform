@@ -172,7 +172,7 @@ console.log(loadId);
       <div className="
         flex-1
         min-h-screen
-        p-10
+        p-5 md:p-8 xl:p-10
       ">
 
         <h1 className="
@@ -200,7 +200,7 @@ console.log(loadId);
                   border
                   border-white/10
                   rounded-3xl
-                  p-8
+                  p-4 md:p-8
                 "
               >
 

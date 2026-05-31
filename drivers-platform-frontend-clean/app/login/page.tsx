@@ -243,15 +243,15 @@ localStorage.setItem(
 
       <div className="absolute inset-0">
 
-        <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-yellow-500/20 blur-[160px]" />
+        <div className="absolute top-0 left-0 w-full xl:w-[500px] h-[500px] bg-yellow-500/20 blur-[160px]" />
 
-        <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-orange-500/20 blur-[160px]" />
+        <div className="absolute bottom-0 right-0 w-full xl:w-[500px] h-[500px] bg-orange-500/20 blur-[160px]" />
 
       </div>
 
       {/* CARD */}
 
-      <div className="relative z-10 w-full max-w-lg bg-white/5 border border-white/10 backdrop-blur-2xl rounded-[40px] p-10 shadow-2xl">
+      <div className="relative z-10 w-full max-w-lg bg-white/5 border border-white/10 backdrop-blur-2xl rounded-[40px] p-5 md:p-8 xl:p-10 shadow-2xl">
 
         {/* HEADER */}
 

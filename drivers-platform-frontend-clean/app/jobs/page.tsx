@@ -432,7 +432,7 @@ export default function JobsPage() {
 
         </div>
 
-        <div className="relative z-10 p-10">
+        <div className="relative z-10 p-5 md:p-8 xl:p-10">
 
           {/* TOP */}
 
@@ -493,7 +493,7 @@ export default function JobsPage() {
             border
             border-white/10
             rounded-[40px]
-            p-8
+            p-4 md:p-8
             mb-10
             backdrop-blur-2xl
           ">
@@ -611,7 +611,7 @@ export default function JobsPage() {
                   border
                   border-white/10
                   rounded-[40px]
-                  p-8
+                  p-4 md:p-8
                   backdrop-blur-2xl
                 "
               >

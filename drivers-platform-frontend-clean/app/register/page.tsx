@@ -257,7 +257,7 @@ export default function RegisterPage() {
           absolute
           top-0
           left-0
-          w-[500px]
+          w-full xl:w-[500px]
           h-[500px]
           bg-yellow-500/20
           blur-[160px]
@@ -267,7 +267,7 @@ export default function RegisterPage() {
           absolute
           bottom-0
           right-0
-          w-[500px]
+          w-full xl:w-[500px]
           h-[500px]
           bg-orange-500/20
           blur-[160px]
@@ -287,7 +287,7 @@ export default function RegisterPage() {
         border-white/10
         backdrop-blur-2xl
         rounded-[40px]
-        p-10
+        p-5 md:p-8 xl:p-10
         shadow-2xl
       ">
 

@@ -279,7 +279,7 @@ export default function CompanyJobsPage() {
 
         {/* CONTENT */}
 
-        <div className="relative z-10 p-10">
+        <div className="relative z-10 p-5 md:p-8 xl:p-10">
 
           <BackToDashboard />
 
@@ -326,7 +326,7 @@ export default function CompanyJobsPage() {
 
             {/* CREATE FORM */}
 
-            <div className="bg-white/5 border border-white/10 backdrop-blur-2xl rounded-[40px] p-10">
+            <div className="bg-white/5 border border-white/10 backdrop-blur-2xl rounded-[40px] p-5 md:p-8 xl:p-10">
 
               <h2 className="text-4xl font-black mb-10">
 
@@ -480,7 +480,7 @@ export default function CompanyJobsPage() {
 
                 <div
                   key={job.id}
-                  className="bg-white/5 border border-white/10 rounded-[40px] p-8 backdrop-blur-2xl"
+                  className="bg-white/5 border border-white/10 rounded-[40px] p-4 md:p-8 backdrop-blur-2xl"
                 >
 
                   <div className="flex items-start justify-between gap-6">

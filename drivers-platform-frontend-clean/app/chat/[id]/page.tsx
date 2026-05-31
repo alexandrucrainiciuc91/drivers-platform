@@ -197,7 +197,7 @@ export default function ChatPage() {
 
     return (
 
-        <div className="min-h-screen bg-black text-white p-10">
+        <div className="min-h-screen bg-black text-white p-5 md:p-4 md:p-8 xl:p-10">
 
             {/* BACK */}
 

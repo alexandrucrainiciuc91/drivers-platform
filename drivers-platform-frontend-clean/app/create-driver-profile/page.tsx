@@ -379,7 +379,7 @@ export default function CreateDriverProfilePage() {
 
             {/* FORM */}
 
-            <div className="bg-white/5 border border-white/10 backdrop-blur-2xl rounded-[40px] p-10">
+            <div className="bg-white/5 border border-white/10 backdrop-blur-2xl rounded-[40px] p-5 md:p-8 xl:p-10">
 
               <div className="flex items-center justify-between mb-10">
 

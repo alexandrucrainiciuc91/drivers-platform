@@ -121,7 +121,7 @@ export default function ConversationsPage() {
 
       <Sidebar />
 
-      <div className="flex-1 p-10">
+      <div className="flex-1 p-5 md:p-8 xl:p-10">
 
         <h1 className="
           text-7xl

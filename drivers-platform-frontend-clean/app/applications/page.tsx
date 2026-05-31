@@ -137,7 +137,7 @@ export default function ApplicationsPage() {
 
       <Sidebar />
 
-      <div className="flex-1 p-10">
+      <div className="flex-1 p-5 md:p-4 md:p-8 xl:p-10">
 
         <h1 className="text-3xl md:text-5xl xl:text-6xl font-black mb-10">
 
@@ -147,7 +147,7 @@ export default function ApplicationsPage() {
 
         {applications.length === 0 && (
 
-          <div className="bg-white/5 border border-white/10 rounded-[30px] p-10">
+          <div className="bg-white/5 border border-white/10 rounded-[30px] p-5 md:p-4 md:p-8 xl:p-10">
 
             <h2 className="text-3xl font-bold">
 
@@ -165,7 +165,7 @@ export default function ApplicationsPage() {
 
             <div
               key={application.id}
-              className="bg-white/5 border border-white/10 rounded-[30px] p-8"
+              className="bg-white/5 border border-white/10 rounded-[30px] p-4 md:p-8"
             >
 
               <h2 className="text-4xl font-black mb-4">

@@ -802,7 +802,7 @@ export default function LoadsPage() {
               border
               border-white/10
               rounded-3xl
-              p-8
+              p-4 md:p-8
               backdrop-blur-xl
               hover:border-yellow-400/40
               transition

@@ -539,7 +539,7 @@ if (!mounted) {
 
             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent" />
 
-            <div className="relative z-10 p-10 flex flex-col justify-end h-full">
+            <div className="relative z-10 p-5 md:p-4 md:p-8 xl:p-10 flex flex-col justify-end h-full">
 
               <div className="
                 bg-yellow-500/10
@@ -670,7 +670,7 @@ if (!mounted) {
 
             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent" />
 
-            <div className="relative z-10 p-10 flex flex-col justify-end h-full">
+            <div className="relative z-10 p-5 md:p-4 md:p-8 xl:p-10 flex flex-col justify-end h-full">
 
               <div className="
                 bg-yellow-500/10
@@ -849,7 +849,7 @@ if (!mounted) {
                   }}
                 />
 
-                <div className="p-8">
+                <div className="p-4 md:p-8">
 
                   <div className="
                     flex
@@ -1002,7 +1002,7 @@ if (!mounted) {
                   border
                   border-white/10
                   rounded-[32px]
-                  p-10
+                  p-5 md:p-4 md:p-8 xl:p-10
                   hover:border-yellow-400/40
                   hover:-translate-y-2
                   transition-all

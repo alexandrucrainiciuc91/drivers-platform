@@ -160,7 +160,7 @@ window.location.reload();
 
       <div className="
         flex-1
-        p-10
+        p-5 md:p-8 xl:p-10
       ">
 
         <h1 className="
@@ -180,7 +180,7 @@ window.location.reload();
             border
             border-white/10
             rounded-[30px]
-            p-10
+            p-5 md:p-8 xl:p-10
             text-2xl
           ">
 
@@ -199,7 +199,7 @@ window.location.reload();
               className={`
                 border
                 rounded-[30px]
-                p-8
+                p-4 md:p-8
                 transition-all
 
                 ${
