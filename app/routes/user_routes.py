@@ -491,9 +491,7 @@ def verify_driver(
         "message":
         "Driver verified"
     }
-@router.post(
-    "/upload-profile-photo"
-)
+@router.post("/upload-profile-photo")
 def upload_profile_photo(
 
     file: UploadFile = File(...),
@@ -507,20 +505,20 @@ def upload_profile_photo(
 
     image_url = upload_file(file)
 
-    current_user.profile_photo = (
-        image_url
-    )
+    user = db.query(User).filter(
+        User.id == current_user.id
+    ).first()
+
+    user.profile_photo = image_url
 
     db.commit()
 
-    return {
+    db.refresh(user)
 
-        "image_url":
-            image_url
+    return {
+        "image_url": image_url
     }
-@router.post(
-    "/upload-license"
-)
+@router.post("/upload-license")
 def upload_license(
 
     file: UploadFile = File(...),
@@ -534,20 +532,20 @@ def upload_license(
 
     image_url = upload_file(file)
 
-    current_user.driver_license_photo = (
-        image_url
-    )
+    user = db.query(User).filter(
+        User.id == current_user.id
+    ).first()
+
+    user.driver_license_photo = image_url
 
     db.commit()
 
-    return {
+    db.refresh(user)
 
-        "image_url":
-            image_url
+    return {
+        "image_url": image_url
     }
-@router.post(
-    "/upload-adr"
-)
+@router.post("/upload-adr")
 def upload_adr(
 
     file: UploadFile = File(...),
@@ -561,16 +559,18 @@ def upload_adr(
 
     image_url = upload_file(file)
 
-    current_user.adr_certificate_photo = (
-        image_url
-    )
+    user = db.query(User).filter(
+        User.id == current_user.id
+    ).first()
+
+    user.adr_certificate_photo = image_url
 
     db.commit()
 
-    return {
+    db.refresh(user)
 
-        "image_url":
-            image_url
+    return {
+        "image_url": image_url
     }
 @router.get("/admin/drivers")
 def get_all_drivers(
