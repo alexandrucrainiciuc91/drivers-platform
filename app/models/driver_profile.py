@@ -51,3 +51,18 @@ class DriverProfile(Base):
     phone = Column(String)
 
     about = Column(String)
+
+    profile_photo = Column(
+        String,
+        nullable=True
+    )
+
+    driver_license_photo = Column(
+        String,
+        nullable=True
+    )
+
+    adr_certificate_photo = Column(
+        String,
+        nullable=True
+    )

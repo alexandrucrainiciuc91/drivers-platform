@@ -20,3 +20,9 @@ class DriverProfileCreate(BaseModel):
     phone: str
 
     about: str
+    
+    profile_photo: str | None = None
+
+    driver_license_photo: str | None = None
+
+    adr_certificate_photo: str | None = None

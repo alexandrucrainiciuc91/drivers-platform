@@ -97,7 +97,16 @@ def create_driver_profile(
 
         phone=profile.phone,
 
-        about=profile.about
+        about=profile.about,
+
+        profile_photo=
+        profile.profile_photo,
+
+        driver_license_photo=
+        profile.driver_license_photo,
+
+        adr_certificate_photo=
+        profile.adr_certificate_photo
     )
 
     db.add(new_profile)
