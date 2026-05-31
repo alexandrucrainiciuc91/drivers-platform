@@ -572,3 +572,35 @@ def upload_adr(
         "image_url":
             image_url
     }
+@router.get("/admin/drivers")
+def get_all_drivers(
+
+    current_user: User = Depends(
+        get_current_user
+    ),
+
+    db: Session = Depends(get_db)
+):
+
+    if current_user.role != "admin":
+
+        raise HTTPException(
+            status_code=403,
+            detail="Not authorized"
+        )
+
+    drivers = db.query(User).filter(
+        User.role == "driver"
+    ).all()
+
+    return [
+        {
+            "id": driver.id,
+            "email": driver.email,
+            "profile_photo": driver.profile_photo,
+            "driver_license_photo": driver.driver_license_photo,
+            "adr_certificate_photo": driver.adr_certificate_photo,
+            "driver_verified": driver.driver_verified
+        }
+        for driver in drivers
+    ]
