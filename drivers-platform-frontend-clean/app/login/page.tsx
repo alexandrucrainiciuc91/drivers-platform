@@ -69,8 +69,18 @@ export default function LoginPage() {
       if (userType === "company") {
 
         window.location.href =
-          "/company-dashboard";
+            "/company-dashboard";
+
+
       }
+      if (
+            userType ===
+            "admin"
+        ) {
+
+          window.location.href =
+              "/admin/drivers";
+        }
     }
 
   }, []);
@@ -196,11 +206,15 @@ localStorage.setItem(
         window.location.href =
           "/driver-dashboard";
       }
-      if (data.user_type === "admin") {
+      if (
+  data.user_type ===
+  "admin"
+) {
 
   window.location.href =
     "/admin/drivers";
 }
+
 
     } catch (error) {
 
