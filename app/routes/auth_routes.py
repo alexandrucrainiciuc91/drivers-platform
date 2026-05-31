@@ -93,7 +93,7 @@ def verify_email(
         if user.is_verified:
 
             return RedirectResponse(
-                url="https://drivelink-rho.vercel.app/login"
+                url="https://drivelinkeed.com/login"
             )
 
         user.is_verified = True
@@ -101,7 +101,7 @@ def verify_email(
         db.commit()
 
         return RedirectResponse(
-            url="https://drivelink-rho.vercel.app/login"
+            url="https://drivelinkeed.com/login"
         )
 
     except Exception:

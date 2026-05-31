@@ -209,7 +209,7 @@ def verify_email(
             db.close()
 
             return RedirectResponse(
-                url="https://drivelink-rho.vercel.app/login"
+                url="https://drivelinkeed.com/login"
             )
 
         # ============================================
@@ -223,7 +223,7 @@ def verify_email(
         db.close()
 
         return RedirectResponse(
-            url="https://drivelink-rho.vercel.app/login"
+            url="https://drivelinkeed.com/login"
         )
 
     except Exception:
