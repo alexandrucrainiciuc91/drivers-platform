@@ -545,7 +545,16 @@ def upload_license(
         DriverProfile.user_id ==
         current_user.id
     ).first()
+    print("CURRENT USER:", current_user.id)
 
+    profile = db.query(
+        DriverProfile
+    ).filter(
+        DriverProfile.user_id ==
+        current_user.id
+    ).first()
+
+    print("PROFILE:", profile)
     profile.driver_license_photo = image_url
 
     db.commit()

@@ -65,7 +65,15 @@ def get_current_user(
         user = db.query(User).filter(
             User.id == user_id
         ).first()
+        print("TOKEN:", token)
 
+        payload = verify_token(token)
+
+        print("PAYLOAD:", payload)
+
+        user_id = payload.get("user_id")
+
+        print("USER ID:", user_id)
         if not user:
 
             raise HTTPException(
