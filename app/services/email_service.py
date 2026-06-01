@@ -27,7 +27,7 @@ def send_verification_email(
         resend.Emails.send({
 
             "from":
-                "onboarding@resend.dev",
+    "noreply@drivelinkeed.com",
 
             "to":
                 email,
@@ -70,7 +70,7 @@ def send_reset_password_email(
         resend.Emails.send({
 
             "from":
-                "onboarding@resend.dev",
+    "noreply@drivelinkeed.com",
 
             "to":
                 email,
