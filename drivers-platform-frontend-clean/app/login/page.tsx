@@ -165,10 +165,15 @@ console.log(
 
       // SAVE TOKEN
 
-      localStorage.setItem(
-        "token",
-        data.access_token
-      );
+     localStorage.setItem(
+  "token",
+  data.access_token
+);
+
+alert(
+  "TOKEN SAVED = " +
+  localStorage.getItem("token")
+);
 console.log(
   "TOKEN SAVED:",
   localStorage.getItem("token")
