@@ -502,7 +502,7 @@ def upload_profile_photo(
 
     db: Session = Depends(get_db)
 ):
-
+    print("UPLOAD PROFILE CALLED")
     image_url = upload_file(file)
 
     profile = db.query(
@@ -536,7 +536,7 @@ def upload_license(
 
     db: Session = Depends(get_db)
 ):
-
+    print("UPLOAD LICENSE CALLED")
     image_url = upload_file(file)
 
     profile = db.query(
@@ -573,7 +573,7 @@ def upload_adr(
 
     db: Session = Depends(get_db)
 ):
-
+    print("UPLOAD ADR CALLED")
     image_url = upload_file(file)
 
     profile = db.query(
