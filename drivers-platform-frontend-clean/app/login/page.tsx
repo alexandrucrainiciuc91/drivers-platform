@@ -135,6 +135,15 @@ export default function LoginPage() {
         "LOGIN RESPONSE:",
         data
       );
+      console.log(
+  "ACCESS TOKEN:",
+  data.access_token
+);
+
+console.log(
+  "USER TYPE:",
+  data.user_type
+);
 
       // FAILED
 
@@ -160,7 +169,10 @@ export default function LoginPage() {
         "token",
         data.access_token
       );
-
+console.log(
+  "TOKEN SAVED:",
+  localStorage.getItem("token")
+);
       // SAVE USER TYPE
 
       localStorage.setItem(
