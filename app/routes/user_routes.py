@@ -502,23 +502,10 @@ def upload_profile_photo(
 
     db: Session = Depends(get_db)
 ):
-    print("UPLOAD PROFILE CALLED")
+
     image_url = upload_file(file)
 
-    profile = db.query(
-        DriverProfile
-    ).filter(
-        DriverProfile.user_id ==
-        current_user.id
-    ).first()
-
-    if not profile:
-        raise HTTPException(
-            status_code=404,
-            detail="Driver profile not found"
-        )
-
-    profile.profile_photo = image_url
+    current_user.profile_photo = image_url
 
     db.commit()
 
@@ -536,26 +523,10 @@ def upload_license(
 
     db: Session = Depends(get_db)
 ):
-    print("UPLOAD LICENSE CALLED")
+
     image_url = upload_file(file)
 
-    profile = db.query(
-        DriverProfile
-    ).filter(
-        DriverProfile.user_id ==
-        current_user.id
-    ).first()
-    print("CURRENT USER:", current_user.id)
-
-    profile = db.query(
-        DriverProfile
-    ).filter(
-        DriverProfile.user_id ==
-        current_user.id
-    ).first()
-
-    print("PROFILE:", profile)
-    profile.driver_license_photo = image_url
+    current_user.driver_license_photo = image_url
 
     db.commit()
 
@@ -573,17 +544,10 @@ def upload_adr(
 
     db: Session = Depends(get_db)
 ):
-    print("UPLOAD ADR CALLED")
+
     image_url = upload_file(file)
 
-    profile = db.query(
-        DriverProfile
-    ).filter(
-        DriverProfile.user_id ==
-        current_user.id
-    ).first()
-
-    profile.adr_certificate_photo = image_url
+    current_user.adr_certificate_photo = image_url
 
     db.commit()
 
