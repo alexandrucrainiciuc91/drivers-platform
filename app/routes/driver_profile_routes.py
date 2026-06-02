@@ -259,24 +259,60 @@ def my_driver_profile(
 @router.get("/drivers")
 def get_drivers(
 
-        current_user=Depends(
-            require_company
-        )
+    current_user=Depends(
+        require_company
+    )
+
 ):
 
     db: Session = SessionLocal()
 
-    drivers = db.query(
+    profiles = db.query(
         DriverProfile
     ).all()
 
     if current_user.subscription_plan == "free":
 
-        drivers = drivers[:3]
+        profiles = profiles[:3]
+
+    result = []
+
+    for profile in profiles:
+
+        user = db.query(User).filter(
+            User.id == profile.user_id
+        ).first()
+
+        result.append({
+
+            "id": profile.id,
+
+            "full_name":
+                profile.full_name,
+
+            "city":
+                profile.city,
+
+            "experience_years":
+                profile.experience_years,
+
+            "license_category":
+                profile.license_category,
+
+            "preferred_countries":
+                profile.preferred_countries,
+
+            "profile_photo":
+                profile.profile_photo,
+
+            "driver_verified":
+                user.driver_verified
+                if user else False
+        })
 
     db.close()
 
-    return drivers
+    return result
 
 # =====================================================
 # SEARCH DRIVERS
@@ -321,9 +357,43 @@ def search_drivers(
 
     results = query.all()
 
+    response = []
+
+    for profile in results:
+        user = db.query(User).filter(
+            User.id == profile.user_id
+        ).first()
+
+        response.append({
+
+            "id": profile.id,
+
+            "full_name":
+                profile.full_name,
+
+            "city":
+                profile.city,
+
+            "experience_years":
+                profile.experience_years,
+
+            "license_category":
+                profile.license_category,
+
+            "preferred_countries":
+                profile.preferred_countries,
+
+            "profile_photo":
+                profile.profile_photo,
+
+            "driver_verified":
+                user.driver_verified
+                if user else False
+        })
+
     db.close()
 
-    return results
+    return response
 
 # =====================================================
 # MATCH DRIVERS
