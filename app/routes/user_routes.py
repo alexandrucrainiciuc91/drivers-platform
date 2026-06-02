@@ -56,6 +56,10 @@ from app.services.email_service import (
 )
 from app.models.driver_profile import DriverProfile
 from app.models.user import User
+from app.models.user import User
+from app.models.job_post import JobPost
+from app.models.application import Application
+from app.models.load import Load
 router = APIRouter()
 
 load_dotenv()
@@ -607,3 +611,42 @@ def get_all_drivers(
         })
 
     return result
+@router.get("/admin/stats")
+def get_admin_stats(
+
+    current_user: User = Depends(
+        get_current_user
+    ),
+
+    db: Session = Depends(get_db)
+):
+
+    if current_user.role != "admin":
+
+        raise HTTPException(
+            status_code=403,
+            detail="Not authorized"
+        )
+
+    return {
+
+        "drivers":
+            db.query(User).filter(
+                User.role == "driver"
+            ).count(),
+
+        "companies":
+            db.query(User).filter(
+                User.role == "company"
+            ).count(),
+
+        "verified_drivers":
+            db.query(User).filter(
+                User.driver_verified == True
+            ).count(),
+
+        "pro_users":
+            db.query(User).filter(
+                User.subscription_plan == "pro"
+            ).count()
+    }
