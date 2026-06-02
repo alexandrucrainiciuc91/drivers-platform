@@ -123,6 +123,11 @@ async function uploadDocument(
     file
   )
 
+console.log("Datele care pleacă spre profil:", {
+  profile_photo: profilePhoto,
+  driver_license_photo: licensePhoto,
+  adr_certificate_photo: adrPhoto
+});
   const response =
     await fetch(
 
@@ -686,6 +691,7 @@ adr_certificate_photo:
             e.target.files[0],
 
             "upload-profile-photo"
+
           )
 
         setProfilePhoto(url)

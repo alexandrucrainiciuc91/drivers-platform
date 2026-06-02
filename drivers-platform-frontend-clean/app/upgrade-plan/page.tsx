@@ -51,7 +51,7 @@ export default function UpgradePlanPage() {
         localStorage.getItem("token");
 
      const response = await fetch(
-  "https://drivers-platform-production.up.railway.app/subscribe",
+  "https://drivelinkeed.com/subscribe",
   {
     method: "POST",
 

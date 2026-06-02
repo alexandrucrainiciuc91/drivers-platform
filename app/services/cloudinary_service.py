@@ -20,9 +20,7 @@ cloudinary.config(
 )
 
 def upload_file(file):
-
-    result = cloudinary.uploader.upload(
-        file.file
-    )
-
+    # Citim conținutul fișierului direct în memorie pentru a fi siguri că nu pleacă gol
+    file_bytes = file.file.read()
+    result = cloudinary.uploader.upload(file_bytes)
     return result["secure_url"]

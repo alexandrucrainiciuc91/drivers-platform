@@ -54,7 +54,8 @@ from app.services.email_service import (
     send_verification_email,
     send_reset_password_email
 )
-
+from app.models.driver_profile import DriverProfile
+from app.models.user import User
 router = APIRouter()
 
 load_dotenv()
@@ -571,18 +572,38 @@ def get_all_drivers(
             detail="Not authorized"
         )
 
-    drivers = db.query(User).filter(
-        User.role == "driver"
+    profiles = db.query(
+        DriverProfile
     ).all()
 
-    return [
-        {
-            "id": driver.id,
-            "email": driver.email,
-            "profile_photo": driver.profile_photo,
-            "driver_license_photo": driver.driver_license_photo,
-            "adr_certificate_photo": driver.adr_certificate_photo,
-            "driver_verified": driver.driver_verified
-        }
-        for driver in drivers
-    ]
+    result = []
+
+    for profile in profiles:
+
+        user = db.query(User).filter(
+            User.id == profile.user_id
+        ).first()
+
+        if not user:
+            continue
+
+        result.append({
+
+            "id": user.id,
+
+            "email": user.email,
+
+            "profile_photo":
+                profile.profile_photo,
+
+            "driver_license_photo":
+                profile.driver_license_photo,
+
+            "adr_certificate_photo":
+                profile.adr_certificate_photo,
+
+            "driver_verified":
+                user.driver_verified
+        })
+
+    return result
