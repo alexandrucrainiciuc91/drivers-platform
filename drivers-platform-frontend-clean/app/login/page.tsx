@@ -223,13 +223,12 @@ localStorage.setItem(
         window.location.href =
           "/driver-dashboard";
       }
-      if (
-  data.user_type ===
-  "admin"
-) {
+      if (data.user_type === "admin") {
 
   window.location.href =
-    "/admin/drivers";
+    "/admin";
+
+  return;
 }
 
 
