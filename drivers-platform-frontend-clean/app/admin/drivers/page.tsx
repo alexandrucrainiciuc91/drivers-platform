@@ -90,32 +90,32 @@ export default function AdminDriversPage() {
 
             <div className="flex gap-6">
 
-              <img
+                <img
+                    
+                        src={
+                        driver.profile_photo ||
+                        "/placeholder.png"
+                    }
 
-                src={
-                  driver.profile_photo ||
-                  "/placeholder.png"
-                }
+                        className="
+                        w-24
+                        h-24
+                        rounded-full
+                        object-cover
+                        border
+                        border-white/10
+                        "
+                        />
 
-                alt="profile"
-
-                className="
-                  w-32
-                  h-32
-                  rounded-full
-                  object-cover
-                "
-              />
-
-              <div>
+                <div>
 
                 <p className="text-xl">
 
-                  {driver.email}
+                {driver.email}
 
-                </p>
+            </p>
 
-                <p className="mt-2">
+              <p className="mt-2">
 
                   Status:
 

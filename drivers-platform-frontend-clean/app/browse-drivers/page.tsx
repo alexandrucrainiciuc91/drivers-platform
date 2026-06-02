@@ -391,7 +391,39 @@ export default function BrowseDriversPage() {
                       </h2>
 
                       <div className="bg-green-500/20 text-green-300 px-4 py-1 rounded-xl text-sm font-bold">
+{driver.driver_verified ? (
 
+  <div className="
+    bg-green-600
+    text-white
+    px-4
+    py-1
+    rounded-xl
+    text-sm
+    font-bold
+  ">
+
+    ✅ Verified Driver
+
+  </div>
+
+) : (
+
+  <div className="
+    bg-red-600
+    text-white
+    px-4
+    py-1
+    rounded-xl
+    text-sm
+    font-bold
+  ">
+
+    ⏳ Pending Verification
+
+  </div>
+
+)}
                         {
                           t(
                             "browse_drivers.active"
