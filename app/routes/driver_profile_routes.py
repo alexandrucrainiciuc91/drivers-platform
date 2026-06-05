@@ -42,7 +42,7 @@ from app.schemas.driver_profile_schema import (
 from app.services.matching_service import (
     calculate_match_score
 )
-
+from app.models.user import User
 router = APIRouter()
 
 # =====================================================
@@ -280,7 +280,7 @@ def get_drivers(
     for profile in profiles:
 
         user = db.query(User).filter(
-            User.id == profile.user_id
+            user.id == profile.user_id
         ).first()
 
         result.append({
@@ -361,7 +361,7 @@ def search_drivers(
 
     for profile in results:
         user = db.query(User).filter(
-            User.id == profile.user_id
+            user.id == profile.user_id
         ).first()
 
         response.append({

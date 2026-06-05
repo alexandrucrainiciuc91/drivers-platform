@@ -455,7 +455,10 @@ export default function CompanyApplicationsPage() {
                   {/* IMAGE */}
 
                   <img
-                    src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1200&auto=format&fit=crop"
+                    src={
+                        profile_photo ||
+                        "/placeholder.png"
+                    }
                     className="
                       w-36
                       h-36
