@@ -90,9 +90,9 @@ export default function AdminDriversPage() {
 
             <div className="flex gap-6">
 
-               <img
+              <img
   src={
-    application.profile_photo ||
+    driver.profile_photo ||
     "/placeholder.png"
   }
 
