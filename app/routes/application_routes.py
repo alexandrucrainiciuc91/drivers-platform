@@ -391,7 +391,10 @@ def get_company_applications(
                     job.id,
 
                 "status":
-                    application.status
+                    application.status,
+                "profile_photo":
+                    driver_profile.profile_photo
+            
             })
 
         return results

@@ -454,11 +454,11 @@ export default function CompanyApplicationsPage() {
 
                   {/* IMAGE */}
 
-                  <img
-                    src={
-                        profile_photo ||
-                        "/placeholder.png"
-                    }
+                 <img
+  src={
+    application.profile_photo ||
+    "/placeholder.png"
+  }
                     className="
                       w-36
                       h-36
