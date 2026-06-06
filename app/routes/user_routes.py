@@ -607,7 +607,7 @@ def get_all_drivers(
                 profile.adr_certificate_photo,
 
             "driver_verified":
-                User.driver_verified
+                user.driver_verified
         })
 
     return result
