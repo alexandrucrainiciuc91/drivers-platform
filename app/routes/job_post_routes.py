@@ -311,8 +311,15 @@ def delete_job_post(
             for message in messages:
                 db.delete(message)
 
+            db.flush()
+
             db.delete(conversation)
+
+            db.flush()
+
         db.delete(application)
+
+        db.flush()
     db.delete(job)
 
     db.commit()
