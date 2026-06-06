@@ -33,6 +33,7 @@ from app.models.application import (
 from app.models.conversation import (
     Conversation
 )
+from app.models.message import Message
 router = APIRouter()
 
 
@@ -299,8 +300,18 @@ def delete_job_post(
         ).all()
 
         for conversation in conversations:
+
+            messages = db.query(
+                Message
+            ).filter(
+                Message.conversation_id ==
+                conversation.id
+            ).all()
+
+            for message in messages:
+                db.delete(message)
+
             db.delete(conversation)
-            db.flush()
         db.delete(application)
     db.delete(job)
 
