@@ -306,10 +306,17 @@ def get_drivers(
                 profile.profile_photo,
 
             "driver_verified":
-                User.driver_verified
-                if user else False
+    user.driver_verified
+    if user else False
         })
+    for profile in profiles:
 
+        user = db.query(User).filter(
+            User.id == profile.user_id
+        ).first()
+
+        if not user:
+            continue
     db.close()
 
     return result
@@ -387,10 +394,17 @@ def search_drivers(
                 profile.profile_photo,
 
             "driver_verified":
-                User.driver_verified
+                user.driver_verified
                 if user else False
         })
+    for profile in results:
 
+        user = db.query(User).filter(
+            User.id == profile.user_id
+        ).first()
+
+        if not user:
+            continue
     db.close()
 
     return response
