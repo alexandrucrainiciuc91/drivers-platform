@@ -130,20 +130,7 @@ export default function LoginPage() {
 
       const data =
         await response.json();
-
-      console.log(
-        "LOGIN RESPONSE:",
-        data
-      );
-      console.log(
-  "ACCESS TOKEN:",
-  data.access_token
-);
-
-console.log(
-  "USER TYPE:",
-  data.user_type
-);
+      
 
       // FAILED
 
@@ -170,10 +157,7 @@ console.log(
   data.access_token
 );
 
-alert(
-  "TOKEN SAVED = " +
-  localStorage.getItem("token")
-);
+
 console.log(
   "TOKEN SAVED:",
   localStorage.getItem("token")
