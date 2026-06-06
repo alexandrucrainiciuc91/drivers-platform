@@ -23,7 +23,7 @@ from app.models.user import (
 from app.auth.dependencies import (
     get_current_user
 )
-
+from app.models.load_application import LoadApplication
 router = APIRouter()
 
 
@@ -295,7 +295,16 @@ def delete_load(
 
             detail="Unauthorized"
         )
+    applications = db.query(
+        LoadApplication
+    ).filter(
+        LoadApplication.load_id == load.id
+    ).all()
 
+    for application in applications:
+        db.delete(application)
+
+    db.flush()
     db.delete(load)
 
     db.commit()
