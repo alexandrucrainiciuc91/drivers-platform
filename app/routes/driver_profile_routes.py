@@ -457,11 +457,11 @@ def match_drivers():
 @router.get("/drivers/{driver_id}")
 def get_driver_profile(
 
-        driver_id: int,
+    driver_id: int,
 
-        current_user=Depends(
-            get_current_user
-        )
+    current_user=Depends(
+        get_current_user
+    )
 ):
 
     db: Session = SessionLocal()
@@ -481,4 +481,31 @@ def get_driver_profile(
                 "Driver not found"
         }
 
-    return driver
+    return {
+
+        "id": driver.id,
+
+        "full_name":
+            driver.full_name,
+
+        "city":
+            driver.city,
+
+        "experience_years":
+            driver.experience_years,
+
+        "license_category":
+            driver.license_category,
+
+        "preferred_countries":
+            driver.preferred_countries,
+
+        "adr_certificate":
+            driver.adr_certificate,
+
+        "about":
+            driver.about,
+
+        "profile_photo":
+            driver.profile_photo
+    }
