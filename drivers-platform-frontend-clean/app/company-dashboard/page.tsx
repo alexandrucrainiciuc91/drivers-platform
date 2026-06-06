@@ -247,7 +247,7 @@ export default function CompanyDashboard() {
             body: JSON.stringify({
 
               price_id:
-                "price_1TWXnjEKIOywtjGZrBPeI3ek"
+                "price_1TfPFL2QvH8zDoe0flwqlbBU"
             })
           }
         );

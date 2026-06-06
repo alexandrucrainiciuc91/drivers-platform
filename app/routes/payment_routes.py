@@ -210,7 +210,7 @@ async def stripe_webhook(
 
             # DRIVER PLAN
 
-            if price_id == "price_1TVGXaEKIOywtjGZSQvQxhOF":
+            if price_id == "price_1TfPFN2QvH8zDoe0hzQxgqBe":
 
                 user.subscription_plan = (
                     "pro"
@@ -218,7 +218,7 @@ async def stripe_webhook(
 
             # COMPANY PLAN
 
-            elif price_id == "price_1TWXnjEKIOywtjGZrBPeI3ek":
+            elif price_id == "price_1TfPFL2QvH8zDoe0flwqlbBU":
 
                 user.subscription_plan = (
                     "business"

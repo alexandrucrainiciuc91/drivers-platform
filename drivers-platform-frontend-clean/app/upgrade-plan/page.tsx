@@ -61,7 +61,7 @@ export default function UpgradePlanPage() {
     },
 
     body: JSON.stringify({
-      price_id: "price_1TVGXaEKIOywtjGZSQvQxhOF"
+      price_id: "price_1TfPFN2QvH8zDoe0hzQxgqBe"
     }),
   }
 );
@@ -259,7 +259,7 @@ window.location.href = data.checkout_url;
                 <button
                   onClick={() =>
                     subscribe(
-                      "price_1TVGXaEKIOywtjGZSQvQxhOF"
+                      "price_1TfPFN2QvH8zDoe0hzQxgqBe"
                     )
                   }
                   disabled={loading}
@@ -382,7 +382,7 @@ window.location.href = data.checkout_url;
                 <button
                   onClick={() =>
                     subscribe(
-                      "price_1TWXnjEKIOywtjGZrBPeI3ek"
+                      "price_1TfPFL2QvH8zDoe0flwqlbBU"
                     )
                   }
                   disabled={loading}
