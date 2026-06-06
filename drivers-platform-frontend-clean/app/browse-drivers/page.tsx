@@ -367,9 +367,12 @@ export default function BrowseDriversPage() {
                 {/* TOP */}
 
                 <div className="flex items-center gap-5 mb-8 flex-wrap">
+<img
 
-                  <img
-                    src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1200&auto=format&fit=crop"
+                   src={
+    driver.profile_photo ||
+    "/placeholder.png"
+  }
                     className="
                       w-24
                       h-24
