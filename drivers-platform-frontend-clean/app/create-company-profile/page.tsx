@@ -463,21 +463,46 @@ export default function CreateCompanyProfilePage() {
 
                 {/* TRANSPORT */}
 
-                <input
-                  type="text"
-                  placeholder={
-                    t(
-                      "company_profile.transport_type"
-                    )
-                  }
-                  value={transportType}
-                  onChange={(e) =>
-                    setTransportType(
-                      e.target.value
-                    )
-                  }
-                  className="bg-black/40 border border-white/10 rounded-2xl p-5 text-lg focus:outline-none focus:border-yellow-400"
-                />
+             <select
+  value={transportType}
+  onChange={(e) =>
+    setTransportType(
+      e.target.value
+    )
+  }
+  className="
+    bg-black/40
+    border
+    border-white/10
+    rounded-2xl
+    p-5
+    text-lg
+    focus:outline-none
+    focus:border-yellow-400
+  "
+>
+
+  <option value="">
+    Select transport type
+  </option>
+
+  <option value="Marfa ADR">
+    Marfa ADR
+  </option>
+
+  <option value="Marfa generala">
+    Marfa generală
+  </option>
+
+  <option value="Marfa frigorifica">
+    Marfa frigorifică
+  </option>
+
+  <option value="Marfa agabaritica">
+    Marfa agabaritică
+  </option>
+
+</select>
 
                 {/* WEBSITE */}
 
