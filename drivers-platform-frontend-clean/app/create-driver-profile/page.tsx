@@ -546,6 +546,10 @@ adr_certificate_photo:
                     }
                   </option>
 
+                  <option value="B">
+                    Category B
+                  </option>
+
                   <option value="C">
                     Category C
                   </option>
