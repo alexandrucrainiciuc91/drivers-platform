@@ -1293,6 +1293,7 @@ if (!mounted) {
 
         © 2026 DriveLINKEED.
         All rights reserved.
+        Contact at drivelinkeed@gmail.com
 
       </p>
 
