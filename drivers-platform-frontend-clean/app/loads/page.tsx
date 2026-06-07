@@ -749,13 +749,14 @@ export default function LoadsPage() {
               <SelectItem value="Container">
                 📦 Container
               </SelectItem>
+
                <SelectItem value="Jumbo">
                 📦 Jumbo
               </SelectItem>
+
                <SelectItem value="Mega">
                 📦 Mega
               </SelectItem>
-
 
             </SelectContent>
 
