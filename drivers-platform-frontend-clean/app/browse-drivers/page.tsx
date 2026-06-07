@@ -602,29 +602,6 @@ export default function BrowseDriversPage() {
 
                   </button>
 
-                  <button
-                    onClick={() =>
-                      viewProfile(driver.id)
-                    }
-                    className="
-                      bg-white/10
-                      px-8
-                      py-4
-                      rounded-2xl
-                      font-black
-                      text-xl
-                      hover:bg-white/20
-                      transition-all
-                    "
-                  >
-
-                    {
-                      t(
-                        "browse_drivers.view_profile"
-                      )
-                    }
-
-                  </button>
 
                 </div>
 
