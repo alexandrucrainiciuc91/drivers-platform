@@ -679,20 +679,40 @@ export default function PostLoadPage() {
             >
 
               <SelectItem value="Frigo">
-                ❄️ Frigo
-              </SelectItem>
+  ❄️ Frigo
+</SelectItem>
 
-              <SelectItem value="Curtain">
-                🚛 Curtain
-              </SelectItem>
+<SelectItem value="Curtain">
+  🚛 Curtain
+</SelectItem>
 
-              <SelectItem value="ADR">
-                ☣️ ADR
-              </SelectItem>
+<SelectItem value="ADR">
+  ☣️ ADR
+</SelectItem>
 
-              <SelectItem value="Container">
-                📦 Container
-              </SelectItem>
+<SelectItem value="Container">
+  📦 Container
+</SelectItem>
+
+<SelectItem value="Jumbo">
+  📦 Jumbo
+</SelectItem>
+
+<SelectItem value="Mega">
+  📦 Mega
+</SelectItem>
+
+              <SelectItem value="Tautliner">
+  🚛 Tautliner
+</SelectItem>
+
+<SelectItem value="Box">
+  📦 Box
+</SelectItem>
+
+<SelectItem value="Walking Floor">
+  🚜 Walking Floor
+</SelectItem>
 
             </SelectContent>
 
