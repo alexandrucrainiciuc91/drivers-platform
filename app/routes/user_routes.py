@@ -165,7 +165,7 @@ def register_user(
     return {
 
         "message":
-            "Account created successfully. Please verify your email."
+            "Account created successfully. Please verify your email.Check into spam folder as well "
     }
 
 
